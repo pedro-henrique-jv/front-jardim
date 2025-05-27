@@ -193,7 +193,7 @@
       const data = { nome, email, senha };
 
       try {
-        const response = await fetch('https://back-yr5z.onrender.com/usuarios', {
+        const response = await fetch('https://back-yr5z.onrender.com/usuarios/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
