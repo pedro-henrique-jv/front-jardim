@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <title>Sobre | Jardim Botânico UFSM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="background">
+    <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/logo_jardim.png" alt="Logo" />
+                </a>
+
+                <div class="dropdown ms-auto me-2 d-flex align-items-center">
+                    <!-- Usuário não logado, ícone de pessoa -->
+                    <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person fs-1"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="../pages/login.html">Login</a></li>
+                        <li><a class="dropdown-item" href="../pages/cadastro.html">Cadastre-se</a></li>
+                    </ul>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto gap-3">
+                        <li class="nav-item"><a class="nav-link" href="../pages/especies.html">Espécies</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/loc.html">Como chegar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://www.ufsm.br/orgaos-suplementares/jardim-botanico/busca?q=&area=post&orderby=date&sites%5B%5D=363">Notícias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/sobre.html">Sobre</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="agendamentosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Agendamentos
+                            </a>
+                            <ul class="dropdown-menu dropdown-agendamentos dropdown-menu-end" aria-labelledby="agendamentosDropdown">
+                                <li><a class="dropdown-item" href="https://www.ufsm.br/orgaos-suplementares/jardim-botanico/agendamentos">Agendamento de visitas</a></li>
+                                <li><a class="dropdown-item" href="https://docs.google.com/forms/d/e/1FAIpQLSe2xFRbvxbFdM-xXKQg_d0kientawKO3y-Dz7Kx2N36M0Fwnw/viewform">Agendamento do Auditório</a></li>
+                                <li><a class="dropdown-item" href="https://docs.google.com/forms/d/e/1FAIpQLSe2xFRbvxbFdM-xXKQg_d0kientawKO3y-Dz7Kx2N36M0Fwnw/viewform">Solicitações à Direção do JBSM</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="container pt-5">
+            <section class="text-center mb-5">
+                <div class="text-blur">
+                    <h1 class="mb-4 text-light">Conheça o Jardim Botânico da UFSM</h1>
+                    <p class="lead text-light text-justify" style="font-size: 1.5rem; text-align: left;">
+                        Somos o Jardim Botânico da Universidade Federal de Santa Maria, Órgão Suplementar do Centro de Ciências Naturais e Exatas da Universidade Federal de Santa Maria (CCNE/UFSM), fundado em 1981. 
+                        O nosso espaço busca proporcionar aos visitantes contato com a natureza atrelado ao conhecimento, o jardim oferece visitas guiadas, tour pelas plantas carnívoras, passeio pelo telhado verde, visita ao jardim sensorial, exposição de animais taxidermizados e muito mais! 
+                        Nas nossas redes sociais você encontrará mais informações de eventos futuros e atividades que serão realizadas aqui!
+                        Para maiores informações nossos telefones são (55) 3220.8973 (Administração) e (55) 99193.8183 (Visitações).
+                    </p>
+                </div>
+            </section>
+        </main>
+        <footer class="footer-box">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <p><i class="bi bi-envelope"></i> contato@jardimbotanico.ufsm.br</p>
+                        <p><i class="bi bi-geo-alt"></i> Av. Roraima, 1000 - Camobi, Santa Maria - RS</p>
+                        <p><i class="bi bi-clock"></i> Funcionamento: Segunda á Sexta: 8:30h - 12h, 13:30h - 17h</p>
+                        <div class="social-icons mt-3">
+                            <a href="https://www.facebook.com/JardimBotanicoDeSantaMaria/?locale=pt_BR"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.instagram.com/jardimbotanicodaufsm/"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.youtube.com/c/JardimBot%C3%A2nicodaUFSM/featured"><i class="bi bi-youtube"></i></a>
+                        </div>
+                        <small class="mt-4 d-block">© 2025 Jardim Botânico UFSM - Todos os direitos reservados.</small>
+                    </div>
+                </div>
+            </div>
+        </footer>    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

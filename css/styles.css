@@ -1,0 +1,650 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.background {
+    background-image: url('../assets/fundo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    min-height: 100vh;  
+}
+
+.navbar {
+    width: 95%;
+    background: rgba(124, 124, 124, 0.11) !important;
+    padding: 10px 10px;
+    border-radius: 40px;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+}
+
+.navbar-brand img {
+    background: rgba(255, 255, 255, 0.973);
+    height: 120px;
+    width: auto;
+    border-radius: 60px;
+}
+
+.navbar-nav {
+    margin-left: 50%; 
+}
+
+.navbar-toggler {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0);
+    box-shadow: none;
+    outline: none;
+    transition: none;
+}
+
+.navbar-toggler:focus, 
+.navbar-toggler:active {
+    outline: none; 
+    box-shadow: none; 
+    border: none; 
+    transition: none !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.nav-link {
+    color: #ffffff;
+    padding: 10px;
+    margin-top: none;
+    font-size: 22px;
+    transition: none;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #696969; 
+}
+
+.navbar-nav .nav-link:active,
+.navbar-nav .nav-link:focus {
+    color: #696969 !important; 
+    font-weight: bold;
+}
+
+.info-box {
+    background: rgba(124, 124, 124, 0.11);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 0%;
+    color: white;
+}
+
+.plant-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.footer-box {
+    background: rgba(124, 124, 124, 0.11);
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+}
+
+
+.content {
+    padding-top: 10px;
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.2); 
+    padding: 10px;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.plant-card {
+    background: rgba(124, 124, 124, 0.11);
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 50px; /* Add aqui */
+}
+
+.card .btn {
+    background: rgba(124, 124, 124, 0.11);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: black;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+#toggle-search {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+#toggle-search i {
+    font-size: 1.4rem;
+    color: white;
+}
+
+#search-input {
+    padding: 10px;
+    max-width: 600px;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+#search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.game-intro {
+    display: flex;
+    align-items: center;
+    background: rgba(124, 124, 124, 0.11);
+    margin: 10px;
+    border: none;
+    border-radius: 50px;
+}
+.game-title {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    border-bottom: 2px solid #4caf50;
+}
+
+.game-subtitle {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.btn-start {
+    background-color: #28a745;
+    color: rgb(255, 255, 255);
+    font-size: 1.4rem;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-start:hover {
+    background-color: #25a140;
+}
+
+.game-info {
+    font-size: 1.3rem;
+    color: #ffffff;
+}
+
+.catalog-section {
+    background: rgba(124, 124, 124, 0.11);
+    border-radius: 50px;
+    padding: 5px;
+    margin: 10px;
+    margin-bottom: 0;
+    font-size: 1.0rem;
+}
+
+.footer-box {
+    background: rgb(33, 156, 54);
+    margin-top: 0;
+    padding: 30px;
+    color: rgb(255, 255, 255);
+    display: grid;
+    font-size: 0.99rem;
+    border-radius: 0;
+}
+
+.footer-box a {
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    transition: color 0.3s;
+}
+
+.footer-box a:hover {
+    color: #127a54;
+    text-decoration: underline;
+}
+
+.footer-box .social-icons i {
+    padding: 10px;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-box .social-icons i:hover {
+    transform: scale(1.2);
+    color: #a8e6cf;
+}
+
+.footer-box small {
+    display: block;
+    margin-top: 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.text-blur {
+    background: rgba(124, 124, 124, 0.11);
+    padding: 10px;
+    border-radius: 15px;
+    color: #fff;
+    box-shadow: none;
+    margin: 0px;
+    margin-top: 0;
+}
+
+.location-section {
+    background: rgba(124, 124, 124, 0.11); 
+    margin: 10px;
+    border-radius: 50px;
+}
+
+.login-section {
+    background-color: rgba(124, 124, 124, 0.11);
+    margin: 10px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+}
+
+.login-section h2 {
+    padding-bottom: 8px;
+    border-bottom: 2px solid #4caf50;
+}
+
+.login-section .btn-primary {
+    background-color:#28a745;
+    border: none;
+    padding: 12px 0;
+    border-radius: 20px;
+    margin-top: 20px;
+    font-size: 1.3rem;
+}
+
+.login-section .btn-primary:hover {
+    background-color: #28a745;
+}
+
+.login-section input.form-control {
+    padding: 15px; 
+    font-size: 1.1rem; 
+    height: 50px;
+    border-radius: 10px;
+}
+
+.login-section input.form-control:focus {
+    border-color: transparent; 
+    box-shadow: none; 
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+    border-radius: 12px;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border: 0;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.btn-outline-light {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: #ffffff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 1.4rem;
+    border-radius: 50px;
+}
+
+.btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #2b4d2b;
+}
+
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #2b4d2b;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem 1.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #e2f0e2;
+}
+
+.list-group-item .fst-italic {
+    font-size: 0.95rem;
+    color: #6c757d;
+    font-weight: 400;
+}
+
+h2 {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.list-group-item {
+    border-bottom: 1px solid #ccc; 
+}
+
+.list-group-item:last-child {
+    border-bottom: none; 
+}
+
+#userDropdown {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}
+
+#userDropdown:hover {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    font-size: 24px;
+}
+
+.dropdown-agendamentos {
+    min-width: 250px;
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+
+#especie-container {
+    background-color: rgba(124, 124, 124, 0.11); 
+    border-radius: 50px;
+    box-shadow: none rgba(0,0,0,0.2);
+    max-width: 800px;
+    margin: 5px;
+    margin-bottom: 20px;
+}
+
+#especie-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#especie-container h4 {
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+#especie-container img {
+    max-height: 400px;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#especie-container .lead {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 20px 0;
+}
+
+#especie-container .small {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+#especie-container .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#especie-container .btn-secondary:hover {
+    background-color: #94a2ac;
+}
+
+#noticias {
+    background-color: rgba(124, 124, 124, 0.11); 
+    margin: auto;
+    padding-top: 10px;
+    border-radius:10px; 
+}
+
+.noticias-section {
+    background-color: rgba(124, 124, 124, 0.11); 
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    margin: 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.noticias-section h2 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: #ffffff;
+    border-bottom: 2px solid #4caf50;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.noticias-section .list-group-item {
+    background-color: #4e4e4e6c;
+    border: 1px solid #44444400;
+    border-radius: 10px;
+}
+
+.catalogo {
+    background-color: rgba(124, 124, 124, 0.11); 
+    padding: 3rem 2rem; 
+    border-radius: 50px;
+    margin: 5rem auto;
+    max-width: 1000px; 
+    width: 100%;
+}
+
+.catalogo h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    border-bottom: 2px solid #4caf50;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.catalogo button.btn {
+    background-color: #4caf50;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    border-radius: 12px;
+}
+
+.catalogo button.btn:hover {
+    background-color: #4caf50;
+    color: #000;
+}
+
+.catalogo .list-group-item {
+    background-color: #ffffffb6;
+    border: 1px solid #c0c0c0;
+    color: #fff;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    border-radius: 8px;
+}
+
+.catalogo .list-group-item:hover {
+    background-color: #808080;
+    transform: translateX(5px);
+}
+
+.catalogo .list-group-item a {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.catalogo .list-group-item a:hover {
+    text-decoration: underline;
+    color: #81c784;
+}
+
+.catalogo .fst-italic.text-muted {
+    color: #000000 !important;
+}
+
+.tutorial-box {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 1000;
+    margin: 10px;
+}
+
+.tutorial-box .mascot img {
+    background-color: rgba(255, 255, 255, 0.877);
+    border-radius: 50px;
+    width: 100px;
+}
+
+.speech-bubble {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 400px;
+    color: #000;
+    font-weight: 500;
+    box-shadow: 2px 2px 10px #00000040;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.progress {
+    background-color: #2c2c2c;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    font-weight: bold;
+  }
+
+.btn-voltar {
+    display: inline-block;
+    background-color: #127a54;
+    color: white;
+    padding: 14px 32px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    margin-bottom:60px;
+}
+
+.btn-voltar:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+    color: white;
+}
+
+.container-descobertas {
+    background-color: rgba(124, 124, 124, 0.11); 
+    margin: 10px;
+    border-radius: 50px;
+}
+
+.container-aventura {
+    background-color: rgba(124, 124, 124, 0.11); 
+    margin: 10px;
+    border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand img {
+        max-height: 90px; 
+        width: auto;
+    }
+    .nav-link {
+        padding-top: 2px;
+        margin: none;
+        font-size: 24px;
+    }
+    .card img {
+        height: 150px;
+    }
+}

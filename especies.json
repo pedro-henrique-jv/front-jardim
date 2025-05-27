@@ -1,0 +1,134 @@
+[
+    {
+      "id": "vanellus-chilensis",
+      "nome": "Quero-quero",
+      "nome_cientifico": "Vanellus chilensis",
+      "descricao": "O quero-quero é uma ave comum em áreas abertas da América do Sul, especialmente no Brasil.",
+      "imagem": "../assets/animais/quero-quero.jpg"
+    },
+    {
+      "id": "colaptes-melanochloros",
+      "nome": "Pica-pau",
+      "nome_cientifico": "Colaptes melanochloros",
+      "descricao": "Pica-pau-verde-barrado encontrado em florestas e áreas abertas da América do Sul. Alimenta-se principalmente de insetos.",
+      "imagem": "../assets/animais/colaptes.jpg"
+    },
+    {
+      "id": "lycalopex-gymnocercus",
+      "nome": "Graxaim",
+      "nome_cientifico": "Lycalopex gymnocercus",
+      "descricao": "Habita o Cone Sul da América do Sul, prefere áreas abertas e pode viver até 3.500 m de altitude. Comum em áreas agrícolas e florestas.",
+      "imagem": "../assets/animais/graxaim.jpg",
+      "fonte": "https://www.biodiversity4all.org/taxa/423656-Lycalopex-gymnocerca"
+    },
+    {
+      "id": "trachemys-dorbigni",
+      "nome": "Tigre-d’água",
+      "nome_cientifico": "Trachemys dorbigni",
+      "descricao": "Quelônio de água doce mais comum do RS, impactado por coleta de ovos para o mercado pet.",
+      "imagem": "../assets/animais/tigre_dagua.jpg"
+    },
+    {
+      "id": "caiman-latirostris",
+      "nome": "Jacaré-do-papo-amarelo",
+      "nome_cientifico": "Caiman latirostris",
+      "descricao": "Crocodiliano de até 3,5m, encontrado em pântanos e rios calmos da costa atlântica do Brasil.",
+      "imagem": "../assets/animais/jacare.jpg"
+    },
+    {
+      "id": "alouatta-guariba",
+      "nome": "Bugio",
+      "nome_cientifico": "Alouatta guariba",
+      "descricao": "Primata que vocaliza para manter espaço entre grupos. Sensível à febre amarela. Usa cauda preênsil para locomoção.",
+      "imagem": "../assets/animais/bugio.jpg",
+      "fonte": "https://www.ufrgs.br/faunadigitalrs/mamiferos/ordem-primates/familia-atelidae/bugio-ruivo-alouatta-guariba-clamitans/"
+    },
+    {
+      "id": "dasypus-hybridus",
+      "nome": "Tatu molita",
+      "nome_cientifico": "Dasypus hybridus",
+      "descricao": "Tatu de pequeno porte, com orelhas semelhantes às de uma mula. Onívoro, vive em tocas escavadas por ele mesmo.",
+      "imagem": "../assets/animais/dasypus.jpg",
+      "fonte": "https://www.ufrgs.br/faunadigitalrs/mamiferos/ordem-cingulata/familia-dasypodidae/tatu-mulita-dasypus-hybridus/"
+    },
+    {
+      "id": "salvator-merianae",
+      "nome": "Teiú",
+      "nome_cientifico": "Salvator merianae",
+      "descricao": "Maior lagarto do RS, chega a mais de 50cm. Hiberna de abril a julho. Ovíparo, pode botar até 30 ovos.",
+      "imagem": "../assets/animais/teiu.jpg"
+    },
+    {
+      "id": "athene-cunicularia",
+      "nome": "Coruja-buraqueira",
+      "nome_cientifico": "Athene cunicularia",
+      "descricao": "Coruja terrestre que habita campos abertos. Usa buracos para ninho e caça durante o dia.",
+      "imagem": "../assets/animais/coruja.jpg"
+    },
+    {
+      "id": "bothrops-alternatus",
+      "nome": "Cruzeira",
+      "nome_cientifico": "Bothrops alternatus",
+      "descricao": "Serpente peçonhenta de grande porte. Quando ameaçada, se enrola, vibra a cauda e dá o bote.",
+      "imagem": "../assets/animais/cruzeira.jpg",
+      "fonte": "https://www.ufrgs.br/faunadigitalrs/5385-2/"
+    },
+    {
+      "id": "amanita-muscaria",
+      "nome": "Amanita muscaria",
+      "nome_cientifico": "Amanita muscaria",
+      "descricao": "Fungo com píleo vermelho e escamas brancas, ligado a rituais antigos. Forma micorrizas com coníferas.",
+      "imagem": "../assets/fungos/amanita_muscaria.jpg",
+      "fonte": "https://www.fs.usda.gov/wildflowers/ethnobotany/Mind_and_Spirit/flyagaric.shtml"
+    },
+    {
+      "id": "cymatoderma-caperatum",
+      "nome": "Cymatoderma caperatum",
+      "nome_cientifico": "Cymatoderma caperatum",
+      "descricao": "Fungo de aparência coriácea, com cristas radiantes e crescimento em tocos e troncos mortos.",
+      "imagem": "../assets/fungos/cymatoderma-caperatum.jpg"
+    },
+    {
+      "id": "cryptotrama-asprata",
+      "nome": "Cryptotrama asprata",
+      "nome_cientifico": "Cryptotrama asprata",
+      "descricao": "Fungo amarelo vivo com aparência aveludada. Cresce em madeira morta em florestas úmidas.",
+      "imagem": "../assets/fungos/cryptotrama-asprata.jpg"
+    },
+    {
+      "id": "kusaghiporia-talpae",
+      "nome": "Kusaghiporia talpae",
+      "nome_cientifico": "Kusaghiporia talpae",
+      "descricao": "Fungo raro e pouco documentado, geralmente encontrado em madeira em decomposição.",
+      "imagem": "../assets/fungos/kusaghiporia-talpae.jpg"
+    },
+    {
+      "id": "syagrus-romanzoffiana",
+      "nome": "Jerivá",
+      "nome_cientifico": "Syagrus romanzoffiana",
+      "descricao": "Palmeira nativa do Brasil, muito comum em áreas urbanas e naturais.",
+      "imagem": "../assets/plantas/jeriva.jpg"
+    },
+    {
+      "id": "bauhinia-variegata",
+      "nome": "Bauhinia",
+      "nome_cientifico": "Bauhinia variegata",
+      "descricao": "Árvore ornamental com flores roxas e folhas em forma de casco de vaca.",
+      "imagem": "../assets/plantas/bauhinia-variegata.jpg"
+    },
+    {
+      "id": "pinus-sp",
+      "nome": "Pinus",
+      "nome_cientifico": "Pinus sp.",
+      "descricao": "Gênero de coníferas amplamente cultivadas no Brasil para extração de madeira e papel.",
+      "imagem": "../assets/plantas/pinus.jpg"
+    },
+    {
+      "id": "ochna-serrulata",
+      "nome": "Ochna serrulata",
+      "nome_cientifico": "Ochna serrulata",
+      "descricao": "Arbusto ornamental com frutos vermelhos e flores amarelas vibrantes.",
+      "imagem": "../assets/plantas/achna.jpg"
+    }
+  ]
+  
