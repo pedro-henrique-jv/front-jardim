@@ -115,6 +115,8 @@
             const result = await response.json();
 
             if (response.ok) {
+                console.log("Resposta da API:", result);
+                console.log(localStorage.getItem('usuario'));
                 localStorage.setItem('usuario', JSON.stringify({
                     id: result.id,
                     nome: result.nome,
