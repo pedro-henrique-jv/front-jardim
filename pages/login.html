@@ -118,10 +118,7 @@
                 console.log("Resposta da API:", result);
                 console.log(localStorage.getItem('usuario'));
                 localStorage.setItem('usuario', JSON.stringify({
-                    id: result.id,
-                    nome: result.nome,
-                    email: result.email,
-                    token: result.token 
+                    token: result.access_token
                 }));
                 alert("Login realizado com sucesso!");
                 window.location.href = '../index.html';
