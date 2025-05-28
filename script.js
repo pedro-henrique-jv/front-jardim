@@ -71,3 +71,35 @@ window.onload = async () => {
         });
     }
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const userNameSpan = document.getElementById("userNameSpan");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+
+    if (usuario && usuario.nome) {
+        // Substitui o ícone pelo nome do usuário
+        userNameSpan.textContent = usuario.nome;
+
+        // Limpa o menu e adiciona opção de logout
+        userDropdownMenu.innerHTML = `
+            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+        `;
+
+        // Lógica de logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("usuario");
+            location.reload(); // Recarrega a página após logout
+        });
+
+    } else {
+        // Se não estiver logado, exibe o ícone de pessoa
+        userNameSpan.innerHTML = `<i class="bi bi-person fs-1"></i>`;
+
+        // Garante que opções de login/cadastro estão visíveis
+        userDropdownMenu.innerHTML = `
+            <li><a class="dropdown-item" href="pages/login.html">Login</a></li>
+            <li><a class="dropdown-item" href="pages/cadastro.html">Cadastre-se</a></li>
+        `;
+    }
+});
