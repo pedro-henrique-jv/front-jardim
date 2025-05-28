@@ -71,27 +71,3 @@ window.onload = async () => {
         });
     }
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-    const nomeUsuario = localStorage.getItem("nomeUsuario");
-    const userNameSpan = document.getElementById("userNameSpan");
-    const dropdownMenu = document.getElementById("userDropdownMenu");
-
-    if (nomeUsuario) {
-        // Exibe nome no lugar do ícone
-        userNameSpan.textContent = nomeUsuario;
-
-        // Atualiza opções do menu
-        dropdownMenu.innerHTML = `
-            <li><a class="dropdown-item" href="pages/perfil.html">Perfil</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" id="logoutBtn">Sair</a></li>
-        `;
-
-        // Função de logout
-        document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.removeItem("nomeUsuario");
-            location.reload();
-        });
-    }
-});
