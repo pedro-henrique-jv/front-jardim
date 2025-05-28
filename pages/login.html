@@ -118,7 +118,8 @@
                 console.log("Resposta da API:", result);
                 console.log(localStorage.getItem('usuario'));
                 localStorage.setItem('usuario', JSON.stringify({
-                    token: result.access_token
+                    token: result.access_token,
+                    tipo: result.token_type
                 }));
                 alert("Login realizado com sucesso!");
                 window.location.href = '../index.html';
