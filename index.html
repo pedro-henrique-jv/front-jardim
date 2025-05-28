@@ -13,18 +13,17 @@
 </head>
 <body>
     <div class="background">
-        <nav class="navbar navbar-expand-lg fixed-top">
+        <nav class="navbar navbar-expand-lg fixed-top bg-success navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
                     <img src="assets/logo_jardim.png" alt="Logo" />
                 </a>
 
                 <div class="dropdown ms-auto me-2 d-flex align-items-center">
-                    <!-- Usuário não logado, ícone de pessoa -->
                     <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person fs-1"></i>
+                        <span id="userNameSpan"><i class="bi bi-person fs-1"></i></span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" id="userDropdownMenu" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="pages/login.html">Login</a></li>
                         <li><a class="dropdown-item" href="pages/cadastro.html">Cadastre-se</a></li>
                     </ul>
@@ -55,7 +54,6 @@
                 </div>
             </div>
         </nav>
-
         <section class="game-intro text-center py-5">
             <div class="container">
                 <h1 class="game-title text-light">ECOSCAN</h1>
@@ -107,6 +105,7 @@
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
     <script>
         const tutorial = [
             "Oi, explorador! Eu sou o Jerivaldo, mascote do Jardim Botânico, e tô aqui pra te acompanhar nessa aventura incrível! Bora?",
