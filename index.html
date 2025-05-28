@@ -61,8 +61,7 @@
                     Explore espécies, aprenda sobre a natureza e desvende os segredos do Jardim Botânico UFSM.
                 </p>
                 <div class="text-center mt-4 d-flex flex-column align-items-center">
-                    <a href="pages/login.html" class="btn btn-success text-light d-block mb-4 fs-3 rounded-pill">Começar Aventura</a>
-                    <button id="btn-tutorial" class="btn btn-success text-light d-block mb-3 fs-5 rounded-pill">Como Jogar?</button>
+                    <button id="btn-aventura" class="btn btn-success text-light d-block mb-4 fs-3 rounded-pill">Começar Aventura</button>
                 </div>
                 <div id="tutorial-container" class="tutorial-box d-none">
                     <div class="mascot">
@@ -75,7 +74,6 @@
                 </div>
             </div>
         </section>
-
         <section class="catalog-section text-center py-5">
             <div class="container">
                 <h2 class="text-light">Catálogo de Espécies</h2>
@@ -130,6 +128,16 @@
                 document.getElementById('tutorial-container').classList.add('d-none');
             }
         });
+
+        document.getElementById('btn-aventura').addEventListener('click', function () {
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+        if (usuario && usuario.token) {
+            window.location.href = 'pages/aventura.html';
+        } else {
+            window.location.href = 'pages/login.html';
+        }
+    });
     </script>
 </body>
 </html>
