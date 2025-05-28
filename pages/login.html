@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
     <title>Login | Jardim Botânico UFSM</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
     <div class="background">
@@ -52,27 +54,37 @@
                 </div>
             </div>
         </nav>
-        <section class="login-section py-5">
+        <section class="game-intro text-center py-5">
             <div class="container">
-                <h2 class="text-center text-light mb-4">Login</h2>
-                <form id="loginForm" method="POST">
-                    <div class="mb-3">
-                        <label for="email" class="form-label text-light">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email" required>
+                <h1 class="game-title text-light">ECOSCAN</h1>
+                <p class="game-subtitle text-light">
+                    Explore espécies, aprenda sobre a natureza e desvende os segredos do Jardim Botânico UFSM.
+                </p>
+                <div class="text-center mt-4 d-flex flex-column align-items-center">
+                    <a href="../pages/login.html" class="btn btn-success text-light d-block mb-4 fs-3 rounded-pill">Começar Aventura</a>
+                    <button id="btn-tutorial" class="btn btn-success text-light d-block mb-3 fs-5 rounded-pill">Como Jogar?</button>
+                </div>
+                <div id="tutorial-container" class="tutorial-box d-none">
+                    <div class="mascot">
+                        <img src="../assets/jerivaldo.png" alt="Mascote do Jardim" />
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label text-light">Senha</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+                    <div class="speech-bubble">
+                        <p id="tutorial-text">Olá explorador! Meu nome é Jerivaldo, eu sou o mascote do Jardim Botânico!</p>
+                        <button id="next-tutorial" class="btn btn-sm btn-success mt-2">Próximo</button>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" id="loginButton">Entrar</button>
-                </form>
-                <h3 class="text-center text-light m-4 fs-4">Ainda não tem conta?</h3>
-                <a href="../pages/cadastro.html">
-                    <button class="btn btn-primary w-100">Cadastre-se</button>
-                </a>
+                </div>
             </div>
         </section>
 
+        <section class="catalog-section text-center py-5">
+            <div class="container">
+                <h2 class="text-light">Catálogo de Espécies</h2>
+                <p class="text-light mb-4">
+                    Acesse o catálogo completo de espécies do Jardim Botânico e descubra todas as plantas e animais disponíveis para exploração.
+                </p>
+                <a href="../pages/especies.html" class="btn btn-outline-light">Ver Catálogo</a>
+            </div>
+        </section>
         <footer class="footer-box">
             <div class="container">
                 <div class="row justify-content-center">
@@ -89,48 +101,35 @@
                     </div>
                 </div>
             </div>
-        </footer>   
+        </footer>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
-    <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Impede o envio tradicional do formulário
-
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const button = document.getElementById('loginButton');
-        button.disabled = true;
-        button.innerText = "Entrando...";
-
-        try {
-            const response = await fetch('https://back-yr5z.onrender.com/login/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, senha: password })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert("Login realizado com sucesso!");
-                window.location.href = '../index.html';
-            } else {
-                alert(result.message || "Email ou senha incorretos.");
-            }
-
-        } catch (error) {
-            console.error("Erro ao conectar com o servidor:", error);
-            alert("Erro ao conectar com o servidor.");
-        } finally {
-            button.disabled = false;
-            button.innerText = "Entrar";
-        }
-    });
-    </script>
     <script src="../script.js"></script>
+    <script>
+        const tutorial = [
+            "Oi, explorador! Eu sou o Jerivaldo, mascote do Jardim Botânico, e tô aqui pra te acompanhar nessa aventura incrível! Bora?",
+            "Depois de criar sua conta, é só escanear os QR Codes espalhados pelo jardim e testar o quanto você sabe sobre a natureza.",
+            "Acertou? Você ganha pontos e a descoberta vai direto pro seu álbum, onde pode ver todo seu progresso.",
+            "Errou? Relaxa, pode tentar de novo!",
+            "Bora lá! Divirta-se e aproveite pra aprender muito sobre o mundo natural!"
+        ];
+
+        let currentStep = 0;
+
+        document.getElementById('btn-tutorial').addEventListener('click', () => {
+            currentStep = 0;
+            document.getElementById('tutorial-text').textContent = tutorial[currentStep];
+            document.getElementById('tutorial-container').classList.remove('d-none');
+        });
+
+        document.getElementById('next-tutorial').addEventListener('click', () => {
+            currentStep++;
+            if (currentStep < tutorial.length) {
+                document.getElementById('tutorial-text').textContent = tutorial[currentStep];
+            } else {
+                document.getElementById('tutorial-container').classList.add('d-none');
+            }
+        });
+    </script>
 </body>
 </html>
