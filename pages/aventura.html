@@ -105,7 +105,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
+    <script src="../script.js"></script>
     <script>
         document.getElementById('btn-descobrir').addEventListener('click', () => {
             const qrReader = document.getElementById('qr-reader');
@@ -120,7 +120,6 @@
                 }
             }
         });
-
         function startScanner() {
             window.html5QrCode = new Html5Qrcode("qr-reader");
 
