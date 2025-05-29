@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lógica de logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             localStorage.removeItem("usuario");
-            window.location.href = "https://pedro-henrique-jv.github.io/front-jardim/index.html"; // Recarrega a página após logout
+            window.location.href = "/front-jardim/index.html";
         });
 
     } else {
