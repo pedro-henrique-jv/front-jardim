@@ -78,28 +78,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const userDropdownMenu = document.getElementById("userDropdownMenu");
 
     if (usuario && usuario.nome) {
-        // Substitui o ícone pelo nome do usuário
+        // Se estiver logado, mostra o nome do usuário no lugar do ícone
         userNameSpan.textContent = usuario.nome;
 
-        // Limpa o menu e adiciona opção de logout
+        // Substitui o conteúdo do menu com o botão de logout
         userDropdownMenu.innerHTML = `
             <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
         `;
 
-        // Lógica de logout
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            localStorage.removeItem("usuario");
-            window.location.href = `${window.location.origin}/${window.location.pathname.split("/")[1]}/index.html`;
-        });
+        // Após inserir o botão logout no DOM, adiciona o evento de clique
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                localStorage.removeItem("usuario");
+
+                // Detecta o nome do repositório na URL para montar o caminho correto
+                const repo = window.location.pathname.split("/")[1];
+
+                // Redireciona para a página principal do site
+                window.location.href = `${window.location.origin}/${repo}/index.html`;
+            });
+        }
 
     } else {
-        // Se não estiver logado, exibe o ícone de pessoa
+        // Se não estiver logado, mostra o ícone de pessoa
         userNameSpan.innerHTML = `<i class="bi bi-person fs-1"></i>`;
 
-        // Garante que opções de login/cadastro estão visíveis
+        // Coloca as opções de login e cadastro no menu
         userDropdownMenu.innerHTML = `
             <li><a class="dropdown-item" href="pages/login.html">Login</a></li>
             <li><a class="dropdown-item" href="pages/cadastro.html">Cadastre-se</a></li>
         `;
     }
 });
+
