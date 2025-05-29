@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lógica de logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             localStorage.removeItem("usuario");
-            window.location.href = "index.html";
+            const repo = window.location.pathname.split("/")[1]; // detecta o nome do repositório
+            window.location.href = `/${repo}/index.html`;
         });
 
     } else {
