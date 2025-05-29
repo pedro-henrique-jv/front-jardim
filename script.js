@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Lógica de logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             localStorage.removeItem("usuario");
-            window.location.href = "front-jardim/index.html";
+            window.location.href = "index.html";
         });
 
     } else {
