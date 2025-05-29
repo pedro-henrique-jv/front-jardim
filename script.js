@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("logoutBtn").addEventListener("click", () => {
             localStorage.removeItem("usuario");
             location.reload(); // Recarrega a página após logout
+            window.location.href = "../index.html";
         });
 
     } else {
