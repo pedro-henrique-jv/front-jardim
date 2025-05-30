@@ -60,20 +60,18 @@ window.onload = async () => {
 
         const botao = document.getElementById("btn-coletar");
         botao.addEventListener("click", async () => {
-            const usuarioId = localStorage.getItem("id");
+            const usuarioId = localStorage.getItem("usuario_id");
 
-            if (!id) {
+            if (!usuarioId) {
                 document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
 
             try {
-                const res = await fetch("/plantas", {
+                const res = await fetch("/plantas-pegas", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
-                        // Se usar token JWT:
-                        // "Authorization": `Bearer ${localStorage.getItem("token")}`
                     },
                     body: JSON.stringify({
                         usuario_id: usuarioId,
@@ -88,6 +86,7 @@ window.onload = async () => {
                 console.error("Erro:", erro);
             }
         });
+
     }
 };
 
