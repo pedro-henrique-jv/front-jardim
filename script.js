@@ -53,6 +53,7 @@ window.onload = async () => {
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
+    const id = localStorage.getItem("usuario_id"); // **Aqui pega o id do usuário**
 
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
@@ -60,36 +61,27 @@ window.onload = async () => {
 
         const botao = document.getElementById("btn-coletar");
         botao.addEventListener("click", async () => {
-            const usuarioId = localStorage.getItem("usuario_id");
-
-            if (!usuarioId) {
+            if (!id) {
                 document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
-
             try {
                 const res = await fetch("/plantas-pegas", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({
-                        usuario_id: usuarioId,
-                        especie_id: especieId
-                    })
+                    body: JSON.stringify({ usuario_id: id, especie_id: especieId })
                 });
-
                 const dados = await res.json();
                 document.getElementById("msg-coleta").textContent = dados.mensagem;
             } catch (erro) {
                 document.getElementById("msg-coleta").textContent = "Erro ao tentar coletar a planta.";
-                console.error("Erro:", erro);
+                console.error(erro);
             }
         });
-
     }
 };
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
