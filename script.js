@@ -62,7 +62,7 @@ window.onload = async () => {
         botao.addEventListener("click", async () => {
             const usuarioId = localStorage.getItem("id");
 
-            if (!usuarioId) {
+            if (!id) {
                 document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
