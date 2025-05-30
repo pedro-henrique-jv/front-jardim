@@ -60,17 +60,37 @@ window.onload = async () => {
 
         const botao = document.getElementById("btn-coletar");
         botao.addEventListener("click", async () => {
-            const res = await fetch("pegar_planta.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ especie_id: especieId })
-            });
+            const usuarioId = localStorage.getItem("id");
 
-            const dados = await res.json();
-            document.getElementById("msg-coleta").textContent = dados.mensagem;
+            if (!usuarioId) {
+                document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
+                return;
+            }
+
+            try {
+                const res = await fetch("/plantas", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                        // Se usar token JWT:
+                        // "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({
+                        usuario_id: usuarioId,
+                        especie_id: especieId
+                    })
+                });
+
+                const dados = await res.json();
+                document.getElementById("msg-coleta").textContent = dados.mensagem;
+            } catch (erro) {
+                document.getElementById("msg-coleta").textContent = "Erro ao tentar coletar a planta.";
+                console.error("Erro:", erro);
+            }
         });
     }
 };
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
