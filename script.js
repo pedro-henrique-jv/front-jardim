@@ -53,7 +53,7 @@ window.onload = async () => {
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
-    const id = localStorage.getItem("usuario_id"); // **Aqui pega o id do usuário**
+    const usuario_id = localStorage.getItem("usuario_id"); // **Aqui pega o id do usuário**
 
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
@@ -61,7 +61,7 @@ window.onload = async () => {
 
         const botao = document.getElementById("btn-coletar");
         botao.addEventListener("click", async () => {
-            if (!id) {
+            if (!usuario_id) {
                 document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
