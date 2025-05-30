@@ -55,7 +55,7 @@ window.onload = async () => {
     const especieId = getURLParameter("id");
 
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-    const usuario_id = usuarioData?.usuario_id;
+    const usuario_id = usuarioData?.id;
 
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
