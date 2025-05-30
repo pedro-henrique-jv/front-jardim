@@ -68,7 +68,7 @@ window.onload = async () => {
                 return;
             }
             try {
-                const res = await fetch("/plantas-pegas", {
+                const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
