@@ -53,7 +53,9 @@ window.onload = async () => {
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
-    const usuario_id = localStorage.getItem("usuario_id"); // **Aqui pega o id do usuário**
+
+    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
+    const usuario_id = usuarioData?.usuario_id;
 
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
@@ -71,7 +73,7 @@ window.onload = async () => {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ usuario_id: id, especie_id: especieId })
+                    body: JSON.stringify({ usuario_id: usuario_id, especie_id: especieId })
                 });
                 const dados = await res.json();
                 document.getElementById("msg-coleta").textContent = dados.mensagem;
