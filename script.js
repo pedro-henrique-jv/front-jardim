@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Coloca as opções de login e cadastro no menu
         userDropdownMenu.innerHTML = `
-            <li><a class="dropdown-item" href="pages/login.html">Login</a></li>
-            <li><a class="dropdown-item" href="pages/cadastro.html">Cadastre-se</a></li>
+            <li><a class="dropdown-item" href="../pages/login.html">Login</a></li>
+            <li><a class="dropdown-item" href="../pages/cadastro.html">Cadastre-se</a></li>
         `;
     }
 });
