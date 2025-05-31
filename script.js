@@ -113,13 +113,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const userDropdownMenu = document.getElementById("userDropdownMenu");
 
     // Detecta se estamos na raiz ou em uma subpasta
-    const estaNaRaiz = window.location.pathname.endsWith("index.html") || window.location.pathname === "/" || window.location.pathname.match(/\/[^/]+\/?$/);
+    const path = window.location.pathname;
+    const estaNaRaiz = path.endsWith("index.html") || path === "/" || /^\/[^/]+\/?$/.test(path);
 
-    // Caminho correto para links dependendo da pasta
+    // Caminhos corretos
     const caminhoLogin = estaNaRaiz ? "pages/login.html" : "../pages/login.html";
     const caminhoCadastro = estaNaRaiz ? "pages/cadastro.html" : "../pages/cadastro.html";
 
     if (usuario && usuario.nome) {
+        // Usuário logado
         userNameSpan.textContent = usuario.nome;
 
         userDropdownMenu.innerHTML = `
@@ -127,23 +129,27 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", () => {
-                localStorage.removeItem("usuario");
+        logoutBtn?.addEventListener("click", () => {
+            localStorage.removeItem("usuario");
 
-                const repo = window.location.pathname.split("/")[1];
-                window.location.href = `${window.location.origin}/${repo}/index.html`;
-            });
-        }
-
+            // Redireciona para index.html do repositório
+            const partes = window.location.pathname.split("/");
+            const repo = partes.length > 1 ? partes[1] : "";
+            window.location.href = `${window.location.origin}/${repo ? repo + "/" : ""}index.html`;
+        });
     } else {
+        // Usuário não logado
         userNameSpan.innerHTML = `<i class="bi bi-person fs-1"></i>`;
 
+        // Sempre exibe login e cadastro
         userDropdownMenu.innerHTML = `
             <li><a class="dropdown-item" href="${caminhoLogin}">Login</a></li>
             <li><a class="dropdown-item" href="${caminhoCadastro}">Cadastre-se</a></li>
         `;
     }
 });
+
+
+
 
 
