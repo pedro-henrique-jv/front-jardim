@@ -114,7 +114,6 @@
 
             const result = await response.json();
             if (response.ok) {
-                const token = localStorage.getItem('token');
                 localStorage.setItem('usuario', JSON.stringify({
                     token: result.access_token,
                     tipo: result.token_type,
