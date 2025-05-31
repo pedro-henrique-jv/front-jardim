@@ -57,6 +57,7 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const usuario_id = usuarioData?.usuario_id;
 
+    console.log("Usuário no clique:", usuarioDataAtual);
 
     // Se veio da origem "qr", mostra o botão de coleta
     if (origem === "qr") {
