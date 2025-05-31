@@ -54,9 +54,9 @@ window.onload = async () => {
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
 
-    // Tenta recuperar os dados do usuário do localStorage
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-    const usuario_id = usuarioData?.id;
+    const usuario_id = usuarioData?.usuario_id;
+
 
     // Se veio da origem "qr", mostra o botão de coleta
     if (origem === "qr") {
