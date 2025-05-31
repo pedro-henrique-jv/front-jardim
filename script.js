@@ -54,36 +54,59 @@ window.onload = async () => {
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
 
+    // Tenta recuperar os dados do usuário do localStorage
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const usuario_id = usuarioData?.id;
 
+    // Se veio da origem "qr", mostra o botão de coleta
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
         coletarDiv.style.display = "block";
 
         const botao = document.getElementById("btn-coletar");
         botao.addEventListener("click", async () => {
+            const msgEl = document.getElementById("msg-coleta");
+
             if (!usuario_id) {
-                document.getElementById("msg-coleta").textContent = "Você precisa estar logado para pegar esta planta.";
+                msgEl.textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
+
             try {
                 const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ usuario_id: usuario_id, especie_id: especieId })
+                    body: JSON.stringify({
+                        usuario_id: usuario_id,
+                        especie_id: especieId
+                    })
                 });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    msgEl.textContent = "Erro ao tentar coletar a planta.";
+                    console.error("Erro do servidor:", res.status, erroTexto);
+                    return;
+                }
+
                 const dados = await res.json();
-                document.getElementById("msg-coleta").textContent = dados.mensagem;
+                msgEl.textContent = dados.mensagem ?? "Planta coletada com sucesso!";
             } catch (erro) {
-                document.getElementById("msg-coleta").textContent = "Erro ao tentar coletar a planta.";
-                console.error(erro);
+                msgEl.textContent = "Erro ao tentar coletar a planta.";
+                console.error("Erro de rede:", erro);
             }
         });
     }
 };
+
+// Função auxiliar para ler parâmetros da URL (src, id, etc.)
+function getURLParameter(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
