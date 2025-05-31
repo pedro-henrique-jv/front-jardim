@@ -92,15 +92,15 @@ window.onload = async () => {
 
                 if (!res.ok) {
                     const erroTexto = await res.text();
-                    msgEl.textContent = "Erro ao tentar coletar a planta.";
+                    msgEl.textContent = "Erro(1) ao tentar coletar checkpoint.";
                     console.error("Erro do servidor:", res.status, erroTexto);
                     return;
                 }
 
                 const dados = await res.json();
-                msgEl.textContent = dados.mensagem ?? "Planta coletada com sucesso!";
+                msgEl.textContent = dados.mensagem ?? "Checkpoint coleto com sucesso!";
             } catch (erro) {
-                msgEl.textContent = "Erro ao tentar coletar a planta.";
+                msgEl.textContent = "Erro(2) ao tentar coletar checkpoint.";
                 console.error("Erro de rede:", erro);
             }
         });
