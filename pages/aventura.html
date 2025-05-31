@@ -62,9 +62,13 @@
                 </div>
             </div>
         </div>
-
-        <!-- Seção: Galeria de Fotos Descobertas -->
-    
+   
+        <div class="container my-5 text-light">
+            <h3 class="text-center mb-4">Espécies Descobertas</h3>
+            <div id="plantas-descobertas" class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+                <!-- Cards das plantas vão aqui -->
+            </div>
+        </div>
 
 
         <!-- Botão para escanear QR Code -->
@@ -141,5 +145,52 @@
             });
         }
     </script>
+    <script>
+        async function carregarPlantasDescobertas() {
+            try {
+                const resposta = await fetch('https://seuservidor.com/api/plantas', {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token') // ou outro método de autenticação
+                    }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error('Erro ao buscar plantas: ' + resposta.statusText);
+                }
+
+                const plantas = await resposta.json();
+
+                const container = document.getElementById('plantas-descobertas');
+                container.innerHTML = '';
+
+                if (plantas.length === 0) {
+                    container.innerHTML = '<p class="text-center">Nenhuma planta descoberta ainda.</p>';
+                    return;
+                }
+
+                plantas.forEach(planta => {
+                    const card = document.createElement('div');
+                    card.className = 'col';
+
+                    card.innerHTML = `
+                        <div class="card h-100 bg-dark text-light border-success">
+                            <img src="${planta.imagem}" class="card-img-top" alt="${planta.nome}">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">${planta.nome}</h5>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (erro) {
+                console.error('Erro ao carregar plantas:', erro);
+            }
+        }
+
+        // Carregar ao abrir a página
+        window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
+    </script>
+
 </body>
 </html>
