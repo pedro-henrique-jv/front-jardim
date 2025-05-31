@@ -68,11 +68,11 @@ window.onload = async () => {
         botao.addEventListener("click", async () => {
             const msgEl = document.getElementById("msg-coleta");
 
-            const usuarioDataAtual = JSON.parse(localStorage.getItem("usuario"));
-            const usuario_idAtual = usuarioDataAtual?.usuario_id || usuarioDataAtual?.id;
-            const token = usuarioDataAtual?.token;
+            const usuarioData = JSON.parse(localStorage.getItem("usuario"));
+            const token = usuarioData?.token;
+            const usuario_id = usuarioData?.usuario_id;
 
-            if (!usuario_idAtual || !token) {
+            if (!token) {
                 msgEl.textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
@@ -85,26 +85,25 @@ window.onload = async () => {
                         "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify({
-                        usuario_id: usuario_idAtual,
+                        usuario_id: usuario_id,
                         especie_id: especieId
                     })
                 });
 
                 if (!res.ok) {
                     const erroTexto = await res.text();
-                    msgEl.textContent = "Erro(1) ao tentar coletar checkpoint.";
+                    msgEl.textContent = "Erro ao tentar coletar a planta.";
                     console.error("Erro do servidor:", res.status, erroTexto);
                     return;
                 }
 
                 const dados = await res.json();
-                msgEl.textContent = dados.mensagem ?? "Checkpoint coleto com sucesso!";
+                msgEl.textContent = dados.mensagem ?? "Planta coletada com sucesso!";
             } catch (erro) {
-                msgEl.textContent = "Erro(2) ao tentar coletar checkpoint.";
+                msgEl.textContent = "Erro ao tentar coletar a planta.";
                 console.error("Erro de rede:", erro);
             }
         });
-
     }
 };
 
