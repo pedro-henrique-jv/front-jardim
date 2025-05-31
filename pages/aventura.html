@@ -89,10 +89,50 @@
     <script>
         // --- SEU CÓDIGO DO QR SCANNER AQUI (mantém o mesmo, se já estiver funcionando) ---
 
-        // Função para carregar plantas descobertas
+        /**
+         * Calcula a porcentagem de espécies descobertas pelo usuário.
+         * @param {Array} globalCatalog - O array completo de todas as espécies do seu especies.json.
+         * @param {Array} userDiscoveryIds - O array de IDs das espécies que o usuário logado descobriu.
+         * @returns {number} A porcentagem de progresso (valor entre 0 e 100, com duas casas decimais).
+         */
+        function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
+            const totalEspecies = globalCatalog.length;
+            
+            if (totalEspecies === 0) {
+                console.warn("calcularProgressoDescobertas: Catálogo global está vazio. Retornando 0%.");
+                return 0; 
+            }
+
+            const discoveredIdsSet = new Set(userDiscoveryIds);
+            let especiesDescobertas = 0;
+
+            globalCatalog.forEach(especie => {
+                if (discoveredIdsSet.has(especie.id)) {
+                    especiesDescobertas++;
+                }
+            });
+
+            const porcentagem = (especiesDescobertas / totalEspecies) * 100;
+            console.log(`Progresso Bruto: ${especiesDescobertas}/${totalEspecies} = ${porcentagem}%`);
+            return parseFloat(porcentagem.toFixed(2));
+        }
+
         async function carregarPlantasDescobertas() {
             const container = document.getElementById('plantas-descobertas');
+            const progressBar = document.getElementById('progressBar'); 
+            
+            // DEBUG: Verifica se a barra de progresso foi encontrada no DOM
+            if (!progressBar) {
+                console.error("Erro: Elemento com ID 'progressBar' não encontrado no DOM!");
+                container.innerHTML = '<p class="text-center text-danger">Erro ao inicializar a barra de progresso.</p>';
+                return;
+            }
+
             container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>';
+            progressBar.style.width = '0%';
+            progressBar.setAttribute('aria-valuenow', '0');
+            progressBar.textContent = '0% Descoberto';
+            console.log("Barra de progresso inicializada em 0%.");
 
             try {
                 const storedUserData = localStorage.getItem('usuario'); 
@@ -125,28 +165,27 @@
                     return;
                 }
 
-                // --- NOVO: Carregar o catálogo completo de espécies de especies.json ---
-                const repoName = 'front-jardim'; // <--- SUBSTITUA PELO NOME DO SEU REPOSITÓRIO!
-                const catalogPath = `/${repoName}/especies.json`; // <--- AJUSTE O CAMINHO CONFORME SEU REPOSITÓRIO!
-                // Exemplo: se especie.json estiver em '/data/especies.json' no seu repositório GitHub Pages
-                // e sua aventura.html está em '/pages/aventura.html',
-                // o caminho relativo seria '../data/especies.json'
-
+                // --- Carregar o catálogo completo de espécies de especies.json ---
+                const repoName = 'seu-repositorio'; // <--- SUBSTITUA PELO NOME DO SEU REPOSITÓRIO!
+                const catalogPath = `/${repoName}/data/especies.json`; // <--- AJUSTE O CAMINHO CONFORME SEU REPOSITÓRIO!
+                
                 let globalSpeciesCatalog = [];
                 try {
-                    const responseCatalog = await fetch(catalogPath); // Use o caminho que você confirmou!
+                    const responseCatalog = await fetch(catalogPath);
                     if (!responseCatalog.ok) {
                         throw new Error(`Erro ao carregar o catálogo de espécies: ${responseCatalog.status} ${responseCatalog.statusText}`);
                     }
                     globalSpeciesCatalog = await responseCatalog.json();
                     console.log("Catálogo de espécies carregado de especies.json:", globalSpeciesCatalog);
+                    if (globalSpeciesCatalog.length === 0) {
+                        console.warn("Catálogo de espécies carregado, mas está vazio!");
+                    }
                 } catch (catalogError) {
                     console.error('Erro ao carregar o catálogo de espécies:', catalogError);
                     container.innerHTML = `<p class="text-center text-danger">Erro ao carregar o catálogo de espécies: ${catalogError.message}</p>`;
-                    return; // Interrompe se o catálogo não puder ser carregado
+                    // Não retorna aqui para tentar carregar as descobertas mesmo sem o catálogo completo,
+                    // mas a barra de progresso será 0%. Se o catálogo for essencial, adicione um `return;`.
                 }
-                // --- FIM DO NOVO BLOCO ---
-
 
                 // 1. Fetch das descobertas do usuário (contém apenas os IDs das espécies)
                 const respostaDescobertas = await fetch('https://back-yr5z.onrender.com/plantas/', { 
@@ -155,7 +194,7 @@
                     }
                 });
 
-                if (!respostaDescobertas.ok) {
+                if (!respostaDescobertas.ok) { // Corrigi o typo aqui: respostaDescopertas -> respostaDescobertas
                     const errorDetails = await respostaDescobertas.text();
                     let errorMessage = `Erro ao buscar suas descobertas: ${respostaDescobertas.status} - ${respostaDescobertas.statusText}.`;
                     if (respostaDescobertas.status === 401) {
@@ -168,15 +207,27 @@
                     throw new Error(errorMessage);
                 }
 
-                // O backend retorna um array de objetos de "descoberta", cada um com um 'especie_id'
                 const descobertasDoUsuario = await respostaDescobertas.json(); 
-                
-                // Extrai apenas os 'especie_id's para facilitar a comparação
                 const idsDescobertos = descobertasDoUsuario.map(descoberta => descoberta.especie_id);
 
                 console.log("IDs de espécies descobertas pelo usuário:", idsDescobertos);
+                if (idsDescobertos.length === 0) {
+                    console.warn("Nenhum ID de espécie descoberto retornado do backend.");
+                }
 
-                // 2. Filtrar o Catálogo Global com base nos IDs descobertos
+                // 2. Calcular o progresso e atualizar a barra
+                const progressoPorcentagem = calcularProgressoDescobertas(globalSpeciesCatalog, idsDescobertos);
+                
+                // DEBUG: Log final do valor que será aplicado na barra
+                console.log(`Valor final para a barra de progresso: ${progressoPorcentagem}%`);
+                
+                progressBar.style.width = `${progressoPorcentagem}%`;
+                progressBar.setAttribute('aria-valuenow', progressoPorcentagem);
+                progressBar.textContent = `${progressoPorcentagem}% Descoberto`;
+                console.log("Barra de progresso atualizada com sucesso!");
+
+
+                // 3. Filtrar o Catálogo Global com base nos IDs descobertos
                 const especiesParaExibir = globalSpeciesCatalog.filter(especie => 
                     idsDescobertos.includes(especie.id)
                 );
@@ -185,19 +236,16 @@
 
                 if (especiesParaExibir.length === 0) {
                     container.innerHTML = '<p class="text-center">Nenhuma descoberta ainda.</p>';
-                    return;
                 }
 
-                // DEBUG: Log as espécies que serão exibidas
                 console.log("Espécies a serem exibidas (detalhes completos):", especiesParaExibir);
 
-                // 3. Renderizar os cards usando os detalhes completos das espécies filtradas
+                // 4. Renderizar os cards usando os detalhes completos das espécies filtradas
                 especiesParaExibir.forEach(especie => {
                     const card = document.createElement('div');
                     card.className = 'col';
 
-                    // --- CORREÇÃO DO CAMINHO DA IMAGEM PARA GITHUB PAGES ---
-                    // Usa o mesmo 'repoName' definido acima
+                    const repoName = 'seu-repositorio'; // <--- SUBSTITUA PELO NOME DO SEU REPOSITÓRIO!
                     let imageUrl = especie.imagem;
                     if (imageUrl && !imageUrl.startsWith('http')) { 
                         imageUrl = `/${repoName}${imageUrl.replace(/^\.\.\//, '/').replace(/^\.\//, '/')}`;
@@ -221,37 +269,18 @@
                 console.error('Erro geral ao carregar descobertas:', erro);
                 const container = document.getElementById('plantas-descobertas');
                 container.innerHTML = `<p class="text-center text-danger">Ocorreu um erro ao carregar suas descobertas: ${erro.message}</p>`;
+                
+                // Em caso de erro, a barra deve indicar que houve um problema
+                if (progressBar) { // Verifica se progressBar foi encontrado antes de tentar usar
+                    progressBar.style.width = '0%';
+                    progressBar.setAttribute('aria-valuenow', '0');
+                    progressBar.textContent = 'Erro ao carregar';
+                }
             }
         }
 
         // Carregar as descobertas ao carregar a página
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
-    </script>
-    <script>
-        function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
-            const totalEspecies = globalCatalog.length;
-            
-            // Se não houver espécies no catálogo, a porcentagem é 0 para evitar divisão por zero.
-            if (totalEspecies === 0) {
-                return 0; 
-            }
-
-            // Usa um Set para otimizar a busca por IDs descobertos.
-            // Isso torna a comparação muito mais rápida, especialmente com muitos itens.
-            const discoveredIdsSet = new Set(userDiscoveryIds);
-            let especiesDescobertas = 0;
-
-            // Itera sobre o catálogo completo e conta quantas espécies o usuário descobriu.
-            globalCatalog.forEach(especie => {
-                if (discoveredIdsSet.has(especie.id)) {
-                    especiesDescobertas++;
-                }
-            });
-
-            // Calcula a porcentagem e arredonda para duas casas decimais.
-            const porcentagem = (especiesDescobertas / totalEspecies) * 100;
-            return parseFloat(porcentagem.toFixed(2));
-        }
     </script>
 </body>
 </html>
