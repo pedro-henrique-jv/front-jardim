@@ -51,13 +51,22 @@
                 </div>
             </div>
         </nav>
-
+        <section class="container mt-5 py-5">
+            <h1 class="text-center text-light mb-4">Progresso na aventura</h1>
+            <div class="progress mb-4" style="height: 30px;">
+                <div class="progress-bar bg-info" role="progressbar" 
+                    style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar">
+                    0% Descoberto
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas">
+                </div>
+        </section>
         <section class="container mt-5 py-5">
             <h1 class="text-center text-light mb-4">Minhas Descobertas</h1>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas">
                 </div>
         </section>
-
         <footer class="footer-box">
             <div class="container">
                 <div class="row justify-content-center">
@@ -219,6 +228,32 @@
 
         // Carregar as descobertas ao carregar a página
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
+    </script>
+    <script>
+        function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
+            const totalEspecies = globalCatalog.length;
+            
+            // Se não houver espécies no catálogo, a porcentagem é 0 para evitar divisão por zero.
+            if (totalEspecies === 0) {
+                return 0; 
+            }
+
+            // Usa um Set para otimizar a busca por IDs descobertos.
+            // Isso torna a comparação muito mais rápida, especialmente com muitos itens.
+            const discoveredIdsSet = new Set(userDiscoveryIds);
+            let especiesDescobertas = 0;
+
+            // Itera sobre o catálogo completo e conta quantas espécies o usuário descobriu.
+            globalCatalog.forEach(especie => {
+                if (discoveredIdsSet.has(especie.id)) {
+                    especiesDescobertas++;
+                }
+            });
+
+            // Calcula a porcentagem e arredonda para duas casas decimais.
+            const porcentagem = (especiesDescobertas / totalEspecies) * 100;
+            return parseFloat(porcentagem.toFixed(2));
+        }
     </script>
 </body>
 </html>
