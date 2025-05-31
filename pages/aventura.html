@@ -148,7 +148,7 @@
     <script>
         async function carregarPlantasDescobertas() {
             try {
-                const resposta = await fetch('https://seuservidor.com/api/plantas', {
+                const resposta = await fetch('https://back-yr5z.onrender.com/plantas/', {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token') // ou outro método de autenticação
                     }
@@ -191,6 +191,5 @@
         // Carregar ao abrir a página
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
     </script>
-
 </body>
 </html>
