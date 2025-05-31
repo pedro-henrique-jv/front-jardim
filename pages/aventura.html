@@ -147,34 +147,64 @@
         }
 
         // Script para carregar plantas descobertas
+        // Script para carregar plantas descobertas
         async function carregarPlantasDescobertas() {
             const container = document.getElementById('plantas-descobertas');
             container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>'; // Feedback de carregamento
 
             try {
-                const token = localStorage.getItem('token');
-                
-                if (!token) {
+                const storedTokenData = localStorage.getItem('token'); // Isso agora retorna a string JSON completa
+
+                if (!storedTokenData) { // Se não houver nada salvo na chave 'token'
                     console.warn('Token de autenticação não encontrado. Usuário não logado.');
                     container.innerHTML = '<p class="text-center text-danger">Você precisa estar logado para ver suas plantas descobertas.</p>';
-                    return; 
+                    return;
                 }
+
+                let token = null;
+                try {
+                    // Tenta parsear a string JSON para um objeto
+                    const parsedTokenObject = JSON.parse(storedTokenData);
+                    // Acessa a propriedade 'token' dentro do objeto
+                    token = parsedTokenObject.token; 
+
+                    // Opcional: Verifique se o token é uma string válida
+                    if (typeof token !== 'string' || token.trim() === '') {
+                        throw new Error('Propriedade "token" inválida ou ausente no objeto JSON salvo.');
+                    }
+
+                } catch (parseError) {
+                    console.error('Erro ao parsear o token do localStorage:', parseError);
+                    container.innerHTML = '<p class="text-center text-danger">Erro ao processar dados de autenticação. Por favor, faça login novamente.</p>';
+                    // Opcional: Limpar dados inválidos e redirecionar
+                    localStorage.removeItem('token');
+                    // window.location.href = '../pages/login.html'; 
+                    return;
+                }
+
+                // Se o token puro ainda for nulo após o parse, ou por algum outro motivo
+                if (!token) {
+                    console.warn('Token JWT não encontrado no objeto salvo. Usuário não logado.');
+                    container.innerHTML = '<p class="text-center text-danger">Erro de token. Por favor, faça login novamente.</p>';
+                    return;
+                }
+
 
                 const resposta = await fetch('https://back-yr5z.onrender.com/plantas/', {
                     headers: {
-                        'Authorization': `Bearer ${token}` 
+                        'Authorization': `Bearer ${token}` // Agora 'token' é a string JWT pura
                     }
                 });
 
                 if (!resposta.ok) {
-                    const errorDetails = await resposta.text(); // Tenta ler o texto da resposta para mais detalhes
+                    const errorDetails = await resposta.text();
                     let errorMessage = `Erro ao buscar plantas: ${resposta.status} - ${resposta.statusText}.`;
-                    
+
                     if (resposta.status === 401) {
                         errorMessage = `Não autorizado. Seu token pode ter expirado ou é inválido. Por favor, faça login novamente.`;
                         // Opcional: Limpar token e redirecionar para login
                         // localStorage.removeItem('token');
-                        // window.location.href = '../pages/login.html'; 
+                        // window.location.href = '../pages/login.html';
                     }
                     if (errorDetails) {
                         errorMessage += ` Detalhes do servidor: ${errorDetails}`;
@@ -195,7 +225,6 @@
                     const card = document.createElement('div');
                     card.className = 'col';
 
-                    // CORREÇÃO: Template literal para a imagem e alt text
                     card.innerHTML = `
                         <div class="card h-100 bg-dark text-light border-success">
                             <img src="${planta.imagem}" class="card-img-top" alt="${planta.nome_cientifico || planta.nome || 'Planta'}">
