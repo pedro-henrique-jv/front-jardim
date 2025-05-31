@@ -68,7 +68,11 @@ window.onload = async () => {
         botao.addEventListener("click", async () => {
             const msgEl = document.getElementById("msg-coleta");
 
-            if (!usuario_id) {
+            const usuarioDataAtual = JSON.parse(localStorage.getItem("usuario"));
+            const usuario_idAtual = usuarioDataAtual?.usuario_id || usuarioDataAtual?.id;
+            const token = usuarioDataAtual?.token;
+
+            if (!usuario_idAtual || !token) {
                 msgEl.textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
@@ -77,10 +81,11 @@ window.onload = async () => {
                 const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify({
-                        usuario_id: usuario_id,
+                        usuario_id: usuario_idAtual,
                         especie_id: especieId
                     })
                 });
@@ -99,6 +104,7 @@ window.onload = async () => {
                 console.error("Erro de rede:", erro);
             }
         });
+
     }
 };
 
