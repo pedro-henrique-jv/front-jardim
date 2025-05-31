@@ -147,49 +147,66 @@
     </script>
     <script>
         async function carregarPlantasDescobertas() {
-            try {
-                const resposta = await fetch('https://back-yr5z.onrender.com/plantas/', {
-                    headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('token') // ou outro método de autenticação
-                    }
-                });
-
-                if (!resposta.ok) {
-                    throw new Error('Erro ao buscar plantas: ' + resposta.statusText);
-                }
-
-                const plantas = await resposta.json();
-
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.warn('Token de autenticação não encontrado. Redirecionando para login...');
+                // Opcional: Redirecionar para a página de login
+                // window.location.href = '../pages/login.html';
+                // Ou apenas exibir uma mensagem e não prosseguir
                 const container = document.getElementById('plantas-descobertas');
-                container.innerHTML = '';
-
-                if (plantas.length === 0) {
-                    container.innerHTML = '<p class="text-center">Nenhuma planta descoberta ainda.</p>';
-                    return;
-                }
-
-                plantas.forEach(planta => {
-                    const card = document.createElement('div');
-                    card.className = 'col';
-
-                    card.innerHTML = `
-                        <div class="card h-100 bg-dark text-light border-success">
-                            <img src="${planta.imagem}" class="card-img-top" alt="${planta.nome}">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">${planta.nome}</h5>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-
-            } catch (erro) {
-                console.error('Erro ao carregar plantas:', erro);
+                container.innerHTML = '<p class="text-center text-danger">Você precisa estar logado para ver suas plantas descobertas.</p>';
+                return; // Interrompe a execução se não houver token
             }
-        }
 
-        // Carregar ao abrir a página
-        window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
+            const resposta = await fetch('https://back-yr5z.onrender.com/plantas/', {
+                headers: {
+                    'Authorization': 'Bearer ' + token // Usando o token obtido
+                }
+            });
+
+            if (!resposta.ok) {
+                // Se a resposta.status for 401, você pode tratar especificamente
+                if (resposta.status === 401) {
+                    throw new Error('Não autorizado. Seu token pode ter expirado. Por favor, faça login novamente.');
+                }
+                const errorText = await resposta.text(); // Tenta ler a mensagem de erro do servidor
+                throw new Error(`Erro ao buscar plantas: ${resposta.status} - ${resposta.statusText}. Detalhes: ${errorText}`);
+            }
+
+            const plantas = await resposta.json();
+
+            const container = document.getElementById('plantas-descobertas');
+            container.innerHTML = ''; // Limpa antes de adicionar
+
+            if (plantas.length === 0) {
+                container.innerHTML = '<p class="text-center">Nenhuma planta descoberta ainda.</p>';
+                return;
+            }
+
+            plantas.forEach(planta => {
+                const card = document.createElement('div');
+                card.className = 'col';
+
+                card.innerHTML = `
+                    <div class="card h-100 bg-dark text-light border-success">
+                        <img src="<span class="math-inline">\{planta\.imagem\}" class\="card\-img\-top" alt\="</span>{planta.nome}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">${planta.nome}</h5>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+        } catch (erro) {
+            console.error('Erro ao carregar plantas:', erro);
+            const container = document.getElementById('plantas-descobertas');
+            container.innerHTML = `<p class="text-center text-danger">Ocorreu um erro ao carregar as plantas: ${erro.message}</p>`;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
     </script>
 </body>
 </html>
