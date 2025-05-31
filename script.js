@@ -54,11 +54,6 @@ window.onload = async () => {
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
 
-    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-    const usuario_id = usuarioData?.usuario_id;
-
-    console.log("Usuário no clique:", usuarioDataAtual);
-
     // Se veio da origem "qr", mostra o botão de coleta
     if (origem === "qr") {
         const coletarDiv = document.getElementById("coletar-container");
@@ -68,11 +63,12 @@ window.onload = async () => {
         botao.addEventListener("click", async () => {
             const msgEl = document.getElementById("msg-coleta");
 
+            // Pega os dados mais atualizados do usuário no localStorage
             const usuarioData = JSON.parse(localStorage.getItem("usuario"));
             const token = usuarioData?.token;
-            const usuario_id = usuarioData?.usuario_id;
+            const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
 
-            if (!token) {
+            if (!token || !usuario_id) {
                 msgEl.textContent = "Você precisa estar logado para pegar esta planta.";
                 return;
             }
@@ -106,6 +102,13 @@ window.onload = async () => {
         });
     }
 };
+
+// Função auxiliar para ler parâmetros da URL
+function getURLParameter(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
+
 
 // Função auxiliar para ler parâmetros da URL (src, id, etc.)
 function getURLParameter(nome) {
