@@ -147,13 +147,12 @@
         }
 
         // Script para carregar plantas descobertas
-        // Script para carregar plantas descobertas
         async function carregarPlantasDescobertas() {
             const container = document.getElementById('plantas-descobertas');
             container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>'; // Feedback de carregamento
 
             try {
-                const storedTokenData = localStorage.getItem('token'); // Isso agora retorna a string JSON completa
+                const storedTokenData = localStorage.getItem('token'); 
 
                 if (!storedTokenData) { // Se não houver nada salvo na chave 'token'
                     console.warn('Token de autenticação não encontrado. Usuário não logado.');
@@ -161,7 +160,6 @@
                     return;
                 }
 
-                let token = null;
                 try {
                     // Tenta parsear a string JSON para um objeto
                     const parsedTokenObject = JSON.parse(storedTokenData);
