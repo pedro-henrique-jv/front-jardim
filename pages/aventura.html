@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECOESCAN | Jardim Botânico UFSM</title>
     <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Minhas Descobertas | Jardim Botânico UFSM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -22,7 +22,8 @@
                         <span id="userNameSpan"><i class="bi bi-person fs-1"></i></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" id="userDropdownMenu" aria-labelledby="userDropdown">
-                        </ul>
+                        
+                    </ul>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -50,40 +51,13 @@
                 </div>
             </div>
         </nav>
-        <div class="container my-5 text-light">
-            <h2 class="text-center mb-4">Seu Progresso na Aventura</h2>
-            <div class="progress" style="height: 30px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
-                    role="progressbar" 
-                    style="width: 40%;" 
-                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                    40%
+
+        <section class="container mt-5 py-5">
+            <h1 class="text-center text-light mb-4">Minhas Descobertas</h1>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas">
                 </div>
-            </div>
-        </div>
-    
-        <div class="container my-5 text-light">
-            <h3 class="text-center mb-4">Espécies Descobertas</h3>
-            <div id="plantas-descobertas" class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-                <p class="text-center text-muted">Carregando suas descobertas...</p>
-            </div>
-        </div>
+        </section>
 
-        <div class="container my-5 text-center text-light">
-            <button id="btn-descobrir" class="btn btn-success btn-lg rounded-pill mb-4">
-                <i class="bi bi-qr-code-scan"></i> Descobrir
-            </button>
-
-            <div id="qr-reader" style="width: 300px; margin: 0 auto; display: none;"></div>
-        </div>
-
-        <div class="container my-5">
-            <div class="d-flex justify-content-center">
-                <a href="javascript:history.back()" class="btn btn-secondary btn-lg rounded-pill">
-                    <i class="bi bi-arrow-left"></i> Voltar
-                </a>
-            </div>
-        </div>
         <footer class="footer-box">
             <div class="container">
                 <div class="row justify-content-center">
@@ -102,219 +76,149 @@
             </div>
         </footer>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script src="../script.js"></script> 
+    <script src="../script.js"></script>
     <script>
-    // Script para o botão "Descobrir" (QR Code Scanner)
-    document.getElementById('btn-descobrir').addEventListener('click', () => {
-        const qrReader = document.getElementById('qr-reader');
+        // --- SEU CÓDIGO DO QR SCANNER AQUI (mantém o mesmo, se já estiver funcionando) ---
 
-        if (qrReader.style.display === 'none') {
-            qrReader.style.display = 'block';
-            startScanner();
-        } else {
-            qrReader.style.display = 'none';
-            if (window.html5QrCode) {
-                window.html5QrCode.stop().catch(err => console.error('Parada do scanner falhou:', err));
-            }
-        }
-    });
-
-    function startScanner() {
-        window.html5QrCode = new Html5Qrcode("qr-reader");
-
-        const qrCodeSuccessCallback = (decodedText) => {
-            console.log(`QR Code detectado: ${decodedText}`);
-            window.html5QrCode.stop();
-            document.getElementById('qr-reader').style.display = 'none';
-            
-            // --- INÍCIO: Adicionar lógica para enviar o QR Code com o token ---
-            salvarDescoberta(decodedText); 
-            // --- FIM: Adicionar lógica para enviar o QR Code com o token ---
-
-            alert("Descoberta salva com sucesso!"); // Pode ser removido após a implementação real
-            carregarPlantasDescobertas(); // Recarrega a lista para mostrar a nova descoberta
-        };
-
-        const config = { fps: 10, qrbox: 250 };
-
-        window.html5QrCode.start(
-            { facingMode: "environment" },
-            config,
-            qrCodeSuccessCallback
-        ).catch(err => {
-            alert('Erro ao acessar a câmera: ' + err);
-            console.error(err);
-        });
-    }
-
-    // --- NOVA FUNÇÃO: Para salvar a descoberta de planta ---
-    async function salvarDescoberta(qrCodeValue) {
-        const container = document.getElementById('plantas-descobertas'); // Ou outro elemento de feedback
-        const storedUserData = localStorage.getItem('usuario'); // Lê da chave 'usuario'
-
-        if (!storedUserData) {
-            alert('Você precisa estar logado para salvar descobertas.');
-            return;
-        }
-
-        let token = null;
-        let userId = null; // Vamos pegar o ID do usuário também, se precisar enviar junto
-
-        try {
-            const parsedUserObject = JSON.parse(storedUserData);
-            token = parsedUserObject.token;
-            userId = parsedUserObject.usuario_id; // Pega o ID do usuário
-
-            if (typeof token !== 'string' || token.trim() === '') {
-                throw new Error('Token inválido ou ausente nos dados do usuário.');
-            }
-        } catch (parseError) {
-            console.error('Erro ao processar dados do usuário para salvar descoberta:', parseError);
-            alert('Erro de autenticação. Por favor, faça login novamente.');
-            localStorage.removeItem('usuario');
-            // window.location.href = '../pages/login.html';
-            return;
-        }
-
-        if (!token) {
-            alert('Token de autenticação não encontrado. Por favor, faça login novamente.');
-            return;
-        }
-
-        try {
-            // Supondo que você terá um endpoint no backend para registrar a descoberta
-            // Por exemplo: POST para /plantas/descoberta com o QR Code e o userId
-            const response = await fetch('https://back-yr5z.onrender.com/plantas/descoberta', { // <--- AJUSTE ESTE ENDPOINT
-                method: 'POST', // Ou PUT, dependendo da sua API
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` 
-                },
-                body: JSON.stringify({ 
-                    qr_code: qrCodeValue, 
-                    usuario_id: userId // Envie o ID do usuário se seu backend espera
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Falha ao registrar descoberta da planta.');
-            }
-
-            console.log('Descoberta registrada com sucesso no backend!');
-            // O alert('Descoberta salva com sucesso!') já está no callback do scanner
-            // carregarPlantasDescobertas() já é chamado pelo scanner, então sem duplicidade aqui.
-
-        } catch (error) {
-            console.error('Erro ao salvar descoberta:', error);
-            alert(`Erro ao salvar descoberta: ${error.message}`);
-        }
-    }
-    // --- FIM: NOVA FUNÇÃO ---
-
-
-    // Script para carregar plantas descobertas
-    async function carregarPlantasDescobertas() {
-        const container = document.getElementById('plantas-descobertas');
-        container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>';
-
-        try {
-            // *** CORREÇÃO AQUI: Leia da chave 'usuario' ***
-            const storedUserData = localStorage.getItem('usuario'); 
-
-            if (!storedUserData) {
-                console.warn('Dados do usuário não encontrados. Usuário não logado.');
-                container.innerHTML = '<p class="text-center text-danger">Você precisa estar logado para ver suas plantas descobertas.</p>';
-                return;
-            }
-
-            let token = null;
-            try {
-                // Tenta parsear a string JSON para um objeto
-                const parsedUserObject = JSON.parse(storedUserData);
-                // Acessa a propriedade 'token' dentro do objeto 'usuario'
-                token = parsedUserObject.token; 
-
-                if (typeof token !== 'string' || token.trim() === '') {
-                    throw new Error('Propriedade "token" inválida ou ausente no objeto de usuário salvo.');
-                }
-
-            } catch (parseError) {
-                console.error('Erro ao parsear dados do usuário do localStorage:', parseError);
-                container.innerHTML = '<p class="text-center text-danger">Erro ao processar dados de autenticação. Por favor, faça login novamente.</p>';
-                // Opcional: Limpar dados inválidos e redirecionar
-                localStorage.removeItem('usuario'); // Limpa a chave 'usuario' se estiver inválida
-                // window.location.href = '../pages/login.html'; 
-                return;
-            }
-
-            if (!token) { // Esta verificação é redundante se as throws acima funcionarem, mas é segura.
-                console.warn('Token JWT não encontrado no objeto de usuário. Usuário não logado.');
-                container.innerHTML = '<p class="text-center text-danger">Erro de token. Por favor, faça login novamente.</p>';
-                return;
-            }
-
-            // *** CORREÇÃO AQUI: Seu endpoint de plantas descobertas deve ser por usuário logado ***
-            // Se o backend espera um ID de usuário na URL (ex: /plantas/usuario/21)
-            // Ou se ele usa o token para inferir o usuário (mais comum e seguro)
-            const resposta = await fetch('https://back-yr5z.onrender.com/plantas/', { 
-                headers: {
-                    'Authorization': `Bearer ${token}` 
-                }
-            });
-
-            if (!resposta.ok) {
-                const errorDetails = await resposta.text();
-                let errorMessage = `Erro ao buscar plantas: ${resposta.status} - ${resposta.statusText}.`;
-
-                if (resposta.status === 401) {
-                    errorMessage = `Não autorizado. Seu token pode ter expirado ou é inválido. Por favor, faça login novamente.`;
-                    // Opcional: Limpar token e redirecionar para login
-                    localStorage.removeItem('usuario'); // Limpa para forçar novo login
-                    // window.location.href = '../pages/login.html'; 
-                }
-                if (errorDetails) {
-                    errorMessage += ` Detalhes do servidor: ${errorDetails}`;
-                }
-                throw new Error(errorMessage);
-            }
-
-            const plantas = await resposta.json();
-
-            container.innerHTML = ''; 
-
-            if (plantas.length === 0) {
-                container.innerHTML = '<p class="text-center">Nenhuma planta descoberta ainda.</p>';
-                return;
-            }
-
-            plantas.forEach(planta => {
-                const card = document.createElement('div');
-                card.className = 'col';
-
-                card.innerHTML = `
-                    <div class="card h-100 bg-dark text-light border-success">
-                        <img src="${planta.imagem}" class="card-img-top" alt="${planta.nome_cientifico || planta.nome || 'Planta'}">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">${planta.nome || 'Nome desconhecido'}</h5>
-                            ${planta.nome_cientifico ? `<p class="card-text text-center fst-italic">${planta.nome_cientifico}</p>` : ''}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-        } catch (erro) {
-            console.error('Erro ao carregar plantas:', erro);
+        // Função para carregar plantas descobertas
+        async function carregarPlantasDescobertas() {
             const container = document.getElementById('plantas-descobertas');
-            container.innerHTML = `<p class="text-center text-danger">Ocorreu um erro ao carregar as plantas: ${erro.message}</p>`;
-        }
-    }
+            container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>';
 
-    // Carregar as plantas descobertas ao carregar a página
-    window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
-</script>
+            try {
+                const storedUserData = localStorage.getItem('usuario'); 
+
+                if (!storedUserData) {
+                    console.warn('Dados do usuário não encontrados. Usuário não logado.');
+                    container.innerHTML = '<p class="text-center text-danger">Você precisa estar logado para ver suas descobertas.</p>';
+                    return;
+                }
+
+                let token = null;
+                try {
+                    const parsedUserObject = JSON.parse(storedUserData);
+                    token = parsedUserObject.token; 
+
+                    if (typeof token !== 'string' || token.trim() === '') {
+                        throw new Error('Propriedade "token" inválida ou ausente no objeto de usuário salvo.');
+                    }
+
+                } catch (parseError) {
+                    console.error('Erro ao parsear dados do usuário do localStorage:', parseError);
+                    container.innerHTML = '<p class="text-center text-danger">Erro ao processar dados de autenticação. Por favor, faça login novamente.</p>';
+                    localStorage.removeItem('usuario'); 
+                    return;
+                }
+
+                if (!token) {
+                    console.warn('Token JWT não encontrado no objeto de usuário. Usuário não logado.');
+                    container.innerHTML = '<p class="text-center text-danger">Erro de token. Por favor, faça login novamente.</p>';
+                    return;
+                }
+
+                // --- NOVO: Carregar o catálogo completo de espécies de especies.json ---
+                const repoName = 'front-jardim'; // <--- SUBSTITUA PELO NOME DO SEU REPOSITÓRIO!
+                const catalogPath = `/${repoName}/data/especies.json`; // <--- AJUSTE O CAMINHO CONFORME SEU REPOSITÓRIO!
+                // Exemplo: se especie.json estiver em '/data/especies.json' no seu repositório GitHub Pages
+                // e sua aventura.html está em '/pages/aventura.html',
+                // o caminho relativo seria '../data/especies.json'
+
+                let globalSpeciesCatalog = [];
+                try {
+                    const responseCatalog = await fetch(catalogPath); // Use o caminho que você confirmou!
+                    if (!responseCatalog.ok) {
+                        throw new Error(`Erro ao carregar o catálogo de espécies: ${responseCatalog.status} ${responseCatalog.statusText}`);
+                    }
+                    globalSpeciesCatalog = await responseCatalog.json();
+                    console.log("Catálogo de espécies carregado de especies.json:", globalSpeciesCatalog);
+                } catch (catalogError) {
+                    console.error('Erro ao carregar o catálogo de espécies:', catalogError);
+                    container.innerHTML = `<p class="text-center text-danger">Erro ao carregar o catálogo de espécies: ${catalogError.message}</p>`;
+                    return; // Interrompe se o catálogo não puder ser carregado
+                }
+                // --- FIM DO NOVO BLOCO ---
+
+
+                // 1. Fetch das descobertas do usuário (contém apenas os IDs das espécies)
+                const respostaDescobertas = await fetch('https://back-yr5z.onrender.com/plantas/', { 
+                    headers: {
+                        'Authorization': `Bearer ${token}` 
+                    }
+                });
+
+                if (!respostaDescobertas.ok) {
+                    const errorDetails = await respostaDescobertas.text();
+                    let errorMessage = `Erro ao buscar suas descobertas: ${respostaDescobertas.status} - ${respostaDescobertas.statusText}.`;
+                    if (respostaDescobertas.status === 401) {
+                        errorMessage = `Não autorizado. Seu token pode ter expirado ou é inválido. Por favor, faça login novamente.`;
+                        localStorage.removeItem('usuario');
+                    }
+                    if (errorDetails) {
+                        errorMessage += ` Detalhes do servidor: ${errorDetails}`;
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                // O backend retorna um array de objetos de "descoberta", cada um com um 'especie_id'
+                const descobertasDoUsuario = await respostaDescobertas.json(); 
+                
+                // Extrai apenas os 'especie_id's para facilitar a comparação
+                const idsDescobertos = descobertasDoUsuario.map(descoberta => descoberta.especie_id);
+
+                console.log("IDs de espécies descobertas pelo usuário:", idsDescobertos);
+
+                // 2. Filtrar o Catálogo Global com base nos IDs descobertos
+                const especiesParaExibir = globalSpeciesCatalog.filter(especie => 
+                    idsDescobertos.includes(especie.id)
+                );
+
+                container.innerHTML = ''; 
+
+                if (especiesParaExibir.length === 0) {
+                    container.innerHTML = '<p class="text-center">Nenhuma descoberta ainda.</p>';
+                    return;
+                }
+
+                // DEBUG: Log as espécies que serão exibidas
+                console.log("Espécies a serem exibidas (detalhes completos):", especiesParaExibir);
+
+                // 3. Renderizar os cards usando os detalhes completos das espécies filtradas
+                especiesParaExibir.forEach(especie => {
+                    const card = document.createElement('div');
+                    card.className = 'col';
+
+                    // --- CORREÇÃO DO CAMINHO DA IMAGEM PARA GITHUB PAGES ---
+                    // Usa o mesmo 'repoName' definido acima
+                    let imageUrl = especie.imagem;
+                    if (imageUrl && !imageUrl.startsWith('http')) { 
+                        imageUrl = `/${repoName}${imageUrl.replace(/^\.\.\//, '/').replace(/^\.\//, '/')}`;
+                    }
+                    
+                    const finalImageUrl = imageUrl || 'https://placehold.co/150x150/cccccc/000000?text=Sem+Imagem';
+
+                    card.innerHTML = `
+                        <div class="card h-100 bg-dark text-light border-success">
+                            <img src="${finalImageUrl}" class="card-img-top" alt="${especie.nome_cientifico || especie.nome || 'Espécie'}">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">${especie.nome || 'Nome desconhecido'}</h5>
+                                ${especie.nome_cientifico ? `<p class="card-text text-center fst-italic">${especie.nome_cientifico}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (erro) {
+                console.error('Erro geral ao carregar descobertas:', erro);
+                const container = document.getElementById('plantas-descobertas');
+                container.innerHTML = `<p class="text-center text-danger">Ocorreu um erro ao carregar suas descobertas: ${erro.message}</p>`;
+            }
+        }
+
+        // Carregar as descobertas ao carregar a página
+        window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
+    </script>
 </body>
 </html>
