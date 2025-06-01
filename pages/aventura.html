@@ -247,7 +247,7 @@
         }
 
         // Carrega os dados e atualiza a barra de progresso
-        fetch('especies.json')
+        fetch('../especies.json')
             .then(response => response.json())
             .then(globalCatalog => {
                 console.log("Catálogo carregado:", globalCatalog);
