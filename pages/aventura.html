@@ -228,31 +228,32 @@
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
     </script>
     <script>
-        // Função para calcular a porcentagem
         function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
             const totalEspecies = globalCatalog.length;
             if (totalEspecies === 0) return 0;
 
-            const discoveredIdsSet = new Set(userDiscoveryIds);
+            // Normaliza os IDs do usuário para string minúscula
+            const discoveredIdsSet = new Set(userDiscoveryIds.map(id => id.toLowerCase()));
             let especiesDescobertas = 0;
 
             globalCatalog.forEach(especie => {
-                if (discoveredIdsSet.has(especie.id)) {
+                const especieId = especie.id?.toLowerCase();  // safe check com ?
+                if (discoveredIdsSet.has(especieId)) {
                     especiesDescobertas++;
                 }
             });
 
             const porcentagem = (especiesDescobertas / totalEspecies) * 100;
+            console.log(`Descobertas: ${especiesDescobertas} / ${totalEspecies}`);
             return parseFloat(porcentagem.toFixed(2));
         }
+
 
         // Carrega os dados e atualiza a barra de progresso
         fetch('../especies.json')
             .then(response => response.json())
             .then(globalCatalog => {
-                console.log("Catálogo carregado:", globalCatalog);
                 const userDiscoveryIds = JSON.parse(localStorage.getItem('descobertas')) || [];
-                console.log("Descobertas do usuário:", userDiscoveryIds);
 
                 const porcentagem = calcularProgressoDescobertas(globalCatalog, userDiscoveryIds);
                 console.log(`Porcentagem calculada: ${porcentagem}%`);
