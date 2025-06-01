@@ -251,12 +251,11 @@
             // Calcula a porcentagem e arredonda para duas casas decimais.
             const porcentagem = (especiesDescobertas / totalEspecies) * 100;
             return parseFloat(porcentagem.toFixed(2));
+            console.log(`Porcentagem calculada: ${porcentagem}%`);
             const progressBar = document.getElementById('progressBar');
             progressBar.style.width = `${porcentagem}%`;
             progressBar.setAttribute('aria-valuenow', porcentagem);
-            progressBar.textContent = `${porcentagem}% Descoberto`;
-            console.log(`Porcentagem calculada: ${porcentagem}%`);
-        }
+            progressBar.textContent = `${porcentagem}% Descoberto`;        }
     </script>
 </body>
 </html>
