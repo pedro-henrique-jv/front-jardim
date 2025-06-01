@@ -231,31 +231,27 @@
         function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
             const totalEspecies = globalCatalog.length;
             
-            // Se não houver espécies no catálogo, a porcentagem é 0 para evitar divisão por zero.
-            if (totalEspecies === 0) {
-                return 0; 
-            }
+            if (totalEspecies === 0) return 0;
 
-            // Usa um Set para otimizar a busca por IDs descobertos.
-            // Isso torna a comparação muito mais rápida, especialmente com muitos itens.
             const discoveredIdsSet = new Set(userDiscoveryIds);
             let especiesDescobertas = 0;
 
-            // Itera sobre o catálogo completo e conta quantas espécies o usuário descobriu.
             globalCatalog.forEach(especie => {
                 if (discoveredIdsSet.has(especie.id)) {
                     especiesDescobertas++;
                 }
             });
 
-            // Calcula a porcentagem e arredonda para duas casas decimais.
             const porcentagem = (especiesDescobertas / totalEspecies) * 100;
-            console.log(`Porcentagem calculada: ${porcentagem}%`);
             return parseFloat(porcentagem.toFixed(2));
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = `${porcentagem}%`;
-            progressBar.setAttribute('aria-valuenow', porcentagem);
-            progressBar.textContent = `${porcentagem}% Descoberto`;        }
+        }
+        const progresso = calcularProgressoDescobertas(globalCatalog, userDiscoveryIds);
+        console.log(`Porcentagem calculada: ${progresso}%`);
+
+        const progressBar = document.getElementById('progressBar');
+        progressBar.style.width = `${progresso}%`;
+        progressBar.setAttribute('aria-valuenow', progresso);
+        progressBar.textContent = `${progresso}% Descoberto`;
     </script>
 </body>
 </html>
