@@ -228,9 +228,9 @@
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
     </script>
     <script>
+        // Função para calcular a porcentagem
         function calcularProgressoDescobertas(globalCatalog, userDiscoveryIds) {
             const totalEspecies = globalCatalog.length;
-            
             if (totalEspecies === 0) return 0;
 
             const discoveredIdsSet = new Set(userDiscoveryIds);
@@ -245,13 +245,26 @@
             const porcentagem = (especiesDescobertas / totalEspecies) * 100;
             return parseFloat(porcentagem.toFixed(2));
         }
-        const progresso = calcularProgressoDescobertas(globalCatalog, userDiscoveryIds);
-        console.log(`Porcentagem calculada: ${progresso}%`);
 
-        const progressBar = document.getElementById('progressBar');
-        progressBar.style.width = `${progresso}%`;
-        progressBar.setAttribute('aria-valuenow', progresso);
-        progressBar.textContent = `${progresso}% Descoberto`;
+        // Carrega os dados e atualiza a barra de progresso
+        fetch('especies.json')
+            .then(response => response.json())
+            .then(globalCatalog => {
+                console.log("Catálogo carregado:", globalCatalog);
+                const userDiscoveryIds = JSON.parse(localStorage.getItem('descobertas')) || [];
+                console.log("Descobertas do usuário:", userDiscoveryIds);
+
+                const porcentagem = calcularProgressoDescobertas(globalCatalog, userDiscoveryIds);
+                console.log(`Porcentagem calculada: ${porcentagem}%`);
+
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.width = `${porcentagem}%`;
+                progressBar.setAttribute('aria-valuenow', porcentagem);
+                progressBar.textContent = `${porcentagem}% Descoberto`;
+            })
+            .catch(error => {
+                console.error("Erro ao carregar espécies:", error);
+            });
     </script>
 </body>
 </html>
