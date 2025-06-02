@@ -243,48 +243,40 @@
         const btnFecharCamera = document.getElementById('btnFecharCamera');
         const qrReader = document.getElementById('qr-reader');
 
-        let html5QrCode = null;  // Variável para controlar o leitor
+        let html5QrCode = null;
 
         btnNovaDescoberta.addEventListener('click', () => {
             qrReader.style.display = 'block';
             btnNovaDescoberta.style.display = 'none';
             btnFecharCamera.style.display = 'inline-block';
 
-            // Criar um novo leitor se ainda não existir
             if (!html5QrCode) {
                 html5QrCode = new Html5Qrcode("qr-reader");
             }
 
-            // Função para quando um QR for lido com sucesso
             function onScanSuccess(decodedText, decodedResult) {
                 console.log(`QR Code escaneado: ${decodedText}`);
 
-                // Para parar a câmera após a leitura
                 html5QrCode.stop().then(() => {
                     qrReader.style.display = 'none';
                     btnFecharCamera.style.display = 'none';
                     btnNovaDescoberta.style.display = 'inline-block';
 
-                    alert(`Nova descoberta registrada: ${decodedText}`);
+                    // Redireciona para o link do QR code
+                    window.location.href = decodedText;
 
-                    carregarPlantasDescobertas(); // Sua função para atualizar dados
                 }).catch(err => {
                     console.error('Erro ao parar a câmera', err);
                 });
             }
 
-            // Função para erros na leitura (não interrompe)
             function onScanFailure(error) {
-                // Pode descomentar para debug:
-                // console.warn(`Erro na leitura do QR: ${error}`);
+                //console.warn(`Erro na leitura do QR: ${error}`);
             }
 
-            // Busca as câmeras disponíveis e inicia a leitura
             Html5Qrcode.getCameras().then(cameras => {
                 if (cameras && cameras.length) {
                     let cameraId = cameras[0].id;
-
-                    // Prioriza a câmera traseira
                     for (const camera of cameras) {
                         if (camera.label.toLowerCase().includes('back')) {
                             cameraId = camera.id;
@@ -329,12 +321,12 @@
                     console.error('Erro ao parar a câmera:', err);
                 });
             } else {
-                // Caso o leitor não esteja ativo
                 qrReader.style.display = 'none';
                 btnFecharCamera.style.display = 'none';
                 btnNovaDescoberta.style.display = 'inline-block';
             }
         });
+
 
     </script>
 </body>
