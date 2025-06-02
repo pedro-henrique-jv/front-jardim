@@ -62,8 +62,15 @@
         </section>
         <section class="container mt-3 py-5">
             <h1 class="text-center text-light mb-4">Minhas Descobertas</h1>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas">
-                </div>
+            <div class="text-center mb-4">
+                <button id="btnNovaDescoberta" class="btn btn-success">Nova descoberta</button>
+                <button id="btnFecharCamera" class="btn btn-danger" style="display:none;">Fechar Câmera</button>
+            </div>
+            <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto; display:none;"></div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
+        </section>
+        <section class="container mt-3 py-5">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
         </section>
         <footer class="footer-box">
             <div class="container">
@@ -83,7 +90,7 @@
             </div>
         </footer>
     </div>
-
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../script.js"></script>
     <script>
@@ -229,10 +236,106 @@
             console.log(`Progresso: ${especiesDescobertas} / ${totalEspecies} => ${porcentagem.toFixed(2)}%`);
             return parseFloat(porcentagem.toFixed(2));
         }
-
         // Executa ao carregar a página
         window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
-    </script>
+        
+        const btnNovaDescoberta = document.getElementById('btnNovaDescoberta');
+        const btnFecharCamera = document.getElementById('btnFecharCamera');
+        const qrReader = document.getElementById('qr-reader');
 
+        let html5QrCode = null;  // Variável para controlar o leitor
+
+        btnNovaDescoberta.addEventListener('click', () => {
+            qrReader.style.display = 'block';
+            btnNovaDescoberta.style.display = 'none';
+            btnFecharCamera.style.display = 'inline-block';
+
+            // Criar um novo leitor se ainda não existir
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("qr-reader");
+            }
+
+            // Função para quando um QR for lido com sucesso
+            function onScanSuccess(decodedText, decodedResult) {
+                console.log(`QR Code escaneado: ${decodedText}`);
+
+                // Para parar a câmera após a leitura
+                html5QrCode.stop().then(() => {
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+
+                    alert(`Nova descoberta registrada: ${decodedText}`);
+
+                    carregarPlantasDescobertas(); // Sua função para atualizar dados
+                }).catch(err => {
+                    console.error('Erro ao parar a câmera', err);
+                });
+            }
+
+            // Função para erros na leitura (não interrompe)
+            function onScanFailure(error) {
+                // Pode descomentar para debug:
+                // console.warn(`Erro na leitura do QR: ${error}`);
+            }
+
+            // Busca as câmeras disponíveis e inicia a leitura
+            Html5Qrcode.getCameras().then(cameras => {
+                if (cameras && cameras.length) {
+                    let cameraId = cameras[0].id;
+
+                    // Prioriza a câmera traseira
+                    for (const camera of cameras) {
+                        if (camera.label.toLowerCase().includes('back')) {
+                            cameraId = camera.id;
+                            break;
+                        }
+                    }
+
+                    html5QrCode.start(
+                        cameraId,
+                        { fps: 10, qrbox: 250 },
+                        onScanSuccess,
+                        onScanFailure
+                    ).catch(err => {
+                        console.error('Erro ao iniciar a câmera:', err);
+                        alert('Não foi possível acessar a câmera. Verifique as permissões.');
+                        qrReader.style.display = 'none';
+                        btnFecharCamera.style.display = 'none';
+                        btnNovaDescoberta.style.display = 'inline-block';
+                    });
+                } else {
+                    alert('Nenhuma câmera detectada.');
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+                }
+            }).catch(err => {
+                console.error('Erro ao buscar câmeras:', err);
+                alert('Erro ao acessar as câmeras do dispositivo.');
+                qrReader.style.display = 'none';
+                btnFecharCamera.style.display = 'none';
+                btnNovaDescoberta.style.display = 'inline-block';
+            });
+        });
+
+        btnFecharCamera.addEventListener('click', () => {
+            if (html5QrCode) {
+                html5QrCode.stop().then(() => {
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+                }).catch(err => {
+                    console.error('Erro ao parar a câmera:', err);
+                });
+            } else {
+                // Caso o leitor não esteja ativo
+                qrReader.style.display = 'none';
+                btnFecharCamera.style.display = 'none';
+                btnNovaDescoberta.style.display = 'inline-block';
+            }
+        });
+
+    </script>
 </body>
 </html>
