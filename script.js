@@ -69,7 +69,7 @@ window.onload = async () => {
             const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
 
             if (!token || !usuario_id) {
-                msgEl.textContent = "Você precisa estar logado para pegar esta planta.";
+                msgEl.textContent = "Você precisa estar logado!.";
                 return;
             }
 
@@ -88,15 +88,15 @@ window.onload = async () => {
 
                 if (!res.ok) {
                     const erroTexto = await res.text();
-                    msgEl.textContent = "Erro ao tentar coletar a planta.";
+                    msgEl.textContent = "Erro ao tentar coletar checkpoint.";
                     console.error("Erro do servidor:", res.status, erroTexto);
                     return;
                 }
 
                 const dados = await res.json();
-                msgEl.textContent = dados.mensagem ?? "Planta coletada com sucesso!";
+                msgEl.textContent = dados.mensagem ?? "Checkpoint coletado!";
             } catch (erro) {
-                msgEl.textContent = "Erro ao tentar coletar a planta.";
+                msgEl.textContent = "Erro ao tentar coletar checkpoint.";
                 console.error("Erro de rede:", erro);
             }
         });
