@@ -582,8 +582,8 @@ h2 {
 
 @media (max-width: 768px) {
     .background {
-        background-image: url('../assets/fundo2.png'); /* Uma versão otimizada para mobile */
-        background-attachment: scroll;
+        background-image: url('../assets/fundo2.png'); 
+        background-attachment: fixed;
     }
     .navbar-brand img {
         max-height: 90px; 
