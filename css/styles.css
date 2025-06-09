@@ -15,8 +15,8 @@ body {
 
 .navbar {
     width: 100%;
-    background: rgba(136, 135, 135, 0.76) !important;
-    padding: 10px 10px;
+    background: rgba(182, 182, 182, 0.76) !important;
+    padding: 0 10px;
     margin: 0 auto;
     display: flex;
     position: relative;
@@ -583,6 +583,7 @@ h2 {
 @media (max-width: 768px) {
     .background {
         background-image: url('../assets/fundo2.png'); /* Uma versão otimizada para mobile */
+        background-attachment: scroll;
     }
     .navbar-brand img {
         max-height: 90px; 
