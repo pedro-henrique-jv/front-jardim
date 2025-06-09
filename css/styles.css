@@ -7,7 +7,7 @@ body {
 .background {
     background-image: url('../assets/fundo2.png'); 
     background-size: cover;
-    background-position: center;
+    background-position: fixed;
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
@@ -15,7 +15,7 @@ body {
 
 .navbar {
     width: 100%;
-    background: rgba(182, 182, 182, 0.76) !important;
+    background: rgba(182, 182, 182, 0.562) !important;
     padding: 0 10px;
     margin: 0 auto;
     display: flex;
