@@ -15,7 +15,6 @@ function setImageSrc(id, src) {
 async function loadSpeciesData() {
     const speciesId = getURLParameter("id");  
     if (!speciesId) {
-        console.error("Parâmetro 'id' não encontrado na URL.");
         return;
     }
 
@@ -148,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     } else {
         // Usuário não logado
-        userNameSpan.innerHTML = `<i class="bi bi-person fs-1"></i>`;
+        userNameSpan.innerHTML = `<i class="bi bi-person" style="font-size: 2.5rem; color:rgb(255, 255, 255);"></i>`;
 
         // Sempre exibe login e cadastro
         userDropdownMenu.innerHTML = `

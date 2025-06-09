@@ -5,19 +5,18 @@ body {
 }
 
 .background {
-    background-image: url('../assets/fundo.png');
+    background-image: url('../assets/fundo2.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; 
-    min-height: 100vh;  
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 
 .navbar {
-    width: 95%;
-    background: rgba(124, 124, 124, 0.11) !important;
+    width: 100%;
+    background: rgba(136, 135, 135, 0.76) !important;
     padding: 10px 10px;
-    border-radius: 40px;
     margin: 0 auto;
     display: flex;
     position: relative;
@@ -89,15 +88,13 @@ body {
 }
 
 .footer-box {
-    background: rgba(124, 124, 124, 0.11);
+    background: rgb(17, 105, 25);
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 0;
     margin-top: 20px;
-    margin-bottom: 20px;
     text-align: center;
     color: white;
 }
-
 
 .content {
     padding-top: 10px;
@@ -150,39 +147,12 @@ body {
     border-color: rgba(255, 255, 255, 0.6);
 }
 
-#toggle-search {
-    display: flex;
-    align-items: center;
-    padding: 0px;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-}
-
-#toggle-search i {
-    font-size: 1.4rem;
-    color: white;
-}
-
-#search-input {
-    padding: 10px;
-    max-width: 600px;
-    box-shadow: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 1px solid white;
-    border-radius: 20px;
-}
-
-#search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
 .game-intro {
     display: flex;
     align-items: center;
-    background: rgba(124, 124, 124, 0.11);
-    margin: 10px;
+    background: rgba(211, 211, 211, 0.596) !important;
+    margin: 30px;
+    margin-bottom: 120px;
     border: none;
     border-radius: 50px;
 }
@@ -190,7 +160,8 @@ body {
     font-size: 3rem;
     font-weight: bold;
     font-family: 'Orbitron', sans-serif;
-    border-bottom: 2px solid #4caf50;
+    border-bottom: 2px solid #58cc5b;
+    color: #27752e;
 }
 
 .game-subtitle {
@@ -198,43 +169,50 @@ body {
     margin-top: 1rem;
 }
 
-.btn-start {
-    background-color: #28a745;
-    color: rgb(255, 255, 255);
-    font-size: 1.4rem;
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 50px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-start:hover {
-    background-color: #25a140;
-}
-
 .game-info {
     font-size: 1.3rem;
     color: #ffffff;
 }
 
-.catalog-section {
-    background: rgba(124, 124, 124, 0.11);
-    border-radius: 50px;
-    padding: 5px;
-    margin: 10px;
-    margin-bottom: 0;
-    font-size: 1.0rem;
+#btn-aventura {
+    background-color: #bfd11c;
+    color: #003B2B; 
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px; 
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
-.footer-box {
-    background: rgb(33, 156, 54);
-    margin-top: 0;
-    padding: 30px;
-    color: rgb(255, 255, 255);
-    display: grid;
-    font-size: 0.99rem;
-    border-radius: 0;
+#btn-aventura:hover {
+    background-color: #34D399;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
 }
+
+#btn-tutorial {
+    background-color: #6EE7B7;
+    color: #003B2B; 
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px; 
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#btn-tutorial:hover {
+    background-color: #34D399;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
 
 .footer-box a {
     color: white;
@@ -466,38 +444,6 @@ h2 {
     background-color: #94a2ac;
 }
 
-#noticias {
-    background-color: rgba(124, 124, 124, 0.11); 
-    margin: auto;
-    padding-top: 10px;
-    border-radius:10px; 
-}
-
-.noticias-section {
-    background-color: rgba(124, 124, 124, 0.11); 
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    margin: 10px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-}
-
-.noticias-section h2 {
-    font-weight: 600;
-    font-size: 2.5rem;
-    color: #ffffff;
-    border-bottom: 2px solid #4caf50;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-    margin-bottom: 2rem;
-}
-
-.noticias-section .list-group-item {
-    background-color: #4e4e4e6c;
-    border: 1px solid #44444400;
-    border-radius: 10px;
-}
-
 .catalogo {
     background-color: rgba(124, 124, 124, 0.11); 
     padding: 3rem 2rem; 
@@ -635,6 +581,9 @@ h2 {
 }
 
 @media (max-width: 768px) {
+    .background {
+        background-image: url('../assets/fundo2.png'); /* Uma versão otimizada para mobile */
+    }
     .navbar-brand img {
         max-height: 90px; 
         width: auto;
