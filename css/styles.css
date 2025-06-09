@@ -10,7 +10,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    min-height: 100vh;
 }
 
 .navbar {
@@ -583,7 +582,7 @@ h2 {
 @media (max-width: 768px) {
     .background {
         background-image: url('../assets/fundo2.png'); 
-        background-attachment: scroll;
+        background-attachment: fixed;
     }
     .navbar-brand img {
         max-height: 90px; 
