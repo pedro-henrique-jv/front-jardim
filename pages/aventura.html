@@ -268,7 +268,8 @@
                     const especieId = url.searchParams.get("id");
                     
                     if(isLogado && especieId){
-                        window.location.href = decodedText;
+                        const destinoFinal = encodeURIComponent(decodedText);
+                        window.location.href = `pages/quiz.html?id=${especieId}&next=${destinoFinal}`;
                     } else {
                         window.location.href = `pages/login.html`;
                     }

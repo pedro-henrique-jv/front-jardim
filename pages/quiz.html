@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <title>Sobre | Jardim Botânico UFSM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="background">
+        <nav class="navbar navbar-expand-lg fixed-top bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/logo_jardim.png" alt="Logo" />
+                </a>
+
+                <div class="dropdown ms-auto me-2 d-flex align-items-center">
+                    <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span id="userNameSpan"><i class="bi bi-person fs-1"></i></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="userDropdownMenu" aria-labelledby="userDropdown">
+                        
+                    </ul>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto gap-3">
+                        <li class="nav-item"><a class="nav-link" href="../pages/especies.html">Espécies</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/loc.html">Como chegar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://www.ufsm.br/orgaos-suplementares/jardim-botanico/busca?q=&area=post&orderby=date&sites%5B%5D=363" target="_blank">Notícias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../pages/sobre.html">Sobre</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="agendamentosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Agendamentos
+                            </a>
+                            <ul class="dropdown-menu dropdown-agendamentos dropdown-menu-end" aria-labelledby="agendamentosDropdown">
+                                <li><a class="dropdown-item" href="https://www.ufsm.br/orgaos-suplementares/jardim-botanico/agendamentos" target="_blank">Agendamento de visitas</a></li>
+                                <li><a class="dropdown-item" href="https://docs.google.com/forms/d/e/1FAIpQLSe2xFRbvxbFdM-xXKQg_d0kientawKO3y-Dz7Kx2N36M0Fwnw/viewform" target="_blank">Agendamento do Auditório</a></li>
+                                <li><a class="dropdown-item" href="https://docs.google.com/forms/d/e/1FAIpQLSe2xFRbvxbFdM-xXKQg_d0kientawKO3y-Dz7Kx2N36M0Fwnw/viewform" target="_blank">Solicitações à Direção do JBSM</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="quiz-container">
+            <h2 id="pergunta">Carregando pergunta...</h2>
+            <form id="quiz-form">
+            <label class="quiz-option"><input type="radio" name="resposta" value="A" required> <span id="respostaA"></span></label>
+            <label class="quiz-option"><input type="radio" name="resposta" value="B"> <span id="respostaB"></span></label>
+            <label class="quiz-option"><input type="radio" name="resposta" value="C"> <span id="respostaC"></span></label>
+            <label class="quiz-option"><input type="radio" name="resposta" value="D"> <span id="respostaD"></span></label>
+            <button type="submit">Responder</button>
+            </form>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        <footer class="footer-box">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <p><i class="bi bi-envelope"></i> contato@jardimbotanico.ufsm.br</p>
+                        <p><i class="bi bi-geo-alt"></i> Av. Roraima, 1000 - Camobi, Santa Maria - RS</p>
+                        <p><i class="bi bi-clock"></i> Funcionamento: Segunda á Sexta: 8:30h - 12h, 13:30h - 17h</p>
+                        <div class="social-icons mt-3">
+                            <a href="https://www.facebook.com/JardimBotanicoDeSantaMaria/?locale=pt_BR" target="_blank"><i class="bi bi-facebook"></i></a>
+                            <a href="https://www.instagram.com/jardimbotanicodaufsm/" target="_blank"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.youtube.com/c/JardimBot%C3%A2nicodaUFSM/featured" target="_blank"><i class="bi bi-youtube"></i></a>
+                        </div>
+                        <small class="mt-4 d-block">© 2025 Jardim Botânico UFSM - Todos os direitos reservados.</small>
+                    </div>
+                </div>
+            </div>
+        </footer>    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextURL = urlParams.get("next");
+
+        if (nextURL) {
+            // Exemplo: esperar 1 segundo antes de redirecionar
+            setTimeout(() => {
+                window.location.href = decodeURIComponent(nextURL);
+            }, 1000);
+        }
+    </script>
+    <script>
+        const perguntaEl = document.getElementById("pergunta");
+        const respostaAEl = document.getElementById("respostaA");
+        const respostaBEl = document.getElementById("respostaB");
+        const respostaCEl = document.getElementById("respostaC");
+        const respostaDEl = document.getElementById("respostaD");
+        const form = document.getElementById("quiz-form");
+        const feedbackEl = document.getElementById("feedback");
+
+        let respostaCorreta = null;
+
+        // Pega o "next" da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextURL = urlParams.get("next");
+
+        // Carrega a pergunta da API
+        fetch("https://back-yr5z.onrender.com/quiz/pergunta")
+        .then(response => response.json())
+        .then(data => {
+            perguntaEl.textContent = data.pergunta;
+            respostaAEl.textContent = data.resposta_a;
+            respostaBEl.textContent = data.resposta_b;
+            respostaCEl.textContent = data.resposta_c;
+            respostaDEl.textContent = data.resposta_d;
+            respostaCorreta = data.resposta_correta;
+        })
+        .catch(error => {
+            perguntaEl.textContent = "Erro ao carregar pergunta.";
+            console.error("Erro:", error);
+        });
+
+        // Ao enviar a resposta
+        form.addEventListener("submit", event => {
+        event.preventDefault();
+        const respostaSelecionada = form.resposta.value;
+
+        // Impede novas respostas
+        form.querySelectorAll("input").forEach(input => input.disabled = true);
+        form.querySelector("button").disabled = true;
+
+        if (respostaSelecionada === respostaCorreta) {
+            feedbackEl.textContent = "✅ Resposta correta! Redirecionando...";
+            feedbackEl.style.color = "green";
+            setTimeout(() => {
+            if (nextURL) {
+                window.location.href = decodeURIComponent(nextURL);
+            } else {
+                feedbackEl.textContent = "Fim do quiz!";
+            }
+            }, 1500);
+        } else {
+            feedbackEl.innerHTML = `
+            ❌ Resposta incorreta.<br><br>
+            <button id="btn-nova-pergunta">🔄 Tentar outra pergunta</button>
+            <button id="btn-voltar">🏞️ Voltar para a aventura</button>
+            `;
+            feedbackEl.style.color = "red";
+
+            // Botão: tentar novamente
+            document.getElementById("btn-nova-pergunta").addEventListener("click", () => {
+            location.reload(); // recarrega e sorteia nova pergunta
+            });
+
+            // Botão: voltar
+            document.getElementById("btn-voltar").addEventListener("click", () => {
+            window.location.href = "aventura.html";
+            });
+        }
+        });
+
+    </script>
+</body>
+</html>
