@@ -204,7 +204,6 @@
                     });
                 }
 
-                // ✅ Atualiza a barra de progresso com os dados reais
                 const porcentagem = calcularProgressoDescobertas(globalSpeciesCatalog, idsDescobertos);
 
                 const progressBar = document.getElementById('progressBar');
@@ -262,9 +261,17 @@
                     btnFecharCamera.style.display = 'none';
                     btnNovaDescoberta.style.display = 'inline-block';
 
-                    // Redireciona para o link do QR code
-                    window.location.href = decodedText;
+                    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
+                    const isLogado = usuarioData?.token && (usuarioData?.usuario_id || usuarioData?.id);
 
+                    const url = new URL(decodedText);
+                    const especieId = url.searchParams.get("id");
+                    
+                    if(isLogado && especieId){
+                        window.location.href = decodedText;
+                    } else {
+                        window.location.href = `pages/login.html`;
+                    }
                 }).catch(err => {
                     console.error('Erro ao parar a câmera', err);
                 });
