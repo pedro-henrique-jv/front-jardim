@@ -261,18 +261,9 @@
                     btnFecharCamera.style.display = 'none';
                     btnNovaDescoberta.style.display = 'inline-block';
 
-                    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-                    const isLogado = usuarioData?.token && (usuarioData?.usuario_id || usuarioData?.id);
+                    // Redireciona para o link do QR code
+                    window.location.href = decodedText;
 
-                    const url = new URL(decodedText);
-                    const especieId = url.searchParams.get("id");
-                    
-                    if(isLogado && especieId){
-                        const destinoFinal = encodeURIComponent(decodedText);
-                        window.location.href = `pages/quiz.html?id=${especieId}&next=${destinoFinal}`;
-                    } else {
-                        window.location.href = `pages/login.html`;
-                    }
                 }).catch(err => {
                     console.error('Erro ao parar a câmera', err);
                 });

@@ -61,9 +61,18 @@
                 <a href="especies.html" class="btn btn-secondary mt-3">Voltar</a>
             </div>
         </main>
-        <div id="coletar-container" class="text-center my-4" style="display: none;">
-            <button id="btn-coletar" class="btn btn-success">Capturar</button>
-            <p id="msg-coleta" class="mt-2 text-info"></p>
+        <div id="quiz-container" class="container text-dark my-5" style="display: none;">
+            <div class="card p-4 shadow">
+                <h3 class="mb-3">Quiz Rápido!</h3>
+                <p id="pergunta">Carregando pergunta...</p>
+                <div id="alternativas"></div>
+                <button class="btn btn-success mt-3" id="btn-verificar">Verificar</button>
+                <p class="mt-3" id="msg-quiz" class="fw-bold"></p>
+                <div id="acoes-pos-erro" class="mt-3" style="display: none;">
+                    <a href="aventura.html" class="btn btn-secondary me-2">Voltar para Aventura</a>
+                    <button id="btn-nova-pergunta" class="btn btn-warning">Tentar Outra Pergunta</button>
+                </div>
+            </div>
         </div>
         <footer class="footer-box">
             <div class="container">

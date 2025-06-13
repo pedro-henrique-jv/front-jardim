@@ -48,59 +48,115 @@ async function getSpeciesData(id) {
 }
 
 window.onload = async () => {
-    await loadSpeciesData();
+    const especieContainer = document.getElementById("especie-container");
+    const quizContainer = document.getElementById("quiz-container");
+    const alternativasDiv = document.getElementById("alternativas");
+    const msgQuiz = document.getElementById("msg-quiz");
+    const acoesErro = document.getElementById("acoes-pos-erro");
+    const btnVerificar = document.getElementById("btn-verificar");
+    const btnNovaPergunta = document.getElementById("btn-nova-pergunta");
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
+    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
+    const logado = usuarioData && usuarioData.token;
 
-    // Se veio da origem "qr", mostra o botão de coleta
-    if (origem === "qr") {
-        const coletarDiv = document.getElementById("coletar-container");
-        coletarDiv.style.display = "block";
+    async function carregarPergunta() {
+        quizContainer.style.display = "block";
+        especieContainer.style.display = "none";
+        msgQuiz.textContent = "";
+        acoesErro.style.display = "none";
+        alternativasDiv.innerHTML = "";
+        document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
-        const botao = document.getElementById("btn-coletar");
-        botao.addEventListener("click", async () => {
-            const msgEl = document.getElementById("msg-coleta");
+        try {
+            const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/");
+            const quizData = await res.json();
 
-            // Pega os dados mais atualizados do usuário no localStorage
-            const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-            const token = usuarioData?.token;
-            const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
+            document.getElementById("pergunta").textContent = quizData.pergunta;
+            alternativasDiv.innerHTML = `
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resposta" id="respostaA" value="A">
+                    <label class="form-check-label" for="respostaA">${quizData.resposta_a}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resposta" id="respostaB" value="B">
+                    <label class="form-check-label" for="respostaB">${quizData.resposta_b}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resposta" id="respostaC" value="C">
+                    <label class="form-check-label" for="respostaC">${quizData.resposta_c}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resposta" id="respostaD" value="D">
+                    <label class="form-check-label" for="respostaD">${quizData.resposta_d}</label>
+                </div>
+            `;
 
-            if (!token || !usuario_id) {
-                msgEl.textContent = "Você precisa estar logado!.";
-                return;
-            }
-
-            try {
-                const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        usuario_id: usuario_id,
-                        especie_id: especieId
-                    })
-                });
-
-                if (!res.ok) {
-                    const erroTexto = await res.text();
-                    msgEl.textContent = "Erro ao tentar coletar checkpoint.";
-                    console.error("Erro do servidor:", res.status, erroTexto);
+            btnVerificar.onclick = async () => {
+                const respostaSelecionada = document.querySelector('input[name="resposta"]:checked');
+                if (!respostaSelecionada) {
+                    msgQuiz.textContent = "Selecione uma alternativa.";
                     return;
                 }
 
-                const dados = await res.json();
-                msgEl.textContent = dados.mensagem ?? "Checkpoint coletado!";
-            } catch (erro) {
-                msgEl.textContent = "Erro ao tentar coletar checkpoint.";
-                console.error("Erro de rede:", erro);
-            }
-        });
+                if (respostaSelecionada.value === quizData.resposta_correta) {
+                    msgQuiz.textContent = "Correto! Você coletou esta espécie.";
+                    quizContainer.style.display = "none";
+                    especieContainer.style.display = "block";
+                    await loadSpeciesData();
+                    await coletarCheckpoint(); // <- coleta automaticamente
+                } else {
+                    msgQuiz.textContent = "Resposta incorreta!";
+                    acoesErro.style.display = "block";
+                    btnVerificar.disabled = true;
+                }
+            };
+        } catch (error) {
+            document.getElementById("pergunta").textContent = "Erro ao carregar pergunta.";
+            console.error(error);
+        }
+    }
+
+    async function coletarCheckpoint() {
+        const especieId = getURLParameter("id");
+        const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
+        const token = usuarioData?.token;
+
+        if (!token || !usuario_id) return;
+
+        try {
+            const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    usuario_id: usuario_id,
+                    especie_id: especieId
+                })
+            });
+
+            const dados = await res.json();
+            console.log(dados.mensagem ?? "Checkpoint coletado!");
+        } catch (erro) {
+            console.error("Erro ao coletar checkpoint:", erro);
+        }
+    }
+
+    btnNovaPergunta.addEventListener("click", () => {
+        carregarPergunta();
+        btnVerificar.disabled = false;
+    });
+
+    if (origem === "qr" && logado) {
+        await carregarPergunta();
+    } else {
+        await loadSpeciesData();
     }
 };
+
 
 // Função auxiliar para ler parâmetros da URL
 function getURLParameter(nome) {
