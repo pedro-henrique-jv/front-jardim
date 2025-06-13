@@ -75,10 +75,14 @@ window.onload = async () => {
         document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
         try {
-            const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/");
+            const token = usuarioData?.token; 
+            const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
             const quizData = await res.json();
-            console.log(quizData);
-
+            
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
                 <div class="form-check">
