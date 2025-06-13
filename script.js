@@ -77,6 +77,7 @@ window.onload = async () => {
         try {
             const token = usuarioData?.token; 
             const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/", {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
