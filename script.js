@@ -77,6 +77,7 @@ window.onload = async () => {
         try {
             const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/");
             const quizData = await res.json();
+            console.log(quizData);
 
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
