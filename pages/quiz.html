@@ -92,8 +92,7 @@
                 window.location.href = decodeURIComponent(nextURL);
             }, 1000);
         }
-    </script>
-    <script>
+        
         const perguntaEl = document.getElementById("pergunta");
         const respostaAEl = document.getElementById("respostaA");
         const respostaBEl = document.getElementById("respostaB");
@@ -103,10 +102,6 @@
         const feedbackEl = document.getElementById("feedback");
 
         let respostaCorreta = null;
-
-        // Pega o "next" da URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const nextURL = urlParams.get("next");
 
         // Carrega a pergunta da API
         fetch("https://back-yr5z.onrender.com/quiz/pergunta")
@@ -145,7 +140,7 @@
             }, 1500);
         } else {
             feedbackEl.innerHTML = `
-            ❌ Resposta incorreta.<br><br>
+            Resposta incorreta.<br><br>
             <button id="btn-nova-pergunta">🔄 Tentar outra pergunta</button>
             <button id="btn-voltar">🏞️ Voltar para a aventura</button>
             `;
