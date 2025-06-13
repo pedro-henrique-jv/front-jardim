@@ -62,6 +62,11 @@ window.onload = async () => {
     const logado = usuarioData && usuarioData.token;
 
     async function carregarPergunta() {
+        if (!quizContainer || !alternativasDiv || !msgQuiz) {
+            console.warn("Quiz container não encontrado no HTML.");
+            return;
+        }
+
         quizContainer.style.display = "block";
         especieContainer.style.display = "none";
         msgQuiz.textContent = "";
@@ -104,8 +109,8 @@ window.onload = async () => {
                     msgQuiz.textContent = "Correto! Você coletou esta espécie.";
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
+                    await coletarCheckpoint();
                     await loadSpeciesData();
-                    await coletarCheckpoint(); // <- coleta automaticamente
                 } else {
                     msgQuiz.textContent = "Resposta incorreta!";
                     acoesErro.style.display = "block";
@@ -119,7 +124,6 @@ window.onload = async () => {
     }
 
     async function coletarCheckpoint() {
-        const especieId = getURLParameter("id");
         const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
         const token = usuarioData?.token;
 
@@ -145,10 +149,12 @@ window.onload = async () => {
         }
     }
 
-    btnNovaPergunta.addEventListener("click", () => {
-        carregarPergunta();
-        btnVerificar.disabled = false;
-    });
+    if (btnNovaPergunta) {
+        btnNovaPergunta.addEventListener("click", () => {
+            carregarPergunta();
+            btnVerificar.disabled = false;
+        });
+    }
 
     if (origem === "qr" && logado) {
         await carregarPergunta();
