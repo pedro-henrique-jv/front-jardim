@@ -15,7 +15,7 @@ body {
 
 .navbar {
     width: 100%;
-    background: rgba(107, 185, 100, 0.562) !important;
+    background: rgb(17, 105, 25) !important;
     padding: 0 10px;
     margin: 0 auto;
     display: flex;
@@ -255,13 +255,13 @@ body {
 }
 
 .location-section {
-    background: rgba(124, 124, 124, 0.11); 
+    background: rgba(211, 211, 211, 0.596);
     margin: 10px;
     border-radius: 50px;
 }
 
 .login-section {
-    background-color: rgba(124, 124, 124, 0.11);
+    background: rgba(211, 211, 211, 0.596);
     margin: 10px;
     border-radius: 50px;
     font-size: 1.2rem;
@@ -393,7 +393,7 @@ h2 {
 }
 
 #especie-container {
-    background-color: rgba(124, 124, 124, 0.11); 
+    background-color: rgba(211, 211, 211, 0.596); 
     border-radius: 50px;
     box-shadow: none rgba(0,0,0,0.2);
     max-width: 800px;
@@ -445,7 +445,7 @@ h2 {
 }
 
 .catalogo {
-    background-color: rgba(124, 124, 124, 0.11); 
+    background-color: rgba(211, 211, 211, 0.596); 
     padding: 3rem 2rem; 
     border-radius: 50px;
     margin: 5rem auto;
@@ -465,7 +465,7 @@ h2 {
 }
 
 .catalogo button.btn {
-    background-color: #4caf50;
+    background-color: rgb(17, 105, 25);
     color: #ffffff;
     font-size: 1.2rem;
     font-weight: 500;
