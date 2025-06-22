@@ -87,23 +87,32 @@ window.onload = async () => {
             
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
-                <div class="form-check">
+                <div class="form-check p-3 mb-2 rounded border border-success bg-light">
                     <input class="form-check-input" type="radio" name="resposta" id="respostaA" value="A">
-                    <label class="form-check-label" for="respostaA">${quizData.resposta_a}</label>
+                    <label class="form-check-label fw-semibold" for="respostaA">
+                        A) ${quizData.resposta_a}
+                    </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check p-3 mb-2 rounded border border-success bg-light">
                     <input class="form-check-input" type="radio" name="resposta" id="respostaB" value="B">
-                    <label class="form-check-label" for="respostaB">${quizData.resposta_b}</label>
+                    <label class="form-check-label fw-semibold" for="respostaB">
+                        B) ${quizData.resposta_b}
+                    </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check p-3 mb-2 rounded border border-success bg-light">
                     <input class="form-check-input" type="radio" name="resposta" id="respostaC" value="C">
-                    <label class="form-check-label" for="respostaC">${quizData.resposta_c}</label>
+                    <label class="form-check-label fw-semibold" for="respostaC">
+                        C) ${quizData.resposta_c}
+                    </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check p-3 mb-2 rounded border border-success bg-light">
                     <input class="form-check-input" type="radio" name="resposta" id="respostaD" value="D">
-                    <label class="form-check-label" for="respostaD">${quizData.resposta_d}</label>
+                    <label class="form-check-label fw-semibold" for="respostaD">
+                        D) ${quizData.resposta_d}
+                    </label>
                 </div>
             `;
+
 
             btnVerificar.onclick = async () => {
                 const respostaSelecionada = document.querySelector('input[name="resposta"]:checked');
