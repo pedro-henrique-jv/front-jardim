@@ -13,10 +13,8 @@ function setImageSrc(id, src) {
 }
 
 async function loadSpeciesData() {
-    const speciesId = getURLParameter("id");  
-    if (!speciesId) {
-        return;
-    }
+    const speciesId = getURLParameter("id");
+    if (!speciesId) return;
 
     const speciesData = await getSpeciesData(speciesId);
 
@@ -40,7 +38,7 @@ async function getSpeciesData(id) {
     try {
         const response = await fetch('../especies.json');
         const speciesList = await response.json();
-        return speciesList.find(species => species.id.toLowerCase() === id.toLowerCase()); 
+        return speciesList.find(species => species.id.toLowerCase() === id.toLowerCase());
     } catch (error) {
         console.error('Erro ao carregar o arquivo JSON:', error);
         return null;
@@ -61,6 +59,15 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
+    // 🔥 Verificar se veio do QR e não está logado
+    if (origem === "qr" && !logado) {
+        const path = window.location.pathname;
+        const estaNaRaiz = path.endsWith("index.html") || path === "/" || /^\/[^/]+\/?$/.test(path);
+        const caminhoLogin = estaNaRaiz ? "pages/login.html" : "../pages/login.html";
+        window.location.href = caminhoLogin;
+        return;
+    }
+
     async function carregarPergunta() {
         if (!quizContainer || !alternativasDiv || !msgQuiz) {
             console.warn("Quiz container não encontrado no HTML.");
@@ -75,7 +82,7 @@ window.onload = async () => {
         document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
         try {
-            const token = usuarioData?.token; 
+            const token = usuarioData?.token;
             const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/", {
                 method: "GET",
                 headers: {
@@ -83,8 +90,9 @@ window.onload = async () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
+
             const quizData = await res.json();
-            
+
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
                 <div class="form-check p-3 mb-2 rounded border border-success bg-light">
@@ -112,7 +120,6 @@ window.onload = async () => {
                     </label>
                 </div>
             `;
-
 
             btnVerificar.onclick = async () => {
                 const respostaSelecionada = document.querySelector('input[name="resposta"]:checked');
@@ -179,35 +186,18 @@ window.onload = async () => {
     }
 };
 
-
-// Função auxiliar para ler parâmetros da URL
-function getURLParameter(nome) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(nome);
-}
-
-
-// Função auxiliar para ler parâmetros da URL (src, id, etc.)
-function getURLParameter(nome) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(nome);
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const userNameSpan = document.getElementById("userNameSpan");
     const userDropdownMenu = document.getElementById("userDropdownMenu");
 
-    // Detecta se estamos na raiz ou em uma subpasta
     const path = window.location.pathname;
     const estaNaRaiz = path.endsWith("index.html") || path === "/" || /^\/[^/]+\/?$/.test(path);
 
-    // Caminhos corretos
     const caminhoLogin = estaNaRaiz ? "pages/login.html" : "../pages/login.html";
     const caminhoCadastro = estaNaRaiz ? "pages/cadastro.html" : "../pages/cadastro.html";
 
     if (usuario && usuario.nome) {
-        // Usuário logado
         userNameSpan.textContent = usuario.nome;
 
         userDropdownMenu.innerHTML = `
@@ -218,24 +208,16 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutBtn?.addEventListener("click", () => {
             localStorage.removeItem("usuario");
 
-            // Redireciona para index.html do repositório
             const partes = window.location.pathname.split("/");
             const repo = partes.length > 1 ? partes[1] : "";
             window.location.href = `${window.location.origin}/${repo ? repo + "/" : ""}index.html`;
         });
     } else {
-        // Usuário não logado
-        userNameSpan.innerHTML = `<i class="bi bi-person" style="font-size: 2.5rem; color:rgb(255, 255, 255);"></i>`;
+        userNameSpan.innerHTML = `<i class="bi bi-person" style="font-size: 2.5rem; color:white;"></i>`;
 
-        // Sempre exibe login e cadastro
         userDropdownMenu.innerHTML = `
             <li><a class="dropdown-item" href="${caminhoLogin}">Login</a></li>
             <li><a class="dropdown-item" href="${caminhoCadastro}">Cadastre-se</a></li>
         `;
     }
 });
-
-
-
-
-
