@@ -61,13 +61,24 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
 
         const dados = await res.json();
 
-        const jaCapturada = dados.plantas?.some(planta => planta.especie_id === especieId);
+        if (!Array.isArray(dados) && !Array.isArray(dados.plantas)) {
+            console.error("Formato de dados inesperado:", dados);
+            return false;
+        }
+
+        const lista = dados.plantas ?? dados; // Serve para garantir caso venha direto um array
+
+        const jaCapturada = lista.some(planta => 
+            planta.especie_id?.toLowerCase() === especieId.toLowerCase()
+        );
+
         return jaCapturada;
     } catch (erro) {
         console.error("Erro ao verificar checkpoint:", erro);
         return false;
     }
 }
+
 
 window.onload = async () => {
     const especieContainer = document.getElementById("especie-container");
@@ -84,13 +95,21 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
-    if (origem === "qr" && !logado) {
-        const path = window.location.pathname;
-        const estaNaRaiz = path.endsWith("index.html") || path === "/" || /^\/[^/]+\/?$/.test(path);
-        const caminhoLogin = estaNaRaiz ? "pages/login.html" : "../pages/login.html";
-        window.location.href = caminhoLogin;
-        return;
+    if (origem === "qr" && logado) {
+        const jaCapturou = await verificarSeJaCapturou(especieId, usuarioData);
+
+        if (jaCapturou) {
+            mensagemJaCapturado.style.display = "block";
+            quizContainer.style.display = "none";
+            especieContainer.style.display = "block";
+            await loadSpeciesData();
+        } else {
+            await carregarPergunta();
+        }
+    } else {
+        await loadSpeciesData();
     }
+
 
     async function carregarPergunta() {
         quizContainer.style.display = "block";
@@ -140,6 +159,9 @@ window.onload = async () => {
 
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
+
+                    const mensagemParabens = document.getElementById("mensagem-parabens");
+                    mensagemParabens.style.display = "block";
 
                     await coletarCheckpoint();
                     await loadSpeciesData();
