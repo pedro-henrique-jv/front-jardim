@@ -784,6 +784,92 @@ h2 {
     font-size: 2.5rem;
 }
 
+/* Container do Quiz */
+#quiz-container {
+    background-color: #f0fdf4;
+    border: 2px solid #198754;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 700px;
+    margin: 40px auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Pergunta */
+#pergunta {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #14532d;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Alternativas */
+.form-check {
+    background-color: white;
+    border: 2px solid #bbf7d0;
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-check:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input {
+    border-color: #198754;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* Label das alternativas */
+.form-check-label {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #14532d;
+}
+
+/* Mensagens */
+#msg-quiz {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #d32f2f;
+    margin-bottom: 15px;
+}
+
+/* Ações pós erro */
+#acoes-pos-erro {
+    display: none;
+    text-align: center;
+}
+
+/* Botões */
+#btn-verificar,
+#btn-nova-pergunta {
+    background-color: #198754;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#btn-verificar:hover,
+#btn-nova-pergunta:hover {
+    background-color: #14532d;
+}
+
+
 @media (max-width: 768px) {
     .background {
         background-image: url('../assets/fundo2.png'); 
