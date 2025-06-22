@@ -51,9 +51,6 @@
                 </div>
             </div>
         </nav>
-        <div id="mensagem-parabens" class="alert alert-success text-center mt-4" style="display: none;">
-            🎉 <strong>Parabéns, explorador(a)!</strong> Você descobriu uma nova espécie durante sua aventura!
-        </div>
         <main class="container pt-3 text-light">
             <div id="especie-container" class=" mx-auto text-center">
                 <h1 id="nome-popular" style="color:rgb(17, 105, 25);"></h1>
@@ -73,7 +70,7 @@
                 <div id="alternativas"></div>
                 <button class="btn btn-success mt-3" id="btn-verificar">Verificar</button>
                 <p class="mt-3" id="msg-quiz" class="fw-bold"></p>
-                <div id="acoes-pos-erro" class="mt-3 d-flex flex-column align-items-center style="display: none;">
+                <div id="acoes-pos-erro" class="mt-3" style="display: none;">
                     <a href="aventura.html" class="btn btn-secondary me-2" style="color: rgb(255, 255, 255); background-color: #198754; border-radius: 25px;">Voltar para Aventura</a>
                     <button id="btn-nova-pergunta" class="btn btn-warning m-2">Tentar Outra Pergunta</button>
                 </div>
@@ -113,17 +110,6 @@
                 }
             }
         }
-
-        window.onload = function() {
-            const ref = document.referrer.toLowerCase();
-            const mensagemParabens = document.getElementById('mensagem-parabens');
-
-            if (ref.includes('aventura.html') || ref.includes('aventura')) {
-                if (mensagemParabens) {
-                    mensagemParabens.style.display = 'block';
-                }
-            }
-        };
     </script>
 </body>
 </html>
