@@ -542,7 +542,12 @@ h2 {
     overflow: hidden;
 }
 
-
+.qr-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
 .btn-voltar {
     display: inline-block;
@@ -651,14 +656,6 @@ h2 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-#qr-reader {
-    width: 90%;
-    max-width: 400px;
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
 }
 
 .btn-camera {

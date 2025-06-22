@@ -57,19 +57,32 @@
                 class="img-fluid" 
                 style="max-width: 300px; width: 100%; height: auto;">
         </div>
-        <div class="jogo-arvore m-20 mt-0" style="background-color: rgba(211, 211, 211, 0.596); border-radius: 40px;">
+        <div class="jogo-arvore m-20 mt-0" style="background-color: rgba(211, 211, 211, 0.801); border-radius: 40px;">
             <section class="container">
-                <div class="text-center mb-4">
-                    <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Nova Descoberta</h1>
+                <div class="text-center mb-4" style="padding-top: 20px;">
+                    <h1 class="text-center mb-4" 
+                        style="color: rgb(17, 105, 25); border-bottom: 3px solid rgb(17, 105, 25); display: inline-block; padding-bottom: 5px;">
+                        Nova Descoberta
+                    </h1>
+                    <br>
                     <button id="btnNovaDescoberta" class="btn btn-success" style="border-radius: 20px;" title="Nova Descoberta">
                         <i class="bi bi-camera-fill" style="font-size: 2.5rem;"></i>
                     </button>
                     <button id="btnFecharCamera" class="btn btn-danger mb-2" style="display:none;">Fechar Câmera</button>
-                    <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto; display:none;"></div>
+                    <div id="qr-reader" 
+                        style="width: 100%; max-width: 400px; margin: 0 auto; display:none;">
+                    </div>
                 </div>
-                <h1 class="text-center mb-2" style="color: rgb(17, 105, 25);">Progresso na Aventura</h1>
+
+                <div class="text-center mb-2">
+                    <h1 
+                        style="color: rgb(17, 105, 25); border-bottom: 3px solid rgb(17, 105, 25); display: inline-block; padding-bottom: 5px;">
+                        Progresso na Aventura
+                    </h1>
+                </div>
+
                 <div class="progress-container position-relative mb-4" style="height: 30px;">
-                    <div class="progress" style="height: 100%;border: 3px solid rgb(117, 136, 118);; border-radius: 15px;">
+                    <div class="progress" style="height: 100%;border: 3px solid rgb(117, 136, 118); border-radius: 15px;">
                         <div class="progress-bar" 
                             role="progressbar" 
                             style="width: 0%; background-color: rgb(41, 185, 22);" 
@@ -86,8 +99,15 @@
                     </div>
                 </div>
             </section>
+
             <section class="container py-1">
-                <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Minhas Descobertas</h1>
+                <div class="text-center mb-4">
+                    <h1 
+                        style="color: rgb(17, 105, 25); border-bottom: 3px solid rgb(17, 105, 25); display: inline-block; padding-bottom: 5px;">
+                        Minhas Descobertas
+                    </h1>
+                </div>
+
                 <div id="carouselDescobertas" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner" id="plantas-descobertas">
                     
@@ -104,6 +124,7 @@
                 </div>
             </section>
         </div>
+
         <footer class="footer-box">
             <div class="container">
                 <div class="row justify-content-center">
