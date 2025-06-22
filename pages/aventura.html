@@ -51,8 +51,14 @@
                 </div>
             </div>
         </nav>
-        <div class="jogo-arvore m-20" style="background-color: rgba(211, 211, 211, 0.596); border-radius: 40px;">
-            <section class="container mt-5 py-5">
+        <div class="text-center" style="margin-bottom: -18px;">
+            <img src="../assets/jerivaldo-fundo.png" 
+                alt="Jerivaldo" 
+                class="img-fluid" 
+                style="max-width: 300px; width: 100%; height: auto;">
+        </div>
+        <div class="jogo-arvore m-20 mt-0" style="background-color: rgba(211, 211, 211, 0.596); border-radius: 40px;">
+            <section class="container">
                 <div class="text-center mb-4">
                     <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Nova Descoberta</h1>
                     <button id="btnNovaDescoberta" class="btn btn-success" style="border-radius: 20px;" title="Nova Descoberta">
@@ -82,7 +88,20 @@
             </section>
             <section class="container py-1">
                 <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Minhas Descobertas</h1>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
+                <div id="carouselDescobertas" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="plantas-descobertas">
+                    
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDescobertas" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDescobertas" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
             </section>
         </div>
         <footer class="footer-box">
@@ -193,28 +212,32 @@
                 if (especiesParaExibir.length === 0) {
                     container.innerHTML = '<p class="text-center">Nenhuma descoberta ainda.</p>';
                 } else {
-                    especiesParaExibir.forEach(especie => {
-                        const card = document.createElement('div');
-                        card.className = 'col';
+                    container.innerHTML = '';
+                    especiesParaExibir.forEach((especie, index) => {
+                        const item = document.createElement('div');
+                        item.className = `carousel-item${index === 0 ? ' active' : ''}`;
 
                         let imageUrl = especie.imagem;
                         if (imageUrl && !imageUrl.startsWith('http')) {
                             imageUrl = `/${repoName}${imageUrl.replace(/^\.\.\//, '/').replace(/^\.\//, '/')}`;
                         }
 
-                        const finalImageUrl = imageUrl || 'https://placehold.co/150x150/cccccc/000000?text=Sem+Imagem';
+                        const finalImageUrl = imageUrl || 'https://placehold.co/600x400/cccccc/000000?text=Sem+Imagem';
 
-                        card.innerHTML = `
-                            <div class="card h-100 bg-dark text-light border-success">
-                                <img src="${finalImageUrl}" class="card-img-top" alt="${especie.nome_cientifico || especie.nome || 'Espécie'}">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">${especie.nome || 'Nome desconhecido'}</h5>
-                                    ${especie.nome_cientifico ? `<p class="card-text text-center fst-italic">${especie.nome_cientifico}</p>` : ''}
+                        item.innerHTML = `
+                            <div class="d-flex justify-content-center">
+                                <div class="card bg-dark text-light border-success" style="max-width: 500px;">
+                                    <img src="${finalImageUrl}" class="card-img-top" alt="${especie.nome_cientifico || especie.nome || 'Espécie'}">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">${especie.nome || 'Nome desconhecido'}</h5>
+                                        ${especie.nome_cientifico ? `<p class="card-text text-center fst-italic">${especie.nome_cientifico}</p>` : ''}
+                                    </div>
                                 </div>
                             </div>
                         `;
-                        container.appendChild(card);
+                        container.appendChild(item);
                     });
+
                 }
 
                 const porcentagem = calcularProgressoDescobertas(globalSpeciesCatalog, idsDescobertos);
