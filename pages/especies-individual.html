@@ -51,6 +51,9 @@
                 </div>
             </div>
         </nav>
+        <div id="mensagem-parabens" class="alert alert-success text-center mt-4" style="display: none;">
+            🎉 <strong>Parabéns, explorador(a)!</strong> Você descobriu uma nova espécie durante sua aventura!
+        </div>
         <main class="container pt-3 text-light">
             <div id="especie-container" class=" mx-auto text-center">
                 <h1 id="nome-popular" style="color:rgb(17, 105, 25);"></h1>
@@ -110,6 +113,17 @@
                 }
             }
         }
+
+        window.onload = function() {
+            const ref = document.referrer.toLowerCase();
+            const mensagemParabens = document.getElementById('mensagem-parabens');
+
+            if (ref.includes('aventura.html') || ref.includes('aventura')) {
+                if (mensagemParabens) {
+                    mensagemParabens.style.display = 'block';
+                }
+            }
+        };
     </script>
 </body>
 </html>
