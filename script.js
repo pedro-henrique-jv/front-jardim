@@ -144,6 +144,7 @@ window.onload = async () => {
                 } else {
                     msgQuiz.textContent = "Resposta incorreta!";
                     acoesErro.style.display = "block";
+                    acoesErro.scrollIntoView({ behavior: 'smooth' });
                     btnVerificar.disabled = true;
                 }
             };
