@@ -300,7 +300,12 @@
                         item.innerHTML = `
                             <div class="d-flex justify-content-center">
                                 <div class="card bg-dark text-light border-success mx-auto" style="max-width: 500px;">
-                                    <img src="${finalImageUrl}" class="card-img-top" alt="${especie.nome_cientifico || especie.nome || 'Espécie'}">
+                                    <img 
+                                        src="${finalImageUrl}" 
+                                        class="card-img-top" 
+                                        alt="${especie.nome_cientifico || especie.nome || 'Espécie'}" 
+                                        style="max-width: 100%; height: auto; object-fit: contain;" 
+                                    >
                                     <div class="card-body">
                                         <h5 class="card-title text-center">${especie.nome || 'Nome desconhecido'}</h5>
                                         ${especie.nome_cientifico ? `<p class="card-text">${especie.nome_cientifico}</p>` : ''}
@@ -308,6 +313,7 @@
                                 </div>
                             </div>
                         `;
+
                         container.appendChild(item);
                     });
 
