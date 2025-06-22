@@ -129,9 +129,16 @@ window.onload = async () => {
                 }
 
                 if (respostaSelecionada.value === quizData.resposta_correta) {
-                    msgQuiz.textContent = "Correto! Você coletou esta espécie.";
+                    // Mensagem parabenizando o usuário
+                    msgQuiz.innerHTML = `
+                        <div style="padding: 10px; border-radius: 10px; background-color: #d1e7dd; color: #0f5132; font-weight: 700; font-size: 1.3rem; text-align: center; box-shadow: 0 0 10px #198754;">
+                            🎉 Parabéns! Você acertou a pergunta e coletou esta espécie! 🎉
+                        </div>
+                    `;
+
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
+
                     await coletarCheckpoint();
                     await loadSpeciesData();
                 } else {
@@ -140,6 +147,7 @@ window.onload = async () => {
                     btnVerificar.disabled = true;
                 }
             };
+
         } catch (error) {
             document.getElementById("pergunta").textContent = "Erro ao carregar pergunta.";
             console.error(error);
