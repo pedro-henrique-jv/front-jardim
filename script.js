@@ -25,7 +25,6 @@ async function loadSpeciesData() {
         setElementText("descricao", speciesData.descricao);
         setElementText("fonte", speciesData.fonte ? `Fonte: ${speciesData.fonte}` : "");
     } else {
-        console.warn("Espécie não encontrada:", speciesId);
         setElementText("nome-popular", "Espécie não encontrada");
         setElementText("nome-cientifico", "");
         setImageSrc("imagem", "");
@@ -39,8 +38,7 @@ async function getSpeciesData(id) {
         const response = await fetch('../especies.json');
         const speciesList = await response.json();
         return speciesList.find(species => species.id.toLowerCase() === id.toLowerCase());
-    } catch (error) {
-        console.error('Erro ao carregar o arquivo JSON:', error);
+    } catch {
         return null;
     }
 }
@@ -62,19 +60,17 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
         const dados = await res.json();
 
         if (!Array.isArray(dados) && !Array.isArray(dados.plantas)) {
-            console.error("Formato de dados inesperado:", dados);
             return false;
         }
 
         const lista = dados.plantas ?? dados;
 
-        const jaCapturada = lista.some(planta =>
+        const jaCapturada = lista.some(planta => 
             planta.especie_id?.toLowerCase() === especieId.toLowerCase()
         );
 
         return jaCapturada;
-    } catch (erro) {
-        console.error("Erro ao verificar checkpoint:", erro);
+    } catch {
         return false;
     }
 }
@@ -95,7 +91,9 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
-    // Função para carregar a pergunta do quiz
+    // Verifica se já capturou localmente
+    const capturouLocal = localStorage.getItem(`capturou_${especieId}`) === "true";
+
     async function carregarPergunta() {
         quizContainer.style.display = "block";
         especieContainer.style.display = "none";
@@ -104,8 +102,6 @@ window.onload = async () => {
         alternativasDiv.innerHTML = "";
         if (mensagemParabens) mensagemParabens.style.display = "none";
         if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
-        btnVerificar.disabled = false;
-
         document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
         try {
@@ -148,6 +144,10 @@ window.onload = async () => {
                     if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
 
                     await coletarCheckpoint();
+
+                    // Salva localmente que essa espécie já foi capturada
+                    localStorage.setItem(`capturou_${especieId}`, "true");
+
                     await loadSpeciesData();
                 } else {
                     msgQuiz.textContent = "Resposta incorreta!";
@@ -157,13 +157,11 @@ window.onload = async () => {
                 }
             };
 
-        } catch (error) {
+        } catch {
             document.getElementById("pergunta").textContent = "Erro ao carregar pergunta.";
-            console.error(error);
         }
     }
 
-    // Função para enviar checkpoint quando usuário acerta o quiz
     async function coletarCheckpoint() {
         const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
         const token = usuarioData?.token;
@@ -171,7 +169,7 @@ window.onload = async () => {
         if (!token || !usuario_id) return;
 
         try {
-            const res = await fetch("https://back-yr5z.onrender.com/plantas/", {
+            await fetch("https://back-yr5z.onrender.com/plantas/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -182,22 +180,23 @@ window.onload = async () => {
                     especie_id: especieId
                 })
             });
-
-            const dados = await res.json();
-            console.log(dados.mensagem ?? "Checkpoint coletado!");
-        } catch (erro) {
-            console.error("Erro ao coletar checkpoint:", erro);
+        } catch {
+            // Falha ao coletar checkpoint pode ser ignorada aqui
         }
     }
 
     if (btnNovaPergunta) {
         btnNovaPergunta.addEventListener("click", () => {
             carregarPergunta();
+            btnVerificar.disabled = false;
+            if (mensagemParabens) mensagemParabens.style.display = "none";
+            if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
         });
     }
 
     if (origem === "qr" && logado) {
-        const jaCapturou = await verificarSeJaCapturou(especieId, usuarioData);
+        const jaCapturouServidor = await verificarSeJaCapturou(especieId, usuarioData);
+        const jaCapturou = capturouLocal || jaCapturouServidor;
 
         if (jaCapturou) {
             if (mensagemJaCapturado) mensagemJaCapturado.style.display = "block";
