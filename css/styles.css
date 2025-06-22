@@ -658,37 +658,112 @@ h2 {
     flex-direction: column;
 }
 
-#carouselDescobertas .card-img-top {
-    object-fit: cover;
-    width: 100%;
-    height: 350px;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+/* Container geral do carrossel */
+#carouselDescobertas {
+  background: #2e4d25; /* verde escuro */
+  border-radius: 30px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 0 20px #1b2a14;
+  border: 4px solid #56a03f;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Cada item do carrossel */
 #carouselDescobertas .carousel-item {
-    display: flex;
-    justify-content: center;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgb(17, 105, 25);
-    background-size: 60% 60%;
-    border-radius: 50%;
-    padding: 15px;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    filter: drop-shadow(0 0 5px #000);
-    opacity: 1;
-}
-
+/* Card com borda e sombra */
 #carouselDescobertas .card {
-    border: 3px solid rgb(17, 105, 25);
-    border-radius: 1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  max-width: 480px;
+  width: 100%;
+  background: linear-gradient(145deg, #3a6a2a, #27521a);
+  border-radius: 25px;
+  border: 3px solid #8bc34a;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+  color: #e6f1d4;
+}
+
+/* Imagem dentro do card */
+#carouselDescobertas .card-img-top {
+  border-radius: 25px 25px 0 0;
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 2px solid #6daa3f;
+  box-shadow: inset 0 0 20px #8bc34a;
+  transition: transform 0.3s ease;
+}
+
+#carouselDescobertas .card-img-top:hover {
+  transform: scale(1.05);
+}
+
+/* Título e texto */
+#carouselDescobertas .card-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 3px #234114;
+}
+
+#carouselDescobertas .card-text {
+  font-style: italic;
+  color: #cde5a0;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: -10px;
+}
+
+/* Controle do carrossel */
+#carouselDescobertas .carousel-control-prev,
+#carouselDescobertas .carousel-control-next {
+  filter: drop-shadow(0 0 3px #8bc34a);
+  width: 45px;
+  height: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+#carouselDescobertas .carousel-control-prev:hover,
+#carouselDescobertas .carousel-control-next:hover {
+  opacity: 1;
+}
+
+#carouselDescobertas .carousel-control-prev-icon,
+#carouselDescobertas .carousel-control-next-icon {
+  background-size: 100%, 100%;
+  filter: invert(61%) sepia(85%) saturate(635%) hue-rotate(74deg) brightness(86%) contrast(89%);
+}
+
+/* Mensagem "Nenhuma descoberta" */
+#plantas-descobertas > p {
+  font-size: 1.25rem;
+  color: #d4e0a8;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+  #carouselDescobertas {
+    max-width: 95vw;
+    padding: 10px;
+  }
+
+  #carouselDescobertas .card-img-top {
+    height: 220px;
+  }
+
+  #carouselDescobertas .card-title {
+    font-size: 1.2rem;
+  }
 }
 
 
