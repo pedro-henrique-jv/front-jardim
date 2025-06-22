@@ -110,7 +110,7 @@
 
                 <div id="carouselDescobertas" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                     <div class="carousel-inner" id="plantas-descobertas">
-                        
+
                     </div>
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselDescobertas" data-bs-slide="prev" aria-label="Anterior">
@@ -259,10 +259,8 @@
                         container.appendChild(item);
                     });
 
-                    // Mostrar controles apenas se tiver mais de 1 item
                     const controlesPrev = document.querySelector('#carouselDescobertas .carousel-control-prev');
                     const controlesNext = document.querySelector('#carouselDescobertas .carousel-control-next');
-
                     if (especiesParaExibir.length > 1) {
                         controlesPrev.style.display = 'flex';
                         controlesNext.style.display = 'flex';
@@ -270,6 +268,17 @@
                         controlesPrev.style.display = 'none';
                         controlesNext.style.display = 'none';
                     }
+
+                    // Inicializa o carrossel do Bootstrap
+                    const carouselElement = document.querySelector('#carouselDescobertas');
+                    let carouselInstance = bootstrap.Carousel.getInstance(carouselElement);
+                    if (!carouselInstance) {
+                        carouselInstance = new bootstrap.Carousel(carouselElement, {
+                            interval: false,
+                            ride: false
+                        });
+                    }
+
                 }
 
 

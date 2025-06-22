@@ -673,7 +673,6 @@ h2 {
 
 /* Cada item do carrossel */
 #carouselDescobertas .carousel-item {
-  display: flex !important;
   justify-content: center;
   align-items: center;
   transition: transform 0.6s ease, opacity 0.6s ease;
