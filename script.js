@@ -59,7 +59,7 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
-    // 🔥 Verificar se veio do QR e não está logado
+    //  Verificar se veio do QR e não está logado
     if (origem === "qr" && !logado) {
         const path = window.location.pathname;
         const estaNaRaiz = path.endsWith("index.html") || path === "/" || /^\/[^/]+\/?$/.test(path);
