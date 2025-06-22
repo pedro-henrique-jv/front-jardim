@@ -197,6 +197,9 @@
                         <span class="visually-hidden">Próximo</span>
                     </button>
                 </div>
+                <div class="text-center mt-2 mb-4" style="color: rgb(17, 105, 25); font-weight: 600;" id="contadorDescobertas">
+                    0 / 0
+                </div>
             </section>
         </div>
         <footer class="footer-box">
@@ -223,19 +226,14 @@
     <script src="../script.js"></script>
     <script>
         async function carregarPlantasDescobertas() {
-            const container = document.getElementById("plantas-descobertas");
-            container.innerHTML =
-                '<p class="text-center text-muted">Carregando suas descobertas...</p>';
+            const container = document.getElementById('plantas-descobertas');
+            container.innerHTML = '<p class="text-center text-muted">Carregando suas descobertas...</p>';
 
             try {
-                const storedUserData = localStorage.getItem("usuario");
+                const storedUserData = localStorage.getItem('usuario');
 
                 if (!storedUserData) {
-                    console.warn(
-                        "Dados do usuário não encontrados. Usuário não logado."
-                    );
-                    container.innerHTML =
-                        '<p class="text-center text-danger">Você precisa estar logado para ver suas descobertas.</p>';
+                    container.innerHTML = '<p class="text-center text-danger">Você precisa estar logado para ver suas descobertas.</p>';
                     return;
                 }
 
@@ -244,115 +242,65 @@
                     const parsedUserObject = JSON.parse(storedUserData);
                     token = parsedUserObject.token;
 
-                    if (typeof token !== "string" || token.trim() === "") {
-                        throw new Error(
-                            'Propriedade "token" inválida ou ausente no objeto de usuário salvo.'
-                        );
-                    }
-                } catch (parseError) {
-                    console.error(
-                        "Erro ao parsear dados do usuário do localStorage:",
-                        parseError
-                    );
-                    container.innerHTML =
-                        '<p class="text-center text-danger">Erro ao processar dados de autenticação. Por favor, faça login novamente.</p>';
-                    localStorage.removeItem("usuario");
+                    if (!token) throw new Error('Token não encontrado.');
+                } catch (error) {
+                    container.innerHTML = '<p class="text-center text-danger">Erro de autenticação. Faça login novamente.</p>';
+                    localStorage.removeItem('usuario');
                     return;
                 }
 
-                if (!token) {
-                    console.warn(
-                        "Token JWT não encontrado no objeto de usuário. Usuário não logado."
-                    );
-                    container.innerHTML =
-                        '<p class="text-center text-danger">Erro de token. Por favor, faça login novamente.</p>';
-                    return;
-                }
-
-                const repoName = "front-jardim";
+                const repoName = 'front-jardim';
                 const catalogPath = `/${repoName}/especies.json`;
 
                 let globalSpeciesCatalog = [];
                 try {
                     const responseCatalog = await fetch(catalogPath);
-                    if (!responseCatalog.ok) {
-                        throw new Error(
-                            `Erro ao carregar o catálogo de espécies: ${responseCatalog.status} ${responseCatalog.statusText}`
-                        );
-                    }
+                    if (!responseCatalog.ok) throw new Error('Erro ao carregar o catálogo.');
                     globalSpeciesCatalog = await responseCatalog.json();
-                    console.log("Catálogo de espécies:", globalSpeciesCatalog);
-                } catch (catalogError) {
-                    console.error("Erro ao carregar o catálogo:", catalogError);
-                    container.innerHTML = `<p class="text-center text-danger">Erro ao carregar o catálogo de espécies: ${catalogError.message}</p>`;
+                } catch (error) {
+                    container.innerHTML = `<p class="text-center text-danger">${error.message}</p>`;
                     return;
                 }
 
-                const respostaDescobertas = await fetch(
-                    "https://back-yr5z.onrender.com/plantas/",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+                const respostaDescobertas = await fetch('https://back-yr5z.onrender.com/plantas/', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
 
                 if (!respostaDescobertas.ok) {
-                    const errorDetails = await respostaDescobertas.text();
-                    let errorMessage = `Erro ao buscar suas descobertas: ${respostaDescobertas.status} - ${respostaDescobertas.statusText}.`;
                     if (respostaDescobertas.status === 401) {
-                        errorMessage =
-                            "Não autorizado. Seu token pode ter expirado ou é inválido. Faça login novamente.";
-                        localStorage.removeItem("usuario");
+                        localStorage.removeItem('usuario');
+                        throw new Error('Token expirado ou inválido. Faça login novamente.');
                     }
-                    if (errorDetails) {
-                        errorMessage += ` Detalhes: ${errorDetails}`;
-                    }
-                    throw new Error(errorMessage);
+                    throw new Error('Erro ao buscar suas descobertas.');
                 }
 
                 const descobertasDoUsuario = await respostaDescobertas.json();
-                const idsDescobertos = descobertasDoUsuario.map(
-                    (d) => d.especie_id
-                );
-                console.log("IDs descobertos:", idsDescobertos);
+                const idsDescobertos = descobertasDoUsuario.map(d => d.especie_id);
 
-                const especiesParaExibir = globalSpeciesCatalog.filter((especie) =>
-                    idsDescobertos.includes(especie.id)
+                const especiesParaExibir = globalSpeciesCatalog.filter(e =>
+                    idsDescobertos.includes(e.id)
                 );
 
-                container.innerHTML = "";
+                container.innerHTML = '';
 
                 if (especiesParaExibir.length === 0) {
-                    container.innerHTML =
-                        '<p class="text-center">Nenhuma descoberta ainda.</p>';
+                    container.innerHTML = '<p class="text-center">Nenhuma descoberta ainda.</p>';
                 } else {
                     especiesParaExibir.forEach((especie, index) => {
-                        const item = document.createElement("div");
-                        item.className = `carousel-item${
-                            index === 0 ? " active" : ""
-                        }`;
+                        const item = document.createElement('div');
+                        item.className = `carousel-item${index === 0 ? ' active' : ''}`;
 
                         let imageUrl = especie.imagem;
-                        if (imageUrl && !imageUrl.startsWith("http")) {
-                            imageUrl = `/${repoName}${imageUrl
-                                .replace(/^\.\.\//, "/")
-                                .replace(/^\.\//, "/")}`;
+                        if (imageUrl && !imageUrl.startsWith('http')) {
+                            imageUrl = `/${repoName}${imageUrl.replace(/^\.\.\//, '/').replace(/^\.\//, '/')}`;
                         }
 
-                        const finalImageUrl =
-                            imageUrl ||
-                            "https://placehold.co/600x400/cccccc/000000?text=Sem+Imagem";
+                        const finalImageUrl = imageUrl || 'https://placehold.co/600x400/cccccc/000000?text=Sem+Imagem';
 
                         item.innerHTML = `
                             <div class="d-flex justify-content-center">
                                 <div class="card bg-dark text-light border-success mx-auto" style="max-width: 500px;">
-                                    <img 
-                                        src="${finalImageUrl}" 
-                                        class="card-img-top" 
-                                        alt="${especie.nome_cientifico || especie.nome || 'Espécie'}" 
-                                        style="max-width: 100%; height: auto; object-fit: contain;" 
-                                    >
+                                    <img src="${finalImageUrl}" class="card-img-top" alt="${especie.nome_cientifico || especie.nome || 'Espécie'}">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">${especie.nome || 'Nome desconhecido'}</h5>
                                         ${especie.nome_cientifico ? `<p class="card-text">${especie.nome_cientifico}</p>` : ''}
@@ -360,52 +308,46 @@
                                 </div>
                             </div>
                         `;
-
                         container.appendChild(item);
                     });
 
-                    const controlesPrev = document.querySelector(
-                        "#carouselDescobertas .carousel-control-prev"
-                    );
-                    const controlesNext = document.querySelector(
-                        "#carouselDescobertas .carousel-control-next"
-                    );
-
+                    const controlesPrev = document.querySelector('#carouselDescobertas .carousel-control-prev');
+                    const controlesNext = document.querySelector('#carouselDescobertas .carousel-control-next');
                     if (especiesParaExibir.length > 1) {
-                        controlesPrev.style.display = "flex";
-                        controlesNext.style.display = "flex";
+                        controlesPrev.style.display = 'flex';
+                        controlesNext.style.display = 'flex';
                     } else {
-                        controlesPrev.style.display = "none";
-                        controlesNext.style.display = "none";
+                        controlesPrev.style.display = 'none';
+                        controlesNext.style.display = 'none';
                     }
 
-                    const carouselElement = document.querySelector(
-                        "#carouselDescobertas"
-                    );
-                    let carouselInstance =
-                        bootstrap.Carousel.getInstance(carouselElement);
-                    if (carouselInstance) {
-                        carouselInstance.dispose();
+                    const carouselElement = document.querySelector('#carouselDescobertas');
+                    let carouselInstance = bootstrap.Carousel.getInstance(carouselElement);
+                    if (!carouselInstance) {
+                        carouselInstance = new bootstrap.Carousel(carouselElement, {
+                            interval: false,
+                            ride: false
+                        });
                     }
-                    carouselInstance = new bootstrap.Carousel(carouselElement, {
-                        interval: false,
-                        ride: false,
+
+                    atualizarContadorCarousel();
+
+                    carouselElement.addEventListener('slid.bs.carousel', () => {
+                        atualizarContadorCarousel();
                     });
                 }
 
-                const porcentagem = calcularProgressoDescobertas(
-                    globalSpeciesCatalog,
-                    idsDescobertos
-                );
+                const porcentagem = calcularProgressoDescobertas(globalSpeciesCatalog, idsDescobertos);
 
-                const progressBar = document.getElementById("progressBar");
-                const progressText = document.getElementById("progressText");
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
 
                 progressBar.style.width = `${porcentagem}%`;
-                progressBar.setAttribute("aria-valuenow", porcentagem);
+                progressBar.setAttribute('aria-valuenow', porcentagem);
                 progressText.textContent = `${porcentagem}% Descoberto`;
+
             } catch (erro) {
-                console.error("Erro geral:", erro);
+                console.error('Erro geral:', erro);
                 container.innerHTML = `<p class="text-center text-danger">Erro ao carregar descobertas: ${erro.message}</p>`;
             }
         }
@@ -414,12 +356,10 @@
             const totalEspecies = globalCatalog.length;
             if (totalEspecies === 0) return 0;
 
-            const discoveredIdsSet = new Set(
-                userDiscoveryIds.map((id) => id.toLowerCase())
-            );
+            const discoveredIdsSet = new Set(userDiscoveryIds.map(id => id.toLowerCase()));
             let especiesDescobertas = 0;
 
-            globalCatalog.forEach((especie) => {
+            globalCatalog.forEach(especie => {
                 const especieId = especie.id?.toLowerCase();
                 if (discoveredIdsSet.has(especieId)) {
                     especiesDescobertas++;
@@ -427,113 +367,105 @@
             });
 
             const porcentagem = (especiesDescobertas / totalEspecies) * 100;
-            console.log(
-                `Progresso: ${especiesDescobertas} / ${totalEspecies} => ${porcentagem.toFixed(
-                    2
-                )}%`
-            );
             return parseFloat(porcentagem.toFixed(2));
         }
 
-        window.addEventListener("DOMContentLoaded", carregarPlantasDescobertas);
+        function atualizarContadorCarousel() {
+            const totalItems = document.querySelectorAll('#plantas-descobertas .carousel-item').length;
+            const activeItem = document.querySelector('#plantas-descobertas .carousel-item.active');
+            let activeIndex = Array.from(document.querySelectorAll('#plantas-descobertas .carousel-item')).indexOf(activeItem);
+            activeIndex = activeIndex >= 0 ? activeIndex + 1 : 0;
 
-        const btnNovaDescoberta = document.getElementById("btnNovaDescoberta");
-        const btnFecharCamera = document.getElementById("btnFecharCamera");
-        const qrReader = document.getElementById("qr-reader");
+            const contador = document.getElementById('contadorDescobertas');
+            contador.textContent = `${activeIndex} / ${totalItems}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', carregarPlantasDescobertas);
+
+
+        const btnNovaDescoberta = document.getElementById('btnNovaDescoberta');
+        const btnFecharCamera = document.getElementById('btnFecharCamera');
+        const qrReader = document.getElementById('qr-reader');
 
         let html5QrCode = null;
 
-        btnNovaDescoberta.addEventListener("click", () => {
-            qrReader.style.display = "block";
-            btnNovaDescoberta.style.display = "none";
-            btnFecharCamera.style.display = "inline-block";
+        btnNovaDescoberta.addEventListener('click', () => {
+            qrReader.style.display = 'block';
+            btnNovaDescoberta.style.display = 'none';
+            btnFecharCamera.style.display = 'inline-block';
 
             if (!html5QrCode) {
                 html5QrCode = new Html5Qrcode("qr-reader");
             }
 
-            function onScanSuccess(decodedText, decodedResult) {
-                console.log(`QR Code escaneado: ${decodedText}`);
-
-                html5QrCode
-                    .stop()
-                    .then(() => {
-                        qrReader.style.display = "none";
-                        btnFecharCamera.style.display = "none";
-                        btnNovaDescoberta.style.display = "inline-block";
-
-                        window.location.href = decodedText;
-                    })
-                    .catch((err) => {
-                        console.error("Erro ao parar a câmera", err);
-                    });
+            function onScanSuccess(decodedText) {
+                html5QrCode.stop().then(() => {
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+                    window.location.href = decodedText;
+                }).catch(err => {
+                    console.error('Erro ao parar a câmera', err);
+                });
             }
 
             function onScanFailure(error) {
-                //console.warn(`Erro na leitura do QR: ${error}`);
+                // Silencioso
             }
 
-            Html5Qrcode.getCameras()
-                .then((cameras) => {
-                    if (cameras && cameras.length) {
-                        let cameraId = cameras[0].id;
-                        for (const camera of cameras) {
-                            if (camera.label.toLowerCase().includes("back")) {
-                                cameraId = camera.id;
-                                break;
-                            }
+            Html5Qrcode.getCameras().then(cameras => {
+                if (cameras && cameras.length) {
+                    let cameraId = cameras[0].id;
+                    for (const camera of cameras) {
+                        if (camera.label.toLowerCase().includes('back')) {
+                            cameraId = camera.id;
+                            break;
                         }
-
-                        html5QrCode
-                            .start(
-                                cameraId,
-                                { fps: 10, qrbox: 250 },
-                                onScanSuccess,
-                                onScanFailure
-                            )
-                            .catch((err) => {
-                                console.error("Erro ao iniciar a câmera:", err);
-                                alert(
-                                    "Não foi possível acessar a câmera. Verifique as permissões."
-                                );
-                                qrReader.style.display = "none";
-                                btnFecharCamera.style.display = "none";
-                                btnNovaDescoberta.style.display = "inline-block";
-                            });
-                    } else {
-                        alert("Nenhuma câmera detectada.");
-                        qrReader.style.display = "none";
-                        btnFecharCamera.style.display = "none";
-                        btnNovaDescoberta.style.display = "inline-block";
                     }
-                })
-                .catch((err) => {
-                    console.error("Erro ao buscar câmeras:", err);
-                    alert("Erro ao acessar as câmeras do dispositivo.");
-                    qrReader.style.display = "none";
-                    btnFecharCamera.style.display = "none";
-                    btnNovaDescoberta.style.display = "inline-block";
-                });
+
+                    html5QrCode.start(
+                        cameraId,
+                        { fps: 10, qrbox: 250 },
+                        onScanSuccess,
+                        onScanFailure
+                    ).catch(err => {
+                        console.error('Erro ao iniciar a câmera:', err);
+                        alert('Não foi possível acessar a câmera. Verifique as permissões.');
+                        qrReader.style.display = 'none';
+                        btnFecharCamera.style.display = 'none';
+                        btnNovaDescoberta.style.display = 'inline-block';
+                    });
+                } else {
+                    alert('Nenhuma câmera detectada.');
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+                }
+            }).catch(err => {
+                console.error('Erro ao buscar câmeras:', err);
+                alert('Erro ao acessar as câmeras do dispositivo.');
+                qrReader.style.display = 'none';
+                btnFecharCamera.style.display = 'none';
+                btnNovaDescoberta.style.display = 'inline-block';
+            });
         });
 
-        btnFecharCamera.addEventListener("click", () => {
+        btnFecharCamera.addEventListener('click', () => {
             if (html5QrCode) {
-                html5QrCode
-                    .stop()
-                    .then(() => {
-                        qrReader.style.display = "none";
-                        btnFecharCamera.style.display = "none";
-                        btnNovaDescoberta.style.display = "inline-block";
-                    })
-                    .catch((err) => {
-                        console.error("Erro ao parar a câmera:", err);
-                    });
+                html5QrCode.stop().then(() => {
+                    qrReader.style.display = 'none';
+                    btnFecharCamera.style.display = 'none';
+                    btnNovaDescoberta.style.display = 'inline-block';
+                }).catch(err => {
+                    console.error('Erro ao parar a câmera:', err);
+                });
             } else {
-                qrReader.style.display = "none";
-                btnFecharCamera.style.display = "none";
-                btnNovaDescoberta.style.display = "inline-block";
+                qrReader.style.display = 'none';
+                btnFecharCamera.style.display = 'none';
+                btnNovaDescoberta.style.display = 'inline-block';
             }
         });
     </script>
+
 </body>
 </html>
