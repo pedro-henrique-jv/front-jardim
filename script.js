@@ -139,6 +139,9 @@ window.onload = async () => {
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
 
+                    const mensagemParabens = document.getElementById('mensagem-parabens');
+                    mensagemParabens.style.display = 'block';
+
                     await coletarCheckpoint();
                     await loadSpeciesData();
                 } else {
