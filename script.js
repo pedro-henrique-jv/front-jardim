@@ -66,9 +66,9 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
             return false;
         }
 
-        const lista = dados.plantas ?? dados; // Serve para garantir caso venha direto um array
+        const lista = dados.plantas ?? dados;
 
-        const jaCapturada = lista.some(planta => 
+        const jaCapturada = lista.some(planta =>
             planta.especie_id?.toLowerCase() === especieId.toLowerCase()
         );
 
@@ -79,7 +79,6 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
     }
 }
 
-
 window.onload = async () => {
     const especieContainer = document.getElementById("especie-container");
     const quizContainer = document.getElementById("quiz-container");
@@ -89,34 +88,24 @@ window.onload = async () => {
     const btnVerificar = document.getElementById("btn-verificar");
     const btnNovaPergunta = document.getElementById("btn-nova-pergunta");
     const mensagemJaCapturado = document.getElementById("mensagem-ja-capturado");
+    const mensagemParabens = document.getElementById("mensagem-parabens");
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
-    if (origem === "qr" && logado) {
-        const jaCapturou = await verificarSeJaCapturou(especieId, usuarioData);
-
-        if (jaCapturou) {
-            mensagemJaCapturado.style.display = "block";
-            quizContainer.style.display = "none";
-            especieContainer.style.display = "block";
-            await loadSpeciesData();
-        } else {
-            await carregarPergunta();
-        }
-    } else {
-        await loadSpeciesData();
-    }
-
-
+    // Função para carregar a pergunta do quiz
     async function carregarPergunta() {
         quizContainer.style.display = "block";
         especieContainer.style.display = "none";
         msgQuiz.textContent = "";
         acoesErro.style.display = "none";
         alternativasDiv.innerHTML = "";
+        if (mensagemParabens) mensagemParabens.style.display = "none";
+        if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
+        btnVerificar.disabled = false;
+
         document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
         try {
@@ -151,17 +140,12 @@ window.onload = async () => {
                 }
 
                 if (respostaSelecionada.value === quizData.resposta_correta) {
-                    msgQuiz.innerHTML = `
-                        <div style="padding: 10px; border-radius: 10px; background-color: #d1e7dd; color: #0f5132; font-weight: 700; font-size: 1.3rem; text-align: center; box-shadow: 0 0 10px #198754;">
-                            🎉 Parabéns! Você acertou a pergunta e coletou esta espécie! 🎉
-                        </div>
-                    `;
-
+                    msgQuiz.textContent = "";
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
 
-                    const mensagemParabens = document.getElementById("mensagem-parabens");
-                    mensagemParabens.style.display = "block";
+                    if (mensagemParabens) mensagemParabens.style.display = "block";
+                    if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
 
                     await coletarCheckpoint();
                     await loadSpeciesData();
@@ -179,6 +163,7 @@ window.onload = async () => {
         }
     }
 
+    // Função para enviar checkpoint quando usuário acerta o quiz
     async function coletarCheckpoint() {
         const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
         const token = usuarioData?.token;
@@ -208,7 +193,6 @@ window.onload = async () => {
     if (btnNovaPergunta) {
         btnNovaPergunta.addEventListener("click", () => {
             carregarPergunta();
-            btnVerificar.disabled = false;
         });
     }
 
@@ -216,7 +200,8 @@ window.onload = async () => {
         const jaCapturou = await verificarSeJaCapturou(especieId, usuarioData);
 
         if (jaCapturou) {
-            mensagemJaCapturado.style.display = "block";
+            if (mensagemJaCapturado) mensagemJaCapturado.style.display = "block";
+            if (mensagemParabens) mensagemParabens.style.display = "none";
             quizContainer.style.display = "none";
             especieContainer.style.display = "block";
             await loadSpeciesData();
