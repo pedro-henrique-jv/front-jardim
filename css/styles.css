@@ -852,7 +852,6 @@ h2 {
     text-align: center;
 }
 
-/* Botões */
 #btn-verificar,
 #btn-nova-pergunta {
     background-color: #198754;
@@ -869,6 +868,13 @@ h2 {
     background-color: #14532d;
 }
 
+#fonte {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    color: blue;
+    text-decoration: underline;
+    margin: 1px;
+}
 
 @media (max-width: 768px) {
     .background {

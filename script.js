@@ -23,7 +23,12 @@ async function loadSpeciesData() {
         setElementText("nome-cientifico", speciesData.nome_cientifico);
         setImageSrc("imagem", speciesData.imagem);
         setElementText("descricao", speciesData.descricao);
-        setElementText("fonte", speciesData.fonte ? `Fonte: ${speciesData.fonte}` : "");
+        const fonteEl = document.getElementById("fonte");
+        if (speciesData.fonte) {
+            fonteEl.innerHTML = `Fonte: <a href="${speciesData.fonte}" target="_blank" style="color:blue;">${speciesData.fonte}</a>`;
+        } else {
+            fonteEl.innerHTML = "";
+        }
     } else {
         setElementText("nome-popular", "Espécie não encontrada");
         setElementText("nome-cientifico", "");
