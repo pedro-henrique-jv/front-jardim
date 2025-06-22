@@ -529,7 +529,7 @@ h2 {
     max-width: 400px;
     color: #000;
     font-weight: 500;
-    box-shadow: 2px 2px 10px #00000040;
+    box-shadow: 2px 2px 10px #ca9e9e40;
 }
 
 .d-none {
@@ -537,14 +537,10 @@ h2 {
 }
 
 .progress {
-    background-color: #2c2c2c;
+    background-color: #45cf33c9;
     border-radius: 20px;
     overflow: hidden;
-  }
-  
-  .progress-bar {
-    font-weight: bold;
-  }
+}
 
 .btn-voltar {
     display: inline-block;
@@ -578,6 +574,102 @@ h2 {
     background-color: rgba(124, 124, 124, 0.11); 
     margin: 10px;
     border-radius: 50px;
+}
+
+.img-hover-zoom {
+    transition: transform 0.3s ease;
+}
+
+.img-hover-zoom:hover {
+    transform: scale(1.05);
+}
+
+.mascot-image-container {
+    position: relative;
+    width: 70%; 
+    margin: 0 auto;
+    z-index: 1; 
+}
+
+.mascot-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Painel de fundo com blur */
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%; 
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    z-index: 2; 
+}
+
+.overlay-content h1, 
+.overlay-content h2, 
+.overlay-content .progress, 
+.overlay-content button, 
+.overlay-content #plantas-descobertas {
+    z-index: 2;
+}
+
+#plantas-descobertas {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.fundo-arvore {
+    background-color: rgba(211, 211, 211, 0.596); 
+}
+
+.jogo-arvore {
+    background-color: rgba(211, 211, 211, 0.596);
+    border-radius: 40px;
+    margin: 20px;
+}
+
+#cameraOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#qr-reader {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.btn-camera {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-camera i {
+    font-size: 2.5rem;
 }
 
 @media (max-width: 768px) {

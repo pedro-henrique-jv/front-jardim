@@ -51,27 +51,34 @@
                 </div>
             </div>
         </nav>
-        <section class="container mt-5 py-5">
-            <h1 class="text-center text-light mb-2">Progresso na Aventura</h1>
-            <div class="progress mb-4" style="height: 30px;">
-                <div class="progress-bar bg-info" role="progressbar" 
-                    style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar">
-                    0% Descoberto
+        <div class="jogo-arvore m-20" style="background-color: rgba(211, 211, 211, 0.596); border-radius: 40px;">
+            <section class="container mt-5 py-5">
+                <div class="text-center mb-4">
+                    <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Nova Descoberta</h1>
+                    <button id="btnNovaDescoberta" class="btn btn-success" style="border-radius: 20px;" title="Nova Descoberta">
+                        <i class="bi bi-camera-fill" style="font-size: 2.5rem;"></i>
+                    </button>
+                    <button id="btnFecharCamera" class="btn btn-danger mb-2" style="display:none;">Fechar Câmera</button>
+                    <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto; display:none;"></div>
                 </div>
-            </div>
-        </section>
-        <section class="container mt-3 py-5">
-            <h1 class="text-center text-light mb-4">Minhas Descobertas</h1>
-            <div class="text-center mb-4">
-                <button id="btnNovaDescoberta" class="btn btn-success">Nova descoberta</button>
-                <button id="btnFecharCamera" class="btn btn-danger" style="display:none;">Fechar Câmera</button>
-            </div>
-            <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto; display:none;"></div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
-        </section>
-        <section class="container mt-3 py-5">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
-        </section>
+                <h1 class="text-center mb-2" style="color: rgb(17, 105, 25);">Progresso na Aventura</h1>
+                <div class="progress-container position-relative mb-4" style="height: 30px;">
+                    <div class="progress" style="height: 100%;">
+                        <div class="progress-bar bg-info" role="progressbar" 
+                            style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar">
+                        </div>
+                    </div>
+                    <div class="progress-text position-absolute top-50 start-50 translate-middle fw-bold" style="color: rgb(17, 105, 25);" id="progressText">
+                        0% Descoberto
+                    </div>
+                </div>
+            </section>
+
+            <section class="container py-1">
+                <h1 class="text-center mb-4" style="color: rgb(17, 105, 25);">Minhas Descobertas</h1>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="plantas-descobertas"></div>
+            </section>
+        </div>
         <footer class="footer-box">
             <div class="container">
                 <div class="row justify-content-center">
