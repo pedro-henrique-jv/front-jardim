@@ -106,16 +106,13 @@
     <script src="../script.js"></script>
     <script>
         function voltarParaAventuraSeVeioDoQuiz() {
-            const ref = document.referrer.toLowerCase();
+            const origem = localStorage.getItem('origem');
 
-            if (ref.includes('aventura.html') || ref.includes('aventura')) {
+            if (origem === 'aventura') {
+                localStorage.removeItem('origem');
                 window.location.href = 'aventura.html';
             } else {
-                if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = 'especies.html'; 
-                }
+                window.location.href = 'especies.html';
             }
         }
     </script>

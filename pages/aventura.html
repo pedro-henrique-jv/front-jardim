@@ -405,6 +405,7 @@
             }
 
             function onScanSuccess(decodedText) {
+                localStorage.setItem('origem', 'aventura');
                 html5QrCode.stop().then(() => {
                     qrReader.style.display = 'none';
                     btnFecharCamera.style.display = 'none';
