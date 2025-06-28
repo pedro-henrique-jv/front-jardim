@@ -55,7 +55,7 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
     if (!usuario_id || !token) return false;
 
     try {
-        const res = await fetch(`https://back-yr5z.onrender.com/plantas/${usuario_id}`, {
+        const res = await fetch(`https://back-jveg.onrender.com/plantas/${usuario_id}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -111,7 +111,7 @@ window.onload = async () => {
 
         try {
             const token = usuarioData?.token;
-            const res = await fetch("https://back-yr5z.onrender.com/quiz/pergunta/", {
+            const res = await fetch("https://back-jveg.onrender.com/quiz/pergunta/", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -174,7 +174,7 @@ window.onload = async () => {
         if (!token || !usuario_id) return;
 
         try {
-            await fetch("https://back-yr5z.onrender.com/plantas/", {
+            await fetch("https://back-jveg.onrender.com/plantas/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
