@@ -96,7 +96,6 @@ window.onload = async () => {
     const usuarioData = JSON.parse(localStorage.getItem("usuario"));
     const logado = usuarioData && usuarioData.token;
 
-    // Verifica se já capturou localmente
     const capturouLocal = localStorage.getItem(`capturou_${especieId}`) === "true";
 
     async function carregarPergunta() {
@@ -123,16 +122,19 @@ window.onload = async () => {
 
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
-                ${["A", "B", "C", "D"].map(letter => `
+                ${["a", "b", "c", "d"].map(letter => `
                     <div class="form-check p-3 mb-2 rounded border border-success bg-light">
-                        <input class="form-check-input" type="radio" name="resposta" id="resposta${letter}" value="${letter}">
-                        <label class="form-check-label fw-semibold" for="resposta${letter}">
-                            ${letter}) ${quizData["resposta_" + letter.toLowerCase()]}
+                        <input class="form-check-input" type="radio" name="resposta" id="resposta${letter}" value="${letter.toUpperCase()}" hidden>
+                        <label 
+                            class="form-check-label fw-semibold w-100 p-2 rounded" 
+                            for="resposta${letter}" 
+                            style="cursor: pointer; border: 2px solid transparent;">
+                            ${letter.toUpperCase()}) ${quizData["alternativa_" + letter]}
                         </label>
                     </div>
                 `).join("")}
             `;
-
+            
             btnVerificar.onclick = async () => {
                 const respostaSelecionada = document.querySelector('input[name="resposta"]:checked');
                 if (!respostaSelecionada) {
