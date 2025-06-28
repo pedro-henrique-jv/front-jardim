@@ -604,7 +604,6 @@ h2 {
     display: block;
 }
 
-/* Painel de fundo com blur */
 .overlay-content {
     position: absolute;
     top: 50%;
@@ -658,9 +657,8 @@ h2 {
     flex-direction: column;
 }
 
-/* Container geral do carrossel */
 #carouselDescobertas {
-  background: #2e4d25; /* verde escuro */
+  background: #2e4d25; 
   border-radius: 30px;
   padding: 20px;
   max-width: 600px;
@@ -671,14 +669,12 @@ h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Cada item do carrossel */
 #carouselDescobertas .carousel-item {
   justify-content: center;
   align-items: center;
   transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-/* Card com borda e sombra */
 #carouselDescobertas .card {
   max-width: 480px;
   width: 100%;
@@ -689,7 +685,6 @@ h2 {
   color: #e6f1d4;
 }
 
-/* Imagem dentro do card */
 #carouselDescobertas .card-img-top {
   border-radius: 25px 25px 0 0;
   height: 300px;
@@ -741,7 +736,6 @@ h2 {
   filter: invert(61%) sepia(85%) saturate(635%) hue-rotate(74deg) brightness(86%) contrast(89%);
 }
 
-/* Mensagem "Nenhuma descoberta" */
 #plantas-descobertas > p {
   font-size: 1.25rem;
   color: #d4e0a8;
@@ -749,7 +743,6 @@ h2 {
   margin-top: 30px;
 }
 
-/* Responsividade */
 @media (max-width: 650px) {
   #carouselDescobertas {
     max-width: 95vw;
@@ -770,7 +763,6 @@ h2 {
     cursor: pointer;
 }
 
-
 .btn-camera {
     width: 80px;
     height: 80px;
@@ -784,7 +776,6 @@ h2 {
     font-size: 2.5rem;
 }
 
-/* Container do Quiz */
 #quiz-container {
     background-color: #f0fdf4;
     border: 2px solid #198754;
@@ -795,7 +786,6 @@ h2 {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Pergunta */
 #pergunta {
     font-size: 1.5rem;
     font-weight: 700;
@@ -804,7 +794,6 @@ h2 {
     text-align: center;
 }
 
-/* Alternativas */
 .form-check {
     background-color: white;
     border: 2px solid #bbf7d0;
@@ -829,7 +818,6 @@ h2 {
     border-color: #198754;
 }
 
-/* Label das alternativas */
 .form-check-label {
     margin-left: 10px;
     cursor: pointer;
@@ -837,7 +825,6 @@ h2 {
     color: #14532d;
 }
 
-/* Mensagens */
 #msg-quiz {
     text-align: center;
     font-weight: 600;
@@ -846,7 +833,6 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* Ações pós erro */
 #acoes-pos-erro {
     display: none;
     text-align: center;
@@ -880,19 +866,26 @@ h2 {
     display: block;
     width: 100%;
     cursor: pointer;
-    padding: 10px;
-    border: 2px solid transparent;
-    border-radius: 8px;
+    padding: 15px;
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    background-color: #f8f9fa;
     transition: all 0.3s ease;
-}
-
-.form-check-input:checked + .form-check-label {
-    background-color: #d4edda;
-    border-color: #28a745;
+    font-weight: 500;
 }
 
 .form-check-label:hover {
-    background-color: #e9f7ef;
+    background-color: #e6f4ea;
+}
+
+.form-check-input {
+    display: none;
+}
+
+.form-check-input:checked + .form-check-label {
+    background-color: #28a745;
+    color: white;
+    border-color: #1e7e34;
 }
 
 
