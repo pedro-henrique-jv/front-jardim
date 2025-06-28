@@ -876,6 +876,26 @@ h2 {
     margin: 1px;
 }
 
+.form-check-label {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-check-input:checked + .form-check-label {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.form-check-label:hover {
+    background-color: #e9f7ef;
+}
+
+
 @media (max-width: 768px) {
     .background {
         background-image: url('../assets/fundo2.png'); 
