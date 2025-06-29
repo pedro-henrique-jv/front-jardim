@@ -70,7 +70,7 @@ async function verificarSeJaCapturou(especieId) {
         });
 
         const dados = await res.json();
-        const lista = Array.isArray(dados.plantas) ? dados.plantas : dados;
+        const lista = Array.isArray(dados) ? dados : dados.plantas || [];
 
         return lista.some(planta => 
             planta.especie_id?.toLowerCase() === especieId.toLowerCase()
@@ -137,10 +137,11 @@ window.onload = async () => {
                     quizContainer.style.display = "none";
                     especieContainer.style.display = "block";
 
+                    await coletarCheckpoint();
+
                     if (mensagemParabens) mensagemParabens.style.display = "block";
                     if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
 
-                    await coletarCheckpoint();
                     await loadSpeciesData();
                 } else {
                     msgQuiz.textContent = "Resposta incorreta!";
@@ -188,15 +189,17 @@ window.onload = async () => {
         const jaCapturou = await verificarSeJaCapturou(especieId);
 
         if (jaCapturou) {
+            especieContainer.style.display = "block";
+            quizContainer.style.display = "none";
             if (mensagemJaCapturado) mensagemJaCapturado.style.display = "block";
             if (mensagemParabens) mensagemParabens.style.display = "none";
-            quizContainer.style.display = "none";
-            especieContainer.style.display = "block";
             await loadSpeciesData();
         } else {
             await carregarPergunta();
         }
     } else {
+        especieContainer.style.display = "block";
+        quizContainer.style.display = "none";
         await loadSpeciesData();
     }
 };
