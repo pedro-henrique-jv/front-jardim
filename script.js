@@ -116,9 +116,9 @@ window.onload = async () => {
             document.getElementById("pergunta").textContent = quizData.pergunta;
             alternativasDiv.innerHTML = `
                 ${["a", "b", "c", "d"].map(letter => `
-                    <div class="form-check p-3 mb-2 rounded border border-success bg-light">
-                        <input class="form-check-input" type="radio" name="resposta" id="resposta${letter}" value="${letter.toUpperCase()}" hidden>
-                        <label class="form-check-label fw-semibold w-100 p-2 rounded" for="resposta${letter}" style="cursor: pointer;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="resposta" id="resposta${letter}" value="${letter.toUpperCase()}">
+                        <label class="form-check-label" for="resposta${letter}">
                             ${letter.toUpperCase()}) ${quizData["alternativa_" + letter]}
                         </label>
                     </div>

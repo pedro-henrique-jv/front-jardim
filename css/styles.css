@@ -862,13 +862,21 @@ h2 {
     margin: 1px;
 }
 
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    display: none; /* Esconde o input */
+}
+
 .form-check-label {
     display: block;
     width: 100%;
     cursor: pointer;
     padding: 15px;
-    border: 2px solid #28a745;
-    border-radius: 10px;
+    border: 3px solid #28a745;
+    border-radius: 12px;
     background-color: #f8f9fa;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -878,16 +886,11 @@ h2 {
     background-color: #e6f4ea;
 }
 
-.form-check-input {
-    display: none;
-}
-
 .form-check-input:checked + .form-check-label {
     background-color: #28a745;
     color: white;
     border-color: #1e7e34;
 }
-
 
 @media (max-width: 768px) {
     .background {
