@@ -1,13 +1,15 @@
+function getURLParameter(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
+
+const origem = getURLParameter("src");
+const especieId = getURLParameter("id");
 const usuarioData = JSON.parse(localStorage.getItem("usuario"));
 const logado = usuarioData && usuarioData.token;
 
-if (!logado) {
-    alert('Você precisa estar logado para acessar esta página.');
+if (origem === "qr" && !logado) {
+    alert('Você precisa estar logado para capturar espécies por QR Code.');
     window.location.href = '../pages/login.html';
-}
-
-function getURLParameter(name) {
-    return new URLSearchParams(window.location.search).get(name);
 }
 
 function setElementText(id, text) {
@@ -21,10 +23,8 @@ function setImageSrc(id, src) {
 }
 
 async function loadSpeciesData() {
-    const speciesId = getURLParameter("id");
-    if (!speciesId) return;
-
-    const speciesData = await getSpeciesData(speciesId);
+    if (!especieId) return;
+    const speciesData = await getSpeciesData(especieId);
 
     if (speciesData) {
         setElementText("nome-popular", speciesData.nome);
@@ -72,11 +72,9 @@ async function verificarSeJaCapturou(especieId) {
         const dados = await res.json();
         const lista = Array.isArray(dados.plantas) ? dados.plantas : dados;
 
-        const jaCapturada = lista.some(planta =>
+        return lista.some(planta => 
             planta.especie_id?.toLowerCase() === especieId.toLowerCase()
         );
-
-        return jaCapturada;
     } catch {
         return false;
     }
@@ -92,9 +90,6 @@ window.onload = async () => {
     const btnNovaPergunta = document.getElementById("btn-nova-pergunta");
     const mensagemJaCapturado = document.getElementById("mensagem-ja-capturado");
     const mensagemParabens = document.getElementById("mensagem-parabens");
-
-    const origem = getURLParameter("src");
-    const especieId = getURLParameter("id");
 
     const capturouLocal = localStorage.getItem(`capturou_${especieId}`) === "true";
 
@@ -125,10 +120,7 @@ window.onload = async () => {
                 ${["a", "b", "c", "d"].map(letter => `
                     <div class="form-check p-3 mb-2 rounded border border-success bg-light">
                         <input class="form-check-input" type="radio" name="resposta" id="resposta${letter}" value="${letter.toUpperCase()}" hidden>
-                        <label 
-                            class="form-check-label fw-semibold w-100 p-2 rounded" 
-                            for="resposta${letter}" 
-                            style="cursor: pointer; border: 2px solid transparent;">
+                        <label class="form-check-label fw-semibold w-100 p-2 rounded" for="resposta${letter}" style="cursor: pointer;">
                             ${letter.toUpperCase()}) ${quizData["alternativa_" + letter]}
                         </label>
                     </div>
@@ -197,7 +189,7 @@ window.onload = async () => {
         });
     }
 
-    if (origem === "qr") {
+    if (origem === "qr" && logado) {
         const jaCapturouServidor = await verificarSeJaCapturou(especieId);
         const jaCapturou = capturouLocal || jaCapturouServidor;
 
@@ -228,22 +220,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (usuario && usuario.nome) {
         userNameSpan.textContent = usuario.nome;
-
-        userDropdownMenu.innerHTML = `
-            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
-        `;
+        userDropdownMenu.innerHTML = `<li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>`;
 
         const logoutBtn = document.getElementById("logoutBtn");
         logoutBtn?.addEventListener("click", () => {
             localStorage.removeItem("usuario");
-
             const partes = window.location.pathname.split("/");
             const repo = partes.length > 1 ? partes[1] : "";
             window.location.href = `${window.location.origin}/${repo ? repo + "/" : ""}index.html`;
         });
     } else {
         userNameSpan.innerHTML = `<i class="bi bi-person" style="font-size: 2.5rem; color:white;"></i>`;
-
         userDropdownMenu.innerHTML = `
             <li><a class="dropdown-item" href="${caminhoLogin}">Login</a></li>
             <li><a class="dropdown-item" href="${caminhoCadastro}">Cadastre-se</a></li>
