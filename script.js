@@ -1,3 +1,11 @@
+const usuarioData = JSON.parse(localStorage.getItem("usuario"));
+const logado = usuarioData && usuarioData.token;
+
+if (!logado) {
+    alert('Você precisa estar logado para acessar esta página.');
+    window.location.href = '../pages/login.html';
+}
+
 function getURLParameter(name) {
     return new URLSearchParams(window.location.search).get(name);
 }
@@ -48,10 +56,9 @@ async function getSpeciesData(id) {
     }
 }
 
-async function verificarSeJaCapturou(especieId, usuarioData) {
+async function verificarSeJaCapturou(especieId) {
     const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
     const token = usuarioData?.token;
-
     if (!usuario_id || !token) return false;
 
     try {
@@ -63,14 +70,9 @@ async function verificarSeJaCapturou(especieId, usuarioData) {
         });
 
         const dados = await res.json();
+        const lista = Array.isArray(dados.plantas) ? dados.plantas : dados;
 
-        if (!Array.isArray(dados) && !Array.isArray(dados.plantas)) {
-            return false;
-        }
-
-        const lista = dados.plantas ?? dados;
-
-        const jaCapturada = lista.some(planta => 
+        const jaCapturada = lista.some(planta =>
             planta.especie_id?.toLowerCase() === especieId.toLowerCase()
         );
 
@@ -93,8 +95,6 @@ window.onload = async () => {
 
     const origem = getURLParameter("src");
     const especieId = getURLParameter("id");
-    const usuarioData = JSON.parse(localStorage.getItem("usuario"));
-    const logado = usuarioData && usuarioData.token;
 
     const capturouLocal = localStorage.getItem(`capturou_${especieId}`) === "true";
 
@@ -109,7 +109,7 @@ window.onload = async () => {
         document.getElementById("pergunta").textContent = "Carregando pergunta...";
 
         try {
-            const token = usuarioData?.token;
+            const token = usuarioData.token;
             const res = await fetch("https://back-jveg.onrender.com/quiz/pergunta/", {
                 method: "GET",
                 headers: {
@@ -134,7 +134,7 @@ window.onload = async () => {
                     </div>
                 `).join("")}
             `;
-            
+
             btnVerificar.onclick = async () => {
                 const respostaSelecionada = document.querySelector('input[name="resposta"]:checked');
                 if (!respostaSelecionada) {
@@ -152,7 +152,6 @@ window.onload = async () => {
 
                     await coletarCheckpoint();
 
-                    // Salva localmente que essa espécie já foi capturada
                     localStorage.setItem(`capturou_${especieId}`, "true");
 
                     await loadSpeciesData();
@@ -172,7 +171,6 @@ window.onload = async () => {
     async function coletarCheckpoint() {
         const usuario_id = usuarioData?.usuario_id || usuarioData?.id;
         const token = usuarioData?.token;
-
         if (!token || !usuario_id) return;
 
         try {
@@ -187,9 +185,7 @@ window.onload = async () => {
                     especie_id: especieId
                 })
             });
-        } catch {
-            // Falha ao coletar checkpoint pode ser ignorada aqui
-        }
+        } catch {}
     }
 
     if (btnNovaPergunta) {
@@ -201,8 +197,8 @@ window.onload = async () => {
         });
     }
 
-    if (origem === "qr" && logado) {
-        const jaCapturouServidor = await verificarSeJaCapturou(especieId, usuarioData);
+    if (origem === "qr") {
+        const jaCapturouServidor = await verificarSeJaCapturou(especieId);
         const jaCapturou = capturouLocal || jaCapturouServidor;
 
         if (jaCapturou) {
