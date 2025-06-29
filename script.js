@@ -91,8 +91,6 @@ window.onload = async () => {
     const mensagemJaCapturado = document.getElementById("mensagem-ja-capturado");
     const mensagemParabens = document.getElementById("mensagem-parabens");
 
-    const capturouLocal = localStorage.getItem(`capturou_${especieId}`) === "true";
-
     async function carregarPergunta() {
         quizContainer.style.display = "block";
         especieContainer.style.display = "none";
@@ -143,9 +141,6 @@ window.onload = async () => {
                     if (mensagemJaCapturado) mensagemJaCapturado.style.display = "none";
 
                     await coletarCheckpoint();
-
-                    localStorage.setItem(`capturou_${especieId}`, "true");
-
                     await loadSpeciesData();
                 } else {
                     msgQuiz.textContent = "Resposta incorreta!";
@@ -190,8 +185,7 @@ window.onload = async () => {
     }
 
     if (origem === "qr" && logado) {
-        const jaCapturouServidor = await verificarSeJaCapturou(especieId);
-        const jaCapturou = capturouLocal || jaCapturouServidor;
+        const jaCapturou = await verificarSeJaCapturou(especieId);
 
         if (jaCapturou) {
             if (mensagemJaCapturado) mensagemJaCapturado.style.display = "block";
