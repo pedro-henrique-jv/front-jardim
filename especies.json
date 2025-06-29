@@ -21,7 +21,7 @@
     "nome_cientifico": "Lycalopex gymnocercus",
     "descricao": "Habita o Cone Sul da América do Sul, prefere áreas abertas e pode viver até 3.500 m de altitude. Comum em áreas agrícolas e florestas.",
     "imagem": "../assets/animais/graxaim.jpg",
-    "fonte": "https://www.biodiversity4all.org/taxa/423656-Lycalopex-gymnocercus"
+    "fonte": "https://www.inaturalist.org/taxa/423656-Lycalopex-gymnocercus"
   },
   {
     "id": "trachemys-dorbigni",
@@ -29,7 +29,7 @@
     "nome_cientifico": "Trachemys dorbigni",
     "descricao": "Quelônio de água doce mais comum do RS, impactado por coleta de ovos para o mercado pet.",
     "imagem": "../assets/animais/tigre_dagua.jpg",
-    "fonte": "https://www.ufrgs.br/faunadigitalrs/repteis/ordem-testudines/familia-emydidae/tigre-dagua-trachemys-dorbigni/"
+    "fonte": "https://pt.wikipedia.org/wiki/Trachemys_dorbigni"
   },
   {
     "id": "caiman-latirostris",
@@ -37,7 +37,7 @@
     "nome_cientifico": "Caiman latirostris",
     "descricao": "Crocodiliano de até 3,5m, encontrado em pântanos e rios calmos da costa atlântica do Brasil.",
     "imagem": "../assets/animais/jacare.jpg",
-    "fonte": "https://www.fauna.ufmg.br/jacare-do-papo-amarelo/"
+    "fonte": "https://pt.wikipedia.org/wiki/Caiman_latirostris"
   },
   {
     "id": "alouatta-guariba",
@@ -45,7 +45,7 @@
     "nome_cientifico": "Alouatta guariba",
     "descricao": "Primata que vocaliza para manter espaço entre grupos. Sensível à febre amarela. Usa cauda preênsil para locomoção.",
     "imagem": "../assets/animais/bugio.jpg",
-    "fonte": "https://www.ufrgs.br/faunadigitalrs/mamiferos/ordem-primates/familia-atelidae/bugio-ruivo-alouatta-guariba-clamitans/"
+    "fonte": "https://pt.wikipedia.org/wiki/Alouatta_guariba"
   },
   {
     "id": "dasypus-hybridus",
@@ -53,7 +53,7 @@
     "nome_cientifico": "Dasypus hybridus",
     "descricao": "Tatu de pequeno porte, com orelhas semelhantes às de uma mula. Onívoro, vive em tocas escavadas por ele mesmo.",
     "imagem": "../assets/animais/dasypus.jpg",
-    "fonte": "https://www.ufrgs.br/faunadigitalrs/mamiferos/ordem-cingulata/familia-dasypodidae/tatu-mulita-dasypus-hybridus/"
+    "fonte": "https://pt.wikipedia.org/wiki/Dasypus_hybridus"
   },
   {
     "id": "salvator-merianae",
@@ -61,7 +61,7 @@
     "nome_cientifico": "Salvator merianae",
     "descricao": "Maior lagarto do RS, chega a mais de 50cm. Hiberna de abril a julho. Ovíparo, pode botar até 30 ovos.",
     "imagem": "../assets/animais/teiu.jpg",
-    "fonte": "https://www.ufrgs.br/faunadigitalrs/repteis/ordem-squamata/familia-teiidae/teiu-salvator-merianae/"
+    "fonte": "https://pt.wikipedia.org/wiki/Salvator_merianae"
   },
   {
     "id": "athene-cunicularia",
@@ -77,7 +77,7 @@
     "nome_cientifico": "Bothrops alternatus",
     "descricao": "Serpente peçonhenta de grande porte. Quando ameaçada, se enrola, vibra a cauda e dá o bote.",
     "imagem": "../assets/animais/cruzeira.jpg",
-    "fonte": "https://www.ufrgs.br/faunadigitalrs/5385-2/"
+    "fonte": "https://pt.wikipedia.org/wiki/Bothrops_alternatus"
   },
   {
     "id": "amanita-muscaria",
@@ -85,7 +85,7 @@
     "nome_cientifico": "Amanita muscaria",
     "descricao": "Fungo com píleo vermelho e escamas brancas, ligado a rituais antigos. Forma micorrizas com coníferas.",
     "imagem": "../assets/fungos/amanita-muscaria.jpg",
-    "fonte": "https://www.fs.usda.gov/wildflowers/ethnobotany/Mind_and_Spirit/flyagaric.shtml"
+    "fonte": "https://en.wikipedia.org/wiki/Amanita_muscaria"
   },
   {
     "id": "cymatoderma-caperatum",
@@ -109,7 +109,7 @@
     "nome_cientifico": "Kusaghiporia talpae",
     "descricao": "Fungo raro e pouco documentado, geralmente encontrado em madeira em decomposição.",
     "imagem": "../assets/fungos/kusaghiporia-talpae.jpg",
-    "fonte": "https://www.mycobank.org/page/Name%20details%20page/field/Mycobank%20%23/508020"
+    "fonte": "https://www.inaturalist.org/taxa/508020-Kusaghiporia-talpae"
   },
   {
     "id": "syagrus-romanzoffiana",
@@ -140,16 +140,8 @@
     "nome": "Ochna serrulata",
     "nome_cientifico": "Ochna serrulata",
     "descricao": "Arbusto ornamental com frutos vermelhos e flores amarelas vibrantes.",
-    "imagem": "../assets/plantas/achna.jpg",
+    "imagem": "../assets/plantas/ochna.jpg",
     "fonte": "https://www.inaturalist.org/taxa/582979-Ochna-serrulata"
-  },
-  {
-    "id": "melaleuca-eucadendra",
-    "nome": "Melaleuca eucadendra",
-    "nome_cientifico": "Melaleuca eucadendra",
-    "descricao": "Árvore australiana conhecida por sua casca esfoliante e propriedades medicinais.",
-    "imagem": "../assets/plantas/melaleuca-eucadendra.jpg",
-    "fonte": "https://pt.wikipedia.org/wiki/Melaleuca"
   },
   {
     "id": "araucaria-angustifolia",
@@ -201,7 +193,7 @@
   },
   {
     "id": "melaleuca-leucadendra",
-    "nome": "Melaleuca leucadendra",
+    "nome": "Melaleuca",
     "nome_cientifico": "Melaleuca leucadendra",
     "descricao": "Árvore de origem australiana, com casca que se solta em tiras e folhas aromáticas.",
     "imagem": "../assets/plantas/melaleuca-leucadendra.jpg",
