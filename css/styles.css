@@ -800,7 +800,7 @@ h2 {
 
 .form-check {
     background-color: white;
-    border: 2px solid #bbf7d0;
+    border: none;
     border-radius: 15px;
     padding: 15px 20px;
     margin-bottom: 15px;
@@ -809,7 +809,7 @@ h2 {
 
 .form-check:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .form-check-input {
