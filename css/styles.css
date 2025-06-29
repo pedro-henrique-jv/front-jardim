@@ -788,7 +788,7 @@ h2 {
     border-radius: 20px;
     padding: 30px;
     max-width: 700px;
-    margin: 40px auto;
+    margin: 20px auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -826,7 +826,6 @@ h2 {
 }
 
 .form-check-label {
-    margin-left: 10px;
     cursor: pointer;
     font-weight: 600;
     color: #14532d;

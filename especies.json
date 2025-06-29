@@ -5,7 +5,7 @@
     "nome_cientifico": "Vanellus chilensis",
     "descricao": "O quero-quero é uma ave comum em áreas abertas da América do Sul, especialmente no Brasil.",
     "imagem": "../assets/animais/quero-quero.jpg",
-    "fonte": "https://www.wikiaves.com.br/wiki/quero-quero"
+    "fonte": "https://pt.wikipedia.org/wiki/Vanellus_chilensis"
   },
   {
     "id": "colaptes-melanochloros",
@@ -13,7 +13,7 @@
     "nome_cientifico": "Colaptes melanochloros",
     "descricao": "O pica-pau-verde-barrado é uma ave encontrada em florestas, cerrados e áreas abertas da América do Sul. Possui plumagem esverdeada com barras escuras, e seu canto forte e repetitivo é usado para marcar território. Alimenta-se principalmente de formigas e cupins, que captura com sua língua longa e pegajosa.",
     "imagem": "../assets/animais/colaptes.jpg",
-    "fonte": "https://www.wikiaves.com.br/wiki/colaptes_melanochloros"
+    "fonte": "https://pt.wikipedia.org/wiki/Colaptes_melanochloros"
   },
   {
     "id": "lycalopex-gymnocercus",
@@ -21,7 +21,7 @@
     "nome_cientifico": "Lycalopex gymnocercus",
     "descricao": "Habita o Cone Sul da América do Sul, prefere áreas abertas e pode viver até 3.500 m de altitude. Comum em áreas agrícolas e florestas.",
     "imagem": "../assets/animais/graxaim.jpg",
-    "fonte": "https://www.inaturalist.org/taxa/423656-Lycalopex-gymnocercus"
+    "fonte": "https://pt.wikipedia.org/wiki/Lycalopex_gymnocercus"
   },
   {
     "id": "trachemys-dorbigni",
@@ -69,7 +69,7 @@
     "nome_cientifico": "Athene cunicularia",
     "descricao": "Coruja terrestre que habita campos abertos. Usa buracos para ninho e caça durante o dia.",
     "imagem": "../assets/animais/coruja.jpg",
-    "fonte": "https://www.wikiaves.com.br/wiki/coruja-buraqueira"
+    "fonte": "https://pt.wikipedia.org/wiki/Athene_cunicularia"
   },
   {
     "id": "bothrops-alternatus",
@@ -85,7 +85,7 @@
     "nome_cientifico": "Amanita muscaria",
     "descricao": "Fungo com píleo vermelho e escamas brancas, ligado a rituais antigos. Forma micorrizas com coníferas.",
     "imagem": "../assets/fungos/amanita-muscaria.jpg",
-    "fonte": "https://en.wikipedia.org/wiki/Amanita_muscaria"
+    "fonte": "https://pt.wikipedia.org/wiki/Amanita_muscaria"
   },
   {
     "id": "cymatoderma-caperatum",
@@ -117,7 +117,7 @@
     "nome_cientifico": "Syagrus romanzoffiana",
     "descricao": "Palmeira nativa do Brasil, muito comum em áreas urbanas e naturais.",
     "imagem": "../assets/plantas/jeriva.jpg",
-    "fonte": "https://floradobrasil.jbrj.gov.br/reflora/floradobrasil/FB12786"
+    "fonte": "https://pt.wikipedia.org/wiki/Syagrus_romanzoffiana"
   },
   {
     "id": "bauhinia-variegata",
@@ -125,7 +125,7 @@
     "nome_cientifico": "Bauhinia variegata",
     "descricao": "Árvore ornamental com flores roxas e folhas em forma de casco de vaca.",
     "imagem": "../assets/plantas/bauhinia-variegata.jpg",
-    "fonte": "https://www.jardineiro.net/plantas/bauhinia-variegata-pata-de-vaca.html"
+    "fonte": "https://pt.wikipedia.org/wiki/Bauhinia_variegata"
   },
   {
     "id": "pinus-sp",
@@ -133,7 +133,7 @@
     "nome_cientifico": "Pinus sp.",
     "descricao": "Gênero de coníferas amplamente cultivadas no Brasil para extração de madeira e papel.",
     "imagem": "../assets/plantas/pinus.jpg",
-    "fonte": "https://www.ecycle.com.br/pinus/"
+    "fonte": "https://pt.wikipedia.org/wiki/Pinus"
   },
   {
     "id": "ochna-serrulata",
