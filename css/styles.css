@@ -760,9 +760,6 @@ h2 {
 
 #alternativas {
     border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
 }
 
