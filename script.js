@@ -62,7 +62,7 @@ async function verificarSeJaCapturou(especieId) {
     if (!usuario_id || !token) return false;
 
     try {
-        const res = await fetch(`https://back-jveg.onrender.com/plantas/${usuario_id}`, {
+        const res = await fetch(`https://back-jveg.onrender.com/plantas/`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
