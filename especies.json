@@ -93,7 +93,7 @@
     "nome_cientifico": "Cymatoderma caperatum",
     "descricao": "Fungo de aparência coriácea, com cristas radiantes e crescimento em tocos e troncos mortos.",
     "imagem": "../assets/fungos/cymatoderma-caperatum.jpg",
-    "fonte": "https://www.inaturalist.org/taxa/480076-Cymatoderma-caperatum"
+    "fonte": "https://en.wikipedia.org/wiki/Cymatoderma_caperatum"
   },
   {
     "id": "cryptotrama-asprata",
@@ -101,7 +101,7 @@
     "nome_cientifico": "Cryptotrama asprata",
     "descricao": "Fungo amarelo vivo com aparência aveludada. Cresce em madeira morta em florestas úmidas.",
     "imagem": "../assets/fungos/cryptotrama-asprata.jpg",
-    "fonte": "https://www.inaturalist.org/taxa/114292-Cryptotrama-asprata"
+    "fonte": "https://pt.wikipedia.org/wiki/Cyptotrama_asprata"
   },
   {
     "id": "kusaghiporia-talpae",
@@ -109,7 +109,7 @@
     "nome_cientifico": "Kusaghiporia talpae",
     "descricao": "Fungo raro e pouco documentado, geralmente encontrado em madeira em decomposição.",
     "imagem": "../assets/fungos/kusaghiporia-talpae.jpg",
-    "fonte": "https://www.inaturalist.org/taxa/508020-Kusaghiporia-talpae"
+    "fonte": "https://www.google.com/search?q=Kusaghiporia+talpae"
   },
   {
     "id": "syagrus-romanzoffiana",
@@ -141,7 +141,7 @@
     "nome_cientifico": "Ochna serrulata",
     "descricao": "Arbusto ornamental com frutos vermelhos e flores amarelas vibrantes.",
     "imagem": "../assets/plantas/ochna.jpg",
-    "fonte": "https://www.inaturalist.org/taxa/582979-Ochna-serrulata"
+    "fonte": "https://www.escoladebotanica.com.br/post/ochna"
   },
   {
     "id": "araucaria-angustifolia",
@@ -173,7 +173,7 @@
     "nome_cientifico": "Chloroleucon tortum",
     "descricao": "Árvore nativa da restinga brasileira, com tronco retorcido e folhas compostas.",
     "imagem": "../assets/plantas/chloroleucon-tortum.jpg",
-    "fonte": "https://www.jardimbotanico.gov.br/plantas/chloroleucon-tortum"
+    "fonte": "https://pt.wikipedia.org/wiki/Chloroleucon_tortum"
   },
   {
     "id": "ravenala-madagascariensis",
