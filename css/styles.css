@@ -761,8 +761,8 @@ h2 {
 #alternativas {
     border: none;
     gap: 10px;
+    text-align: justify;
 }
-
 
 #alternativas .form-check:hover {
     background-color: #ffffff;
@@ -797,7 +797,6 @@ h2 {
     font-weight: 700;
     color: #14532d;
     margin-bottom: 25px;
-    text-align: center;
 }
 
 .form-check {
